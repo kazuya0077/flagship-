@@ -1,8 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getBlogDetail } from '../../library/microcms';
+import { getBlogs, getBlogDetail } from '../../library/microcms';
 
-export const prerender = false; // SSRモード（ビルド時ではなくリクエスト時に取得）
+// SSGモード：ビルド時に全ての記事ページを静的生成
+export async function getStaticPaths() {
+  const blogs = await getBlogs(100); // 最大100件取得
+  return blogs.map(blog => ({
+    params: { id: blog.id },
+  }));
+}
 
 const { id } = Astro.params;
 const blog = await getBlogDetail(id as string);
