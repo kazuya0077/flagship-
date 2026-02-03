@@ -36,19 +36,21 @@ body.loaded {
 
 /* ===== カラーパレット（信頼感 × 親しみ） ===== */
 :root {
-  /* Primary - フラッグシップオレンジ */
-  --primary: #FF7E5F;
-  --primary-light: #FFAB96;
-  --primary-dark: #E66042;
+  /* Primary - フラッグシップオレンジ（より洗練された彩度） */
+  --primary: #F06846;
+  /* 少し深みのあるオレンジ */
+  --primary-light: #FF9E85;
+  --primary-dark: #D44D2E;
 
-  /* Accent - ティールグリーン（知性・成長） */
-  --accent: #2A9D8F;
-  --accent-light: #64C2B6;
+  /* Accent - 知性を感じるネイビー */
+  --accent: #2C3E50;
+  --accent-light: #4A637D;
 
-  /* Neutral */
-  --text: #333333;
-  --text-light: #666666;
-  --text-muted: #999999;
+  /* Text */
+  --text: #1A1A1A;
+  /* 真っ黒ではなく濃いグレー */
+  --text-light: #525252;
+  --text-muted: #8E8E93;
 
   /* Background */
   --bg: #FAFAFA;
@@ -78,11 +80,6 @@ body.loaded {
   --radius-lg: 20px;
   --radius-xl: 32px;
   --radius-full: 9999px;
-}
-
-/* ===== Layout Utilities ===== */
-.container {
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-4);
