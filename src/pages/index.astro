@@ -59,9 +59,8 @@ const stats = [
   { label: "継続率", value: "98", unit: "%" },
 ];
 
-import { getRecommendItems, getBlogs } from '../library/microcms';
+import { getRecommendItems } from '../library/microcms';
 const items = await getRecommendItems();
-const blogs = await getBlogs(3); // 最新3件
 ---
 
 <BaseLayout 
@@ -200,41 +199,7 @@ const blogs = await getBlogs(3); // 最新3件
     </div>
   </section>
 
-  <!-- Blog Section -->
-  {blogs.length > 0 && (
-    <section class="section">
-      <div class="container">
-        <span class="section-label">BLOG</span>
-        <h2 class="section-title scroll-fade-up">新着記事</h2>
-        
-        <div class="blog-grid">
-          {blogs.map(blog => (
-            <a href={`/blog/${blog.id}`} class="blog-card scroll-fade-up">
-              <div class="blog-card__image">
-                {blog.eyecatch ? (
-                  <img src={blog.eyecatch} alt={blog.title} loading="lazy" />
-                ) : (
-                  <div class="blog-card__placeholder">NO IMAGE</div>
-                )}
-              </div>
-              <div class="blog-card__content">
-                <time class="blog-card__date" datetime={blog.publishedAt}>
-                  {new Date(blog.publishedAt).toLocaleDateString('ja-JP')}
-                </time>
-                <h3 class="blog-card__title">{blog.title}</h3>
-              </div>
-            </a>
-          ))}
-        </div>
-        
-        <div class="text-center mt-8">
-          <p class="text-muted">
-            <small>※MicroCMSで記事を追加すると自動でここに表示されます</small>
-          </p>
-        </div>
-      </div>
-    </section>
-  )}
+  <!-- Blog Section will be added after MicroCMS setup -->
 
   <!-- CTA -->
   <section class="cta-section">
