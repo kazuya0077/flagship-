@@ -1,32 +1,34 @@
 // サイト全体の設定
 export const siteConfig = {
-  siteName: "PT国試コミュニティ",
-  siteDescription: "理学療法士国家試験対策の学習コミュニティ。勉強の型、質問できる環境、学習資産をまとめて提供。",
-  siteUrl: "https://pt-community.example.com",
-  
-  // 外部リンク（後から差し替え可能）
-  STRIPE_SUBSCRIPTION_URL: "https://buy.stripe.com/placeholder",
-  SLACK_JOIN_GUIDE_URL: "https://example.com/slack-guide",
-  CANVA_RESOURCE_HUB_URL: "https://canva.com/placeholder",
-  SCHOOL_INQUIRY_FORM_URL: "https://forms.google.com/placeholder",
-  CONTACT_EMAIL: "info@pt-community.example.com",
-  
+  name: "PT国試コミュニティ",
+  tagline: "一人で悩まない、仲間と一緒に国試を乗り越えよう",
+  description: "理学療法士国家試験対策の学習コミュニティ。勉強の型、質問できる環境、学習資産をまとめて提供。月500円で学習を継続可能に。",
+  url: "https://flagship-2i0.pages.dev",
+  email: "info@pt-community.example.com",
+
+  // 外部リンク
+  links: {
+    stripeSubscription: "https://buy.stripe.com/placeholder",
+    slackJoinGuide: "https://example.com/slack-guide",
+    canvaResourceHub: "https://canva.com/placeholder",
+    schoolInquiryForm: "https://forms.google.com/placeholder",
+  },
+
   // ソーシャル
   twitterHandle: "@pt_community",
-  
+
   // 価格
   monthlyPrice: 500,
 };
 
 // ナビゲーションリンク
 export const navLinks = [
-  { label: "メッセージ", href: "/#message" },
-  { label: "3つの特徴", href: "/#features" },
-  { label: "数字で見る", href: "/#numbers" },
-  { label: "受け取れるもの", href: "/#benefits" },
-  { label: "運営者", href: "/#about-us" },
-  { label: "参加者の声", href: "/#testimonials" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "ホーム", href: "/" },
+  { label: "入会する", href: "/join" },
+  { label: "学習資産", href: "/resources" },
+  { label: "教材比較", href: "/materials" },
+  { label: "FAQ", href: "/faq" },
+  { label: "運営者紹介", href: "/about" },
 ];
 
 // フッターリンク
