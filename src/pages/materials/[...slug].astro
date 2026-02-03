@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const materials = await getCollection('materials');
+  return materials.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const categories: Record<string, string> = {
+  'kokushi-comprehensive': '国試総合',
+  'anatomy': '解剖学',
+  'kinesiology': '運動学',
+  'internal-medicine': '内科系',
+  'clinical-practice': '実習対策',
+};
+---
+
+<BaseLayout 
+  title={entry.data.title}
+  description={entry.data.description}
+>
+  <article class="article">
+    <header class="article__header">
+      <div class="container container--narrow">
+        <a href="/materials" class="article__back">← 教材一覧に戻る</a>
+        <span class="article__category">{categories[entry.data.category] || entry.data.category}</span>
+        <h1 class="article__title">{entry.data.title}</h1>
+        <p class="article__description">{entry.data.description}</p>
+      </div>
+    </header>
+    
+    <div class="container container--narrow">
+      <div class="alert alert--ad">
+        <strong>広告</strong>：この記事にはアフィリエイトリンクが含まれています。
+        リンク経由で商品を購入された場合、当サイトが紹介料を受け取ることがあります。
+        詳しくは<a href="/policy/affiliate-disclosure">広告について</a>をご覧ください。
+      </div>
+      
+      <div class="article__content">
+        <Content />
+      </div>
+      
+      <div class="article__footer">
+        <a href="/materials" class="btn btn--secondary">← 教材一覧に戻る</a>
+        <a href="/policy/affiliate-disclosure">広告について</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .container--narrow {
+    max-width: 800px;
+  }
+  
+  .article__header {
+    padding: var(--space-12) 0;
+    background: var(--color-bg-alt);
+    margin-bottom: var(--space-10);
+  }
+  
+  .article__back {
+    display: inline-block;
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+  }
+  
+  .article__category {
+    display: inline-block;
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+  
+  .article__title {
+    font-size: var(--text-3xl);
+    margin-bottom: var(--space-4);
+  }
+  
+  .article__description {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+    margin: 0;
+  }
+  
+  .alert--ad {
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-8);
+  }
+  
+  .alert--ad a {
+    color: var(--color-primary);
+  }
+  
+  .article__content {
+    margin-bottom: var(--space-12);
+  }
+  
+  .article__content :global(h2) {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--color-primary);
+  }
+  
+  .article__content :global(h3) {
+    font-size: var(--text-xl);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+  
+  .article__content :global(p) {
+    margin-bottom: var(--space-4);
+  }
+  
+  .article__content :global(ul),
+  .article__content :global(ol) {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+  
+  .article__content :global(li) {
+    margin-bottom: var(--space-2);
+  }
+  
+  .article__content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--space-6);
+  }
+  
+  .article__content :global(th),
+  .article__content :global(td) {
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+  
+  .article__content :global(th) {
+    background: var(--color-bg-alt);
+    font-weight: 600;
+  }
+  
+  .article__content :global(a) {
+    color: var(--color-primary);
+  }
+  
+  .article__content :global(.affiliate-box) {
+    background: var(--color-primary-bg);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    margin: var(--space-8) 0;
+    text-align: center;
+  }
+  
+  .article__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  
+  .article__footer a:last-child {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

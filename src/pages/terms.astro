@@ -1,0 +1,178 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout 
+  title="利用規約" 
+  description="PT国試コミュニティの利用規約。サービスのご利用にあたっての規約をご確認ください。"
+>
+  <section class="section">
+    <div class="container container--narrow">
+      <h1>利用規約</h1>
+      <p class="last-updated">最終更新日：2024年1月1日</p>
+      
+      <div class="terms-content">
+        <section>
+          <h2>第1条（適用）</h2>
+          <p>
+            本規約は、PT国試コミュニティ（以下「当サービス」）の利用条件を定めるものです。
+            会員登録された方（以下「会員」）は、本規約に同意したものとみなします。
+          </p>
+        </section>
+        
+        <section>
+          <h2>第2条（会員登録）</h2>
+          <ol>
+            <li>会員登録を希望する方は、本規約に同意の上、所定の方法で登録手続きを行うものとします。</li>
+            <li>当サービスは、以下の場合に会員登録を拒否することがあります。
+              <ul>
+                <li>虚偽の情報を申告した場合</li>
+                <li>過去に規約違反等により会員資格を取り消されたことがある場合</li>
+                <li>その他、当サービスが不適切と判断した場合</li>
+              </ul>
+            </li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第3条（利用料金および支払い）</h2>
+          <ol>
+            <li>会員は、当サービスが定める月額料金を支払うものとします。</li>
+            <li>支払いはStripeを通じたクレジットカード決済により行います。</li>
+            <li>支払済みの利用料金は、理由の如何を問わず返金いたしません。</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第4条（禁止事項）</h2>
+          <p>会員は、以下の行為を行ってはなりません。</p>
+          <ol>
+            <li>法令または公序良俗に違反する行為</li>
+            <li>犯罪行為に関連する行為</li>
+            <li>当サービスのサーバーまたはネットワークの機能を破壊したり、妨害したりする行為</li>
+            <li>当サービスの運営を妨害するおそれのある行為</li>
+            <li>他の会員に関する個人情報等を収集または蓄積する行為</li>
+            <li>他の会員に成りすます行為</li>
+            <li>当サービスに関連して、反社会的勢力に対して直接または間接に利益を供与する行為</li>
+            <li>当サービスのコンテンツを無断で転載、複製、配布する行為</li>
+            <li>Slackコミュニティ内での誹謗中傷、嫌がらせ行為</li>
+            <li>商業目的での宣伝・勧誘行為</li>
+            <li>その他、当サービスが不適切と判断する行為</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第5条（退会）</h2>
+          <ol>
+            <li>会員は、Stripeの管理画面から解約手続きを行うことで、いつでも退会できます。</li>
+            <li>解約後も当月末までサービスをご利用いただけます。</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第6条（会員資格の停止・取消）</h2>
+          <p>
+            当サービスは、会員が以下のいずれかに該当する場合、事前の通知なく会員資格を停止または取り消すことができます。
+          </p>
+          <ol>
+            <li>本規約のいずれかの条項に違反した場合</li>
+            <li>登録事項に虚偽の事実があることが判明した場合</li>
+            <li>料金等の支払債務の不履行があった場合</li>
+            <li>その他、当サービスが会員として不適切と判断した場合</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第7条（免責事項）</h2>
+          <ol>
+            <li>当サービスは、国家試験の合格を保証するものではありません。</li>
+            <li>当サービスは、会員に対して、有益かつ正確な情報を提供するよう努力しますが、その正確性、適用性、有用性等を保証するものではありません。</li>
+            <li>当サービスは、会員の学習成果、就職活動の結果について一切の責任を負いません。</li>
+            <li>当サービスは、サービスの中断、停止、終了、利用不能または変更について一切の責任を負いません。</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第8条（コンテンツの権利）</h2>
+          <ol>
+            <li>当サービスが提供するコンテンツの著作権その他の知的財産権は、当サービスまたは正当な権利者に帰属します。</li>
+            <li>会員は、当サービスのコンテンツを私的利用の範囲を超えて複製、転載、配布することはできません。</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>第9条（規約の変更）</h2>
+          <p>
+            当サービスは、必要と判断した場合には、会員への事前の通知なく本規約を変更することができます。
+            変更後の規約は、当ウェブサイトに掲示した時点から効力を生じるものとします。
+          </p>
+        </section>
+        
+        <section>
+          <h2>第10条（準拠法・管轄裁判所）</h2>
+          <ol>
+            <li>本規約の解釈にあたっては、日本法を準拠法とします。</li>
+            <li>当サービスに関して紛争が生じた場合には、当サービス運営者の所在地を管轄する裁判所を専属的合意管轄とします。</li>
+          </ol>
+        </section>
+        
+        <section>
+          <h2>お問い合わせ</h2>
+          <p>
+            本規約に関するお問い合わせは、下記までご連絡ください。
+          </p>
+          <p>
+            <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+          </p>
+        </section>
+      </div>
+      
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .container--narrow {
+    max-width: 800px;
+  }
+  
+  h1 {
+    margin-bottom: var(--space-2);
+  }
+  
+  .last-updated {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-10);
+  }
+  
+  .terms-content section {
+    margin-bottom: var(--space-10);
+  }
+  
+  .terms-content h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .terms-content p {
+    margin-bottom: var(--space-4);
+  }
+  
+  .terms-content ol,
+  .terms-content ul {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+  
+  .terms-content li {
+    margin-bottom: var(--space-2);
+  }
+  
+  .terms-content ul {
+    list-style-type: disc;
+  }
+</style>

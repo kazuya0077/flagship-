@@ -1,0 +1,72 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<div class="sticky-header">
+  <div class="container sticky-header__container">
+    <a href="/" class="sticky-header__logo">
+      📚 PT国試コミュニティ
+    </a>
+    
+    <div class="sticky-header__nav">
+      <a href="/#features" class="sticky-header__link">特徴</a>
+      <a href="/#benefits" class="sticky-header__link">受け取れるもの</a>
+      <a href="/#faq" class="sticky-header__link">FAQ</a>
+    </div>
+    
+    <a href="/join" class="btn btn--primary btn--sm">
+      今すぐ入会する
+    </a>
+  </div>
+</div>
+
+<style>
+  .sticky-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-3) 0;
+  }
+  
+  .sticky-header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+  
+  .sticky-header__logo {
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+    font-size: var(--text-base);
+  }
+  
+  .sticky-header__logo:hover {
+    color: var(--color-primary);
+  }
+  
+  .sticky-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+  
+  .sticky-header__link {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    transition: color var(--transition-fast);
+  }
+  
+  .sticky-header__link:hover {
+    color: var(--color-primary);
+  }
+  
+  @media (max-width: 768px) {
+    .sticky-header__nav {
+      display: none;
+    }
+  }
+</style>

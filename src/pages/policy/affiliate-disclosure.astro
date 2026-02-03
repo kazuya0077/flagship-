@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+---
+
+<BaseLayout 
+  title="広告について" 
+  description="PT国試コミュニティの広告表示およびアフィリエイトについてのポリシー。"
+>
+  <section class="section">
+    <div class="container container--narrow">
+      <h1>広告について（アフィリエイト開示）</h1>
+      <p class="last-updated">最終更新日：2024年1月1日</p>
+      
+      <div class="disclosure-content">
+        <section>
+          <h2>アフィリエイトプログラムへの参加について</h2>
+          <p>
+            PT国試コミュニティは、教材・サービス比較ページ（/materials およびその配下のページ）において、
+            アフィリエイトプログラムに参加しています。
+          </p>
+          <p>
+            アフィリエイトプログラムとは、当サイトで紹介している商品・サービスのリンクを経由して
+            ご購入・お申し込みいただいた場合、当サイトが紹介料を受け取る仕組みです。
+          </p>
+        </section>
+        
+        <section>
+          <h2>なぜアフィリエイトを利用するのか</h2>
+          <p>
+            アフィリエイト収益は、当サービスの運営費の一部に充てられています。
+            これにより、会員向けサービスを月額500円という低価格で提供することが可能になっています。
+          </p>
+        </section>
+        
+        <section>
+          <h2>コンテンツの公平性について</h2>
+          <p>当サイトは、アフィリエイト収益の有無に関わらず、以下の方針でコンテンツを作成しています。</p>
+          <ul>
+            <li>商品・サービスの評価は、実際の使用感や客観的な情報に基づいて行います。</li>
+            <li>アフィリエイト報酬が高いからといって、特定の商品を優先的に推奨することはありません。</li>
+            <li>デメリットや注意点も正直に記載します。</li>
+            <li>会員の皆さんにとって最も有益な情報を提供することを最優先とします。</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h2>広告表示の識別</h2>
+          <p>
+            アフィリエイトリンクを含むページには、冒頭に以下のような表示を行っています。
+          </p>
+          <div class="alert alert--ad">
+            <strong>広告</strong>：このページにはアフィリエイトリンクが含まれています。
+            リンク経由で商品を購入された場合、当サイトが紹介料を受け取ることがあります。
+          </div>
+        </section>
+        
+        <section>
+          <h2>購入の任意性</h2>
+          <p>
+            当サイトで紹介している商品・サービスの購入は完全に任意です。
+            会員資格の維持や、コミュニティへの参加において、特定の商品を購入する必要はありません。
+          </p>
+        </section>
+        
+        <section>
+          <h2>参加しているアフィリエイトプログラム</h2>
+          <p>現在、以下のアフィリエイトプログラムに参加しています（今後変更される可能性があります）。</p>
+          <ul>
+            <li>各出版社のアフィリエイトプログラム</li>
+            <li>Amazonアソシエイト・プログラム</li>
+            <li>その他のASP（アフィリエイト・サービス・プロバイダ）</li>
+          </ul>
+        </section>
+        
+        <section>
+          <h2>お問い合わせ</h2>
+          <p>
+            本ポリシーに関するお問い合わせは、下記までご連絡ください。
+          </p>
+          <p>
+            <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+          </p>
+        </section>
+      </div>
+      
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .container--narrow {
+    max-width: 800px;
+  }
+  
+  h1 {
+    margin-bottom: var(--space-2);
+  }
+  
+  .last-updated {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-10);
+  }
+  
+  .disclosure-content section {
+    margin-bottom: var(--space-10);
+  }
+  
+  .disclosure-content h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .disclosure-content p {
+    margin-bottom: var(--space-4);
+  }
+  
+  .disclosure-content ul {
+    margin-left: var(--space-6);
+    margin-bottom: var(--space-4);
+    list-style-type: disc;
+  }
+  
+  .disclosure-content li {
+    margin-bottom: var(--space-2);
+  }
+  
+  .alert--ad {
+    background: #fff7ed;
+    border-left: 4px solid #f97316;
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    margin: var(--space-4) 0;
+  }
+</style>

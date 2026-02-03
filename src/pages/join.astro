@@ -1,0 +1,294 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout 
+  title="入会する" 
+  description="PT国試コミュニティへの入会方法と料金のご案内。月額500円で学習環境、質問サポート、仲間とのつながりが手に入ります。"
+>
+  <section class="join-hero">
+    <div class="container text-center">
+      <h1 class="join-hero__title">入会のご案内</h1>
+      <p class="join-hero__subtitle">
+        月500円で、国試対策に必要なすべてが揃います
+      </p>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container container--narrow">
+      
+      <!-- 料金 -->
+      <div class="price-card">
+        <div class="price-card__header">
+          <span class="badge">月額プラン</span>
+          <h2 class="price-card__title">スタンダードプラン</h2>
+        </div>
+        <div class="price-card__price">
+          <span class="price-card__amount">500</span>
+          <span class="price-card__unit">円/月</span>
+        </div>
+        <p class="price-card__note">※税込み価格です</p>
+        
+        <ul class="price-card__features">
+          <li>✓ Slackコミュニティへのアクセス</li>
+          <li>✓ 学習テンプレート・資料ダウンロード</li>
+          <li>✓ 質問・回答サポート（週3回対応）</li>
+          <li>✓ 月2回のミニ講義・イベント参加</li>
+          <li>✓ 学習資産ハブへのアクセス</li>
+          <li>✓ 仲間とのつながり</li>
+        </ul>
+        
+        <a 
+          href={siteConfig.STRIPE_SUBSCRIPTION_URL} 
+          class="btn btn--primary btn--lg price-card__btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          今すぐ入会する
+        </a>
+        
+        <p class="price-card__secure">
+          🔒 決済はStripeを通じて安全に処理されます
+        </p>
+      </div>
+      
+      <!-- 決済後の流れ -->
+      <div class="steps-section">
+        <h2 class="steps-section__title">決済後の流れ</h2>
+        
+        <div class="steps">
+          <div class="step">
+            <div class="step__number">1</div>
+            <div class="step__content">
+              <h3>決済完了メールを確認</h3>
+              <p>決済完了後、登録したメールアドレスにSlack参加案内が届きます。</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">2</div>
+            <div class="step__content">
+              <h3>Slackに参加</h3>
+              <p>
+                メールに記載のリンクから、Slackワークスペースに参加してください。
+                <a href={siteConfig.SLACK_JOIN_GUIDE_URL} target="_blank" rel="noopener">
+                  Slack参加ガイドはこちら
+                </a>
+              </p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">3</div>
+            <div class="step__content">
+              <h3>自己紹介を投稿</h3>
+              <p>#自己紹介チャンネルで、簡単な自己紹介をお願いします。テンプレートを用意しています。</p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">4</div>
+            <div class="step__content">
+              <h3>学習資産ハブにアクセス</h3>
+              <p>
+                <a href={siteConfig.CANVA_RESOURCE_HUB_URL} target="_blank" rel="noopener">
+                  学習資産ハブ
+                </a>
+                から、テンプレートや資料にアクセスできます。
+              </p>
+            </div>
+          </div>
+          
+          <div class="step">
+            <div class="step__number">5</div>
+            <div class="step__content">
+              <h3>今週の学習宣言</h3>
+              <p>毎週月曜の#学習宣言チャンネルで、今週の目標を宣言しましょう！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 解約について -->
+      <div class="cancel-section">
+        <h2 class="cancel-section__title">解約について</h2>
+        <div class="cancel-section__content">
+          <p>
+            解約はいつでも可能です。Stripeの管理画面から簡単に手続きできます。
+          </p>
+          <ul>
+            <li>解約後も、当月末までサービスをご利用いただけます</li>
+            <li>再入会もいつでも可能です</li>
+            <li>解約手続きについて不明な点があれば、Slackまたはメールでお問い合わせください</li>
+          </ul>
+          <p class="cancel-section__contact">
+            お問い合わせ: <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+          </p>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .join-hero {
+    padding: var(--space-16) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+  }
+  
+  .join-hero__title {
+    font-size: var(--text-4xl);
+    color: white;
+    margin-bottom: var(--space-4);
+  }
+  
+  .join-hero__subtitle {
+    font-size: var(--text-xl);
+    opacity: 0.9;
+  }
+  
+  .container--narrow {
+    max-width: 700px;
+  }
+  
+  /* Price Card */
+  .price-card {
+    background: white;
+    border-radius: var(--radius-xl);
+    padding: var(--space-10);
+    box-shadow: var(--shadow-xl);
+    text-align: center;
+    margin-bottom: var(--space-16);
+    border: 2px solid var(--color-primary);
+  }
+  
+  .price-card__header {
+    margin-bottom: var(--space-6);
+  }
+  
+  .price-card__title {
+    font-size: var(--text-2xl);
+    margin-top: var(--space-3);
+  }
+  
+  .price-card__price {
+    margin-bottom: var(--space-2);
+  }
+  
+  .price-card__amount {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1;
+  }
+  
+  .price-card__unit {
+    font-size: var(--text-xl);
+    color: var(--color-text-light);
+  }
+  
+  .price-card__note {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-8);
+  }
+  
+  .price-card__features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-8);
+    text-align: left;
+  }
+  
+  .price-card__features li {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: var(--text-base);
+  }
+  
+  .price-card__btn {
+    width: 100%;
+    margin-bottom: var(--space-4);
+  }
+  
+  .price-card__secure {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  
+  /* Steps */
+  .steps-section {
+    margin-bottom: var(--space-16);
+  }
+  
+  .steps-section__title {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+  
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+  
+  .step {
+    display: flex;
+    gap: var(--space-5);
+    align-items: flex-start;
+  }
+  
+  .step__number {
+    width: 40px;
+    height: 40px;
+    background: var(--color-primary);
+    color: white;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  
+  .step__content h3 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+  }
+  
+  .step__content p {
+    color: var(--color-text-light);
+    margin: 0;
+  }
+  
+  /* Cancel */
+  .cancel-section {
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+  }
+  
+  .cancel-section__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-4);
+  }
+  
+  .cancel-section__content ul {
+    margin-left: var(--space-5);
+    color: var(--color-text-light);
+  }
+  
+  .cancel-section__content li {
+    margin-bottom: var(--space-2);
+  }
+  
+  .cancel-section__contact {
+    margin-top: var(--space-4);
+    margin-bottom: 0;
+  }
+</style>

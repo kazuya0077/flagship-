@@ -1,0 +1,294 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout 
+  title="運営者について" 
+  description="PT国試コミュニティの運営メンバー紹介。国家試験高得点取得者や多様な実務経験を持つ理学療法士が運営しています。"
+>
+  <section class="about-hero">
+    <div class="container text-center">
+      <h1 class="about-hero__title">運営者について</h1>
+      <p class="about-hero__subtitle">
+        現役理学療法士が、あなたの学習をサポートします
+      </p>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container container--narrow">
+      
+      <!-- ミッション -->
+      <div class="mission-section">
+        <h2>私たちのミッション</h2>
+        <p class="mission-text">
+          理学療法士を目指すすべての学生が、<strong>正しい学び方</strong>を身につけ、
+          <strong>孤独にならず</strong>に国試対策を進められる環境を作ること。
+        </p>
+        <p class="mission-text">
+          そして、国試合格だけでなく、<strong>実習・就職まで見据えた長期的な成長</strong>を支援すること。
+          これが私たちのミッションです。
+        </p>
+      </div>
+      
+      <!-- 運営メンバー -->
+      <div class="team-section">
+        <h2>運営メンバー</h2>
+        
+        <div class="member-card">
+          <div class="member-card__avatar">👨‍⚕️</div>
+          <div class="member-card__content">
+            <h3 class="member-card__name">運営講師A</h3>
+            <div class="member-card__badge">国試238点取得</div>
+            <p class="member-card__bio">
+              理学療法士として臨床経験を積んだ後、コンサル企業での勤務を経験。
+              現在は地域医療に携わりながら、学生支援活動を行っています。
+              国試対策では、効率的な学習法と計画の立て方を重点的にサポートします。
+            </p>
+            <div class="member-card__expertise">
+              <span class="badge">国試対策</span>
+              <span class="badge">学習計画</span>
+              <span class="badge">キャリア相談</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="member-card">
+          <div class="member-card__avatar">👩‍⚕️</div>
+          <div class="member-card__content">
+            <h3 class="member-card__name">運営講師B</h3>
+            <div class="member-card__badge">国試226点取得</div>
+            <p class="member-card__bio">
+              産業保健分野での経験を持ち、学会運営にも携わっています。
+              実習前の準備や、臨床現場で必要なスキルについてアドバイスします。
+              学生の皆さんが安心して国試に臨めるよう、全力でサポートします。
+            </p>
+            <div class="member-card__expertise">
+              <span class="badge">実習対策</span>
+              <span class="badge">産業保健</span>
+              <span class="badge">学会活動</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 運営方針 -->
+      <div class="policy-section">
+        <h2>運営方針</h2>
+        
+        <div class="policy-list">
+          <div class="policy-item">
+            <div class="policy-item__icon">🎯</div>
+            <div>
+              <h4>事実ベースの情報提供</h4>
+              <p>
+                誇大な表現や根拠のない情報は発信しません。
+                運営者の実体験と、エビデンスに基づいた情報のみをお届けします。
+              </p>
+            </div>
+          </div>
+          
+          <div class="policy-item">
+            <div class="policy-item__icon">🤝</div>
+            <div>
+              <h4>学生目線のサポート</h4>
+              <p>
+                私たちも学生時代を経験してきました。
+                上から目線ではなく、一緒に学ぶ仲間としてサポートします。
+              </p>
+            </div>
+          </div>
+          
+          <div class="policy-item">
+            <div class="policy-item__icon">📈</div>
+            <div>
+              <h4>継続的な改善</h4>
+              <p>
+                会員の皆さんの声を聞きながら、コンテンツやサービスを
+                常に改善していきます。
+              </p>
+            </div>
+          </div>
+          
+          <div class="policy-item">
+            <div class="policy-item__icon">⚠️</div>
+            <div>
+              <h4>合格保証はしません</h4>
+              <p>
+                努力を代わりにすることはできません。
+                私たちにできるのは、効果的な学習方法と継続しやすい環境を提供することです。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- お問い合わせ -->
+      <div class="contact-box">
+        <h3>お問い合わせ</h3>
+        <p>
+          ご質問やご相談がありましたら、お気軽にお問い合わせください。
+        </p>
+        <p>
+          <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+        </p>
+      </div>
+      
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero {
+    padding: var(--space-16) 0;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+  }
+  
+  .about-hero__title {
+    font-size: var(--text-4xl);
+    color: white;
+    margin-bottom: var(--space-4);
+  }
+  
+  .about-hero__subtitle {
+    font-size: var(--text-xl);
+    opacity: 0.9;
+  }
+  
+  .container--narrow {
+    max-width: 800px;
+  }
+  
+  /* Mission */
+  .mission-section {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+  
+  .mission-section h2 {
+    margin-bottom: var(--space-6);
+  }
+  
+  .mission-text {
+    font-size: var(--text-lg);
+    line-height: 2;
+    color: var(--color-text-light);
+  }
+  
+  /* Team */
+  .team-section {
+    margin-bottom: var(--space-16);
+  }
+  
+  .team-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+  
+  .member-card {
+    display: flex;
+    gap: var(--space-6);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    margin-bottom: var(--space-6);
+  }
+  
+  .member-card__avatar {
+    font-size: 4rem;
+    flex-shrink: 0;
+  }
+  
+  .member-card__name {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  
+  .member-card__badge {
+    display: inline-block;
+    background: var(--color-primary);
+    color: white;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    margin-bottom: var(--space-4);
+  }
+  
+  .member-card__bio {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-4);
+  }
+  
+  .member-card__expertise {
+    display: flex;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+  
+  /* Policy */
+  .policy-section {
+    margin-bottom: var(--space-16);
+  }
+  
+  .policy-section h2 {
+    text-align: center;
+    margin-bottom: var(--space-8);
+  }
+  
+  .policy-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .policy-item {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: white;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .policy-item__icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .policy-item h4 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+  
+  .policy-item p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin: 0;
+  }
+  
+  /* Contact */
+  .contact-box {
+    background: var(--color-primary-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    text-align: center;
+  }
+  
+  .contact-box h3 {
+    margin-bottom: var(--space-4);
+  }
+  
+  .contact-box p {
+    margin-bottom: var(--space-2);
+  }
+  
+  @media (max-width: 640px) {
+    .member-card {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

@@ -1,0 +1,334 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
+---
+
+<BaseLayout 
+  title="学校関係者の方へ" 
+  description="PT国試コミュニティの講師派遣サービス。国試対策講義、実習前ブートキャンプ、キャリア設計講座など、学校向けプログラムをご提供します。"
+>
+  <section class="schools-hero">
+    <div class="container text-center">
+      <h1 class="schools-hero__title">学校関係者の方へ</h1>
+      <p class="schools-hero__subtitle">
+        国試対策から就職支援まで、<br class="sp-only" />学生の学びをサポートします
+      </p>
+    </div>
+  </section>
+  
+  <section class="section">
+    <div class="container">
+      <div class="intro-text text-center mb-12">
+        <p>
+          PT国試コミュニティでは、養成校・専門学校向けに講師派遣サービスを提供しています。<br />
+          現役の理学療法士が、学生の皆さんに実践的な学びをお届けします。
+        </p>
+      </div>
+      
+      <h2 class="section__title">講義メニュー</h2>
+      
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card__badge">人気</div>
+          <div class="menu-card__icon">📖</div>
+          <h3 class="menu-card__title">国試対策の学習戦略講義</h3>
+          <div class="menu-card__time">60〜90分</div>
+          <p class="menu-card__desc">
+            効果的な学習計画の立て方、優先順位のつけ方、過去問の活用法など、
+            国試合格に向けた戦略的な学習方法をお伝えします。
+          </p>
+          <ul class="menu-card__topics">
+            <li>学習計画の立て方</li>
+            <li>科目別の優先順位</li>
+            <li>過去問演習のコツ</li>
+            <li>直前期の過ごし方</li>
+          </ul>
+        </div>
+        
+        <div class="menu-card">
+          <div class="menu-card__icon">🏥</div>
+          <h3 class="menu-card__title">実習前ブートキャンプ</h3>
+          <div class="menu-card__time">60〜90分</div>
+          <p class="menu-card__desc">
+            臨床実習に向けた心構え、現場で必要なスキル、
+            バイザーとのコミュニケーション方法などを解説します。
+          </p>
+          <ul class="menu-card__topics">
+            <li>実習前の準備事項</li>
+            <li>レポートの書き方</li>
+            <li>患者さんとの接し方</li>
+            <li>よくあるつまずきと対策</li>
+          </ul>
+        </div>
+        
+        <div class="menu-card">
+          <div class="menu-card__icon">💼</div>
+          <h3 class="menu-card__title">就職とキャリア設計</h3>
+          <div class="menu-card__time">60〜90分</div>
+          <p class="menu-card__desc">
+            理学療法士としてのキャリアパス、就職先の選び方、
+            面接対策など、将来を見据えた情報をお届けします。
+          </p>
+          <ul class="menu-card__topics">
+            <li>キャリアパスの種類</li>
+            <li>就職先の選び方</li>
+            <li>履歴書・面接対策</li>
+            <li>若手PTのリアル</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- オプション -->
+      <div class="options-section">
+        <h2 class="section__title">オプション</h2>
+        <div class="options-grid">
+          <div class="option-item">
+            <span class="option-item__icon">📋</span>
+            <div>
+              <h4>事前アンケート</h4>
+              <p>学生の悩みや要望を事前に収集し、講義内容に反映</p>
+            </div>
+          </div>
+          <div class="option-item">
+            <span class="option-item__icon">❓</span>
+            <div>
+              <h4>講義後Q&A</h4>
+              <p>講義後に質疑応答の時間を設定（30分程度）</p>
+            </div>
+          </div>
+          <div class="option-item">
+            <span class="option-item__icon">📄</span>
+            <div>
+              <h4>資料提供</h4>
+              <p>講義で使用した資料やテンプレートのデータ提供</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- お問い合わせ -->
+      <div class="contact-section">
+        <h2 class="contact-section__title">お問い合わせ</h2>
+        <p class="contact-section__desc">
+          講師派遣についてのご相談・お見積りは、下記よりお問い合わせください。<br />
+          学校の状況に合わせて、内容・時間をカスタマイズすることも可能です。
+        </p>
+        
+        <div class="contact-buttons">
+          <a 
+            href={siteConfig.SCHOOL_INQUIRY_FORM_URL}
+            class="btn btn--primary btn--lg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            お問い合わせフォーム
+          </a>
+          <a 
+            href={`mailto:${siteConfig.CONTACT_EMAIL}`}
+            class="btn btn--secondary btn--lg"
+          >
+            メールでのお問い合わせ
+          </a>
+        </div>
+        
+        <p class="contact-section__email">
+          メール: <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .schools-hero {
+    padding: var(--space-16) 0;
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 100%);
+    color: white;
+  }
+  
+  .schools-hero__title {
+    font-size: var(--text-4xl);
+    color: white;
+    margin-bottom: var(--space-4);
+  }
+  
+  .schools-hero__subtitle {
+    font-size: var(--text-xl);
+    opacity: 0.9;
+  }
+  
+  .sp-only {
+    display: none;
+  }
+  
+  .intro-text {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .intro-text p {
+    font-size: var(--text-lg);
+    color: var(--color-text-light);
+  }
+  
+  /* Menu Grid */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
+    margin-bottom: var(--space-16);
+  }
+  
+  .menu-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    transition: all var(--transition-normal);
+  }
+  
+  .menu-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .menu-card__badge {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    background: var(--color-accent);
+    color: white;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: 600;
+  }
+  
+  .menu-card__icon {
+    font-size: 3rem;
+    margin-bottom: var(--space-4);
+  }
+  
+  .menu-card__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+  }
+  
+  .menu-card__time {
+    display: inline-block;
+    background: var(--color-primary-bg);
+    color: var(--color-primary);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    margin-bottom: var(--space-4);
+  }
+  
+  .menu-card__desc {
+    color: var(--color-text-light);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+  }
+  
+  .menu-card__topics {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+  
+  .menu-card__topics li {
+    padding: var(--space-2) 0;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-light);
+  }
+  
+  .menu-card__topics li::before {
+    content: "✓ ";
+    color: var(--color-accent);
+  }
+  
+  /* Options */
+  .options-section {
+    margin-bottom: var(--space-16);
+  }
+  
+  .options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  
+  .option-item {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-lg);
+  }
+  
+  .option-item__icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .option-item h4 {
+    font-size: var(--text-base);
+    margin-bottom: var(--space-2);
+  }
+  
+  .option-item p {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    margin: 0;
+  }
+  
+  /* Contact */
+  .contact-section {
+    background: var(--color-bg-alt);
+    border-radius: var(--radius-xl);
+    padding: var(--space-12);
+    text-align: center;
+  }
+  
+  .contact-section__title {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-4);
+  }
+  
+  .contact-section__desc {
+    color: var(--color-text-light);
+    margin-bottom: var(--space-8);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .contact-buttons {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-6);
+  }
+  
+  .contact-section__email {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin: 0;
+  }
+  
+  @media (max-width: 1024px) {
+    .menu-grid,
+    .options-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .sp-only {
+      display: inline;
+    }
+  }
+</style>

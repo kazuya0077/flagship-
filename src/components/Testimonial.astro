@@ -1,0 +1,22 @@
+---
+interface Props {
+  text: string;
+  author: string;
+  role: string;
+  initial?: string;
+}
+
+const { text, author, role, initial } = Astro.props;
+const displayInitial = initial || author.charAt(0);
+---
+
+<div class="testimonial">
+  <p class="testimonial__text">{text}</p>
+  <div class="testimonial__author">
+    <div class="testimonial__avatar">{displayInitial}</div>
+    <div>
+      <div class="testimonial__name">{author}</div>
+      <div class="testimonial__role">{role}</div>
+    </div>
+  </div>
+</div>
