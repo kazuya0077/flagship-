@@ -2,35 +2,33 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { siteConfig } from '../config/site';
 
-const services = [
+// 連携の価値提案（料金なし・パートナーシップ重視）
+const values = [
   {
-    title: "国家試験対策講座",
-    desc: "国試の傾向分析、効率的な学習法、分野別解説など、ご要望に合わせた講義を行います。",
-    price: "30,000円〜 / 90分"
+    title: "学生の自走力を育む",
+    desc: "「教えてもらう」から「自ら学ぶ」へ。主体的に学習に取り組む姿勢を育み、臨床現場でも成長し続けるPTを輩出します。"
   },
   {
-    title: "学内模試・分析",
-    desc: "オリジナルの模擬試験作成から、結果分析、個別指導のアドバイスまで一貫してサポートします。",
-    price: "要相談"
+    title: "先生方の時間を創出",
+    desc: "国試対策の一部をサポートすることで、先生方が本来注力すべき研究活動や、学生との対話に向き合える時間を創出します。"
   },
   {
-    title: "学習カリキュラム監修",
-    desc: "学生の自走力を高めるためのカリキュラム設計や、学内学習環境の整備をお手伝いします。",
-    price: "要相談"
+    title: "実習・臨床への橋渡し",
+    desc: "知識の詰め込みではなく、「なぜそうなるのか」を考える習慣づけ。実習先でも円滑にコミュニケーションが取れる学生を育てます。"
   }
 ];
 ---
 
 <BaseLayout 
   title="学校関係者の方へ"
-  description="理学療法士養成校（大学・専門学校）様向けのセミナー・講義依頼について。"
+  description="理学療法士養成校（大学・専門学校）の先生方へ。教育パートナーとしてのご提案。"
 >
   <section class="page-hero">
     <div class="container text-center">
-      <h1 class="page-hero__title scroll-fade-up">FOR SCHOOLS</h1>
+      <h1 class="page-hero__title scroll-fade-up">FOR EDUCATORS</h1>
       <p class="page-hero__subtitle scroll-fade-up delay-1">
-        「教える」から「自ら学ぶ」へ。<br>
-        学生の主体性を引き出す教育をサポートします。
+        教育に情熱を注ぐ先生方と、<br>
+        共に学生の成長を支えたい。
       </p>
     </div>
   </section>
@@ -38,35 +36,37 @@ const services = [
   <section class="section">
     <div class="container container--narrow">
       <div class="message-box scroll-fade-up">
-        <h2 class="message-title">教育と研究の<br>両立をサポートする。</h2>
+        <h2 class="message-title">まずは、お話を聞かせてください。</h2>
         <p>
-          日々の講義、実習指導、会議...。学生への指導に熱心な先生ほど、<br>
-          本来注力すべき<strong>「研究活動」や「学術研鑽」</strong>の時間が削られていく現状があります。<br>
+          「国試対策の時間が足りない」「学生のモチベーション維持が難しい」<br>
+          「研究や学会活動の時間を確保したい」——<br>
           <br>
-          私たちは、国家試験対策の一部をサポートすることで、<br>
-          先生方が研究や、学生一人ひとりとの対話に向き合える時間を創出します。<br>
-          外部委託ではなく、「教育パートナー」としてご活用ください。
+          養成校の先生方が抱える課題は様々です。<br>
+          私たちは、すぐにサービスをご提案するのではなく、<br>
+          <strong>まず先生方のお話を伺い、一緒に解決策を考えたい</strong>と思っています。<br>
+          <br>
+          ご興味をお持ちいただけましたら、お気軽にお声がけください。
         </p>
       </div>
 
-      <div class="services-list">
-        {services.map((service, index) => (
-          <div class="service-card scroll-fade-up" style={`transition-delay: ${index * 0.1}s`}>
-            <h3 class="service-title">{service.title}</h3>
-            <p class="service-desc">{service.desc}</p>
-            <p class="service-price">参考価格: {service.price}</p>
+      <div class="values-list">
+        {values.map((item, index) => (
+          <div class="value-card scroll-fade-up" style={`transition-delay: ${index * 0.1}s`}>
+            <h3 class="value-title">{item.title}</h3>
+            <p class="value-desc">{item.desc}</p>
           </div>
         ))}
       </div>
 
       <div class="contact-section scroll-fade-up">
-        <h2 class="section-title text-center">お問い合わせ</h2>
+        <h2 class="section-title text-center">まずはお気軽にご相談ください</h2>
         <p class="text-center mb-8">
-          講義依頼、ご相談は以下のフォームよりお気軽にお問い合わせください。
+          連携の可能性について、オンラインで30分程度お話しさせていただければ幸いです。<br>
+          ご相談は無料です。お気軽にお問い合わせください。
         </p>
         <div class="text-center">
           <a href={siteConfig.links.schoolInquiryForm} target="_blank" rel="noopener noreferrer" class="btn btn--primary btn--lg">
-            お問い合わせフォームへ
+            お問い合わせはこちら
           </a>
         </div>
       </div>
@@ -76,7 +76,7 @@ const services = [
 
 <style>
   .page-hero {
-    background: var(--bg-cream);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     padding: var(--space-20) 0 var(--space-12);
   }
   
@@ -84,6 +84,13 @@ const services = [
     font-size: 2.5rem;
     margin-bottom: var(--space-4);
     letter-spacing: 0.1em;
+    color: var(--primary);
+  }
+  
+  .page-hero__subtitle {
+    font-size: 1.25rem;
+    color: var(--text-light);
+    line-height: 1.8;
   }
   
   .container--narrow {
@@ -93,44 +100,61 @@ const services = [
   .message-box {
     text-align: center;
     margin-bottom: var(--space-16);
+    padding: var(--space-10);
+    background: #fff;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
   }
   
   .message-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     margin-bottom: var(--space-6);
     line-height: 1.6;
     color: var(--primary);
   }
   
-  .services-list {
+  .message-box p {
+    line-height: 2;
+    color: var(--text);
+  }
+  
+  .values-list {
     display: grid;
     gap: var(--space-6);
     margin-bottom: var(--space-20);
   }
   
-  .service-card {
+  .value-card {
     background: #fff;
     padding: var(--space-8);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
-    border-left: 4px solid var(--primary);
+    border-left: 4px solid var(--primary-light);
   }
   
-  .service-title {
+  .value-title {
     font-size: 1.25rem;
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-3);
+    color: var(--primary);
   }
   
-  .service-price {
-    margin-top: var(--space-4);
-    font-weight: 700;
-    color: var(--text-light);
+  .value-desc {
+    color: var(--text);
+    line-height: 1.8;
   }
   
   .contact-section {
-    background: var(--bg-warm);
+    background: linear-gradient(135deg, var(--primary-light) 0%, #e3f2fd 100%);
     padding: var(--space-10);
     border-radius: var(--radius-xl);
+  }
+  
+  .contact-section .section-title {
+    color: var(--primary);
+  }
+  
+  .contact-section p {
+    color: var(--text);
   }
 </style>
 
