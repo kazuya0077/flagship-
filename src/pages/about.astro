@@ -1,336 +1,214 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const members = [
+const team = [
   {
     initial: "A",
-    name: "講師A",
-    role: "国試238点取得",
-    bio: "国家試験で238点を取得。コンサル企業での勤務経験を経て、現在は地域医療に従事しています。戦略的な学習計画の立て方、効率的な暗記方法、モチベーション管理など、単なる知識だけでなく「勉強の仕方」を伝えていきます。",
-    specialties: ["学習計画", "キャリア相談", "モチベーション管理"]
+    role: "国試238点取得 / 元コンサル勤務",
+    description: "論理的な思考力と効率的な学習法を伝えるスペシャリスト。なぜ間違えたのか？を徹底的に深掘りし、応用力がつく指導を行います。",
+    color: "#EF8560"
   },
   {
     initial: "B",
-    name: "講師B",
-    role: "国試226点取得",
-    bio: "国家試験226点取得。産業保健分野での勤務経験があり、学会運営にも携わっています。臨床実習での立ち振る舞い、レポートの書き方、バイザーとのコミュニケーションなど、実践的なスキルをアドバイスします。",
-    specialties: ["実習対策", "産業保健", "レポート作成"]
+    role: "国試226点取得 / 学会運営経験あり",
+    description: "実習対策や臨床スキルにも精通。教科書の内容を臨床現場と結びつけて解説するのが得意です。",
+    color: "#8BCDA7"
   }
 ];
 
 const values = [
   {
-    icon: "🤝",
-    title: "仲間と一緒に",
-    description: "一人で悩まないこと。質問し、助け合い、励まし合える環境を大切にしています。"
+    title: "比較ではなく成長",
+    desc: "周りと比べる必要はありません。昨日の自分より1つでも多く知識が増えていれば、それは確実な成長です。",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>`
   },
   {
-    icon: "📈",
-    title: "効率的に学ぶ",
-    description: "がむしゃらに勉強するのではなく、戦略的かつ効率的に学習を進める方法を提供します。"
+    title: "正解より、思考と試行",
+    desc: "答えを覚えるだけでは応用がききません。「なぜそうなるのか？」を考え、試行錯誤するプロセスを大切にします。",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`
   },
   {
-    icon: "🎯",
-    title: "目標達成をサポート",
-    description: "国家試験合格という共通の目標に向けて、一人ひとりに寄り添ったサポートを行います。"
+    title: "社会で使える自己理解",
+    desc: "自分の得意・不得意を知ることは、国試だけでなく就職後のキャリアにも活きる一生の武器になります。",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`
   }
 ];
 ---
 
-<BaseLayout 
-  title="運営者紹介"
-  description="PT国試コミュニティの運営メンバー紹介。国試高得点取得者があなたの学習をサポートします。"
+<BaseLayout
+  title="運営者について"
+  description="PT国試コミュニティを運営するメンバーの紹介と、コミュニティに込めた想い。"
 >
-  <!-- ヒーロー -->
   <section class="page-hero">
-    <div class="container">
-      <p class="page-hero__label">About Us</p>
-      <h1 class="page-hero__title">運営者紹介</h1>
-      <p class="page-hero__subtitle">国試高得点取得者があなたの学習をサポートします</p>
-    </div>
-  </section>
-
-  <!-- ミッション -->
-  <section class="section">
-    <div class="container container--narrow">
-      <div class="mission-block">
-        <h2 class="mission-block__title">私たちのミッション</h2>
-        <p class="mission-block__text">
-          「一人で悩まない、仲間と一緒に国試を乗り越えよう」
-        </p>
-        <p class="mission-block__description">
-          理学療法士国家試験は、長い勉強期間と膨大な範囲が特徴です。一人で取り組むと不安やモチベーションの低下に悩まされがち。私たちは、同じ目標を持つ仲間とのつながりと、効率的な学習環境を提供することで、あなたの国試合格をサポートします。
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 大切にしていること -->
-  <section class="section section--warm">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__label">Values</p>
-        <h2 class="section__title">大切にしていること</h2>
-      </div>
-      <div class="grid grid--3">
-        {values.map((value) => (
-          <div class="card value-card">
-            <span class="value-card__icon">{value.icon}</span>
-            <h3 class="value-card__title">{value.title}</h3>
-            <p class="value-card__description">{value.description}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- メンバー紹介 -->
-  <section class="section section--alt">
-    <div class="container">
-      <div class="section__header">
-        <p class="section__label">Team</p>
-        <h2 class="section__title">運営メンバー</h2>
-      </div>
-      <div class="members-grid">
-        {members.map((member) => (
-          <div class="member-card">
-            <div class="member-card__header">
-              <div class="member-card__avatar">{member.initial}</div>
-              <div>
-                <h3 class="member-card__name">{member.name}</h3>
-                <p class="member-card__role">{member.role}</p>
-              </div>
-            </div>
-            <p class="member-card__bio">{member.bio}</p>
-            <div class="member-card__tags">
-              {member.specialties.map((specialty) => (
-                <span class="badge badge--outline">{specialty}</span>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 運営方針 -->
-  <section class="section">
-    <div class="container container--narrow">
-      <div class="section__header">
-        <p class="section__label">Policy</p>
-        <h2 class="section__title">運営方針</h2>
-      </div>
-      
-      <div class="policy-list">
-        <div class="policy-item">
-          <h3 class="policy-item__title">🎓 教育的価値の追求</h3>
-          <p class="policy-item__text">商業的な利益よりも、学生の学習成果を最優先に考えます。過度な勧誘や誇大広告は行いません。</p>
-        </div>
-        <div class="policy-item">
-          <h3 class="policy-item__title">🔒 プライバシーの保護</h3>
-          <p class="policy-item__text">メンバーの個人情報は厳重に管理し、第三者への提供は行いません。</p>
-        </div>
-        <div class="policy-item">
-          <h3 class="policy-item__title">💬 オープンなコミュニケーション</h3>
-          <p class="policy-item__text">質問や要望はいつでも受け付けています。メンバーの声を聴き、サービス改善に活かします。</p>
-        </div>
-        <div class="policy-item">
-          <h3 class="policy-item__title">⚖️ 公平な情報提供</h3>
-          <p class="policy-item__text">教材比較などの情報は、客観的な視点で提供します。アフィリエイトの有無で評価を変えることはありません。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container cta-section__content">
-      <h2 class="cta-section__title">一緒に国試を乗り越えよう</h2>
-      <p class="cta-section__subtitle">
-        月額500円で、仲間・学習資産・サポートが手に入ります
+    <div class="container text-center">
+      <h1 class="page-hero__title scroll-fade-up">運営者について</h1>
+      <p class="page-hero__subtitle scroll-fade-up delay-1">
+        私たちが目指すのは、「自分で考え、選び、成長できる」<br>理学療法士が当たり前の世界です。
       </p>
-      <a href="/join" class="btn btn--primary btn--lg">
-        入会する
-      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-header text-center scroll-fade-up">
+        <span class="section-label">TEAM</span>
+        <h2 class="section-title">運営メンバー</h2>
+      </div>
+
+      <div class="team-grid">
+        {team.map((member, index) => (
+          <div class="team-card scroll-fade-up">
+            <div class="team-visual" style={`background-color: ${member.color}`}>
+              <span class="team-initial">{member.initial}</span>
+            </div>
+            <div class="team-content">
+              <span class="team-role">{member.role}</span>
+              <h3 class="team-name">講師 {member.initial}</h3>
+              <p class="team-desc">{member.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cream">
+    <div class="container container--narrow">
+      <div class="section-header text-center scroll-fade-up">
+        <span class="section-label">VALUES</span>
+        <h2 class="section-title">大切にしていること</h2>
+      </div>
+
+      <div class="values-list">
+        {values.map((val, index) => (
+          <div class="value-item scroll-fade-up">
+            <div class="value-icon">
+              <Fragment set:html={val.icon} />
+            </div>
+            <div class="value-content">
+              <h3 class="value-title">{val.title}</h3>
+              <p class="value-desc">{val.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Page Hero */
   .page-hero {
-    background: var(--gradient-hero);
-    color: white;
-    padding: calc(80px + var(--space-16)) 0 var(--space-16);
-    text-align: center;
-  }
-  
-  .page-hero__label {
-    display: inline-block;
-    padding: var(--space-2) var(--space-4);
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    margin-bottom: var(--space-4);
-    backdrop-filter: blur(4px);
+    padding: var(--space-20) 0 var(--space-12);
+    background: var(--bg-warm);
   }
   
   .page-hero__title {
-    font-size: var(--text-4xl);
-    color: white;
+    font-size: 2.5rem;
     margin-bottom: var(--space-4);
   }
   
   .page-hero__subtitle {
-    font-size: var(--text-xl);
-    opacity: 0.9;
+    font-size: 1.1rem;
+    color: var(--text-light);
   }
   
-  /* Container narrow */
-  .container--narrow {
-    max-width: 700px;
-  }
-  
-  /* Mission Block */
-  .mission-block {
-    text-align: center;
-    padding: var(--space-8);
-    background: var(--color-bg-white);
-    border-radius: var(--radius-2xl);
-    box-shadow: var(--shadow-lg);
-  }
-  
-  .mission-block__title {
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-primary);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-4);
-  }
-  
-  .mission-block__text {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-    color: var(--color-text);
-    margin-bottom: var(--space-4);
-  }
-  
-  .mission-block__description {
-    color: var(--color-text-light);
-    line-height: 1.9;
-  }
-  
-  /* Value Card */
-  .value-card {
-    text-align: center;
-    padding: var(--space-8);
-  }
-  
-  .value-card__icon {
-    display: block;
-    font-size: 3rem;
-    margin-bottom: var(--space-4);
-  }
-  
-  .value-card__title {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-3);
-  }
-  
-  .value-card__description {
-    color: var(--color-text-light);
-    font-size: var(--text-base);
-  }
-  
-  /* Members Grid */
-  .members-grid {
+  .team-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-8);
+    max-width: 900px;
+    margin: 0 auto;
   }
   
-  @media (max-width: 768px) {
-    .members-grid {
-      grid-template-columns: 1fr;
+  @media (min-width: 768px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
   
-  /* Member Card */
-  .member-card {
-    background: var(--color-bg-white);
-    border-radius: var(--radius-2xl);
-    padding: var(--space-8);
-    box-shadow: var(--shadow-lg);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+  .team-card {
+    background: #fff;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: transform 0.3s ease;
   }
   
-  .member-card__header {
+  .team-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .team-visual {
+    height: 120px;
     display: flex;
     align-items: center;
-    gap: var(--space-4);
+    justify-content: center;
   }
   
-  .member-card__avatar {
-    width: 72px;
-    height: 72px;
-    background: var(--gradient-primary);
+  .team-initial {
+    font-size: 3rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+  }
+  
+  .team-content {
+    padding: var(--space-8);
+  }
+  
+  .team-role {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    display: block;
+    margin-bottom: var(--space-2);
+  }
+  
+  .team-name {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-4);
+  }
+  
+  .values-list {
+    display: grid;
+    gap: var(--space-8);
+  }
+  
+  .value-item {
+    display: flex;
+    gap: var(--space-6);
+    align-items: flex-start;
+  }
+  
+  .value-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(239, 133, 96, 0.1);
+    color: var(--primary);
     border-radius: var(--radius-full);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
     flex-shrink: 0;
   }
   
-  .member-card__name {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-1);
+  .value-icon :global(svg) {
+    width: 24px;
+    height: 24px;
   }
   
-  .member-card__role {
-    font-size: var(--text-sm);
-    color: var(--color-primary);
-    font-weight: var(--font-semibold);
-  }
-  
-  .member-card__bio {
-    color: var(--color-text-light);
-    line-height: 1.8;
-    flex: 1;
-  }
-  
-  .member-card__tags {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-  
-  /* Policy */
-  .policy-list {
-    display: grid;
-    gap: var(--space-4);
-  }
-  
-  .policy-item {
-    padding: var(--space-6);
-    background: var(--color-bg-white);
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-sm);
-  }
-  
-  .policy-item__title {
-    font-size: var(--text-lg);
+  .value-title {
+    font-size: 1.25rem;
     margin-bottom: var(--space-2);
   }
-  
-  .policy-item__text {
-    color: var(--color-text-light);
-    margin: 0;
-  }
 </style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('.scroll-fade-up').forEach(el => observer.observe(el));
+</script>

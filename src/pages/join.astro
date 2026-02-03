@@ -3,443 +3,388 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const steps = [
   {
-    number: 1,
-    title: "下の「今すぐ始める」から決済",
-    description: "決済ページで月額500円のサブスクリプションに登録します。"
+    number: "01",
+    title: "決済ページへ進む",
+    description: "下のボタンから決済ページへ進み、月額500円（税込）の登録を行います。"
   },
   {
-    number: 2,
-    title: "メールでSlack招待リンクを受け取る",
-    description: "決済完了後1日以内にSlackコミュニティへの招待リンクをメールでお送りします。"
+    number: "02",
+    title: "Slack招待メール受信",
+    description: "決済完了後、登録アドレス宛にSlackコミュニティへの招待リンクが届きます。"
   },
   {
-    number: 3,
-    title: "Slackに参加して自己紹介",
-    description: "コミュニティに参加したら、まずは自己紹介チャンネルで挨拶しましょう！"
+    number: "03",
+    title: "コミュニティに参加",
+    description: "リンクからSlackに参加。まずは自己紹介チャンネルで挨拶しましょう！"
   },
   {
-    number: 4,
-    title: "学習資産にアクセス",
-    description: "Canvaの学習テンプレート、過去問分析シートなどすべての資料にアクセスできます。"
+    number: "04",
+    title: "学習スタート",
+    description: "すべての学習資産にアクセス可能になります。気になることから始めましょう。"
   }
 ];
 
 const includes = [
-  { icon: "💬", title: "Slackコミュニティ", description: "質問・相談・雑談チャンネル" },
-  { icon: "📚", title: "学習テンプレート", description: "年間計画、週間スケジュール等" },
-  { icon: "📝", title: "要点まとめ資料", description: "科目別の重要ポイント" },
-  { icon: "📊", title: "過去問分析シート", description: "頻出分野の整理・分析" },
-  { icon: "🎓", title: "月2回のイベント", description: "勉強会・Q&Aセッション" },
-  { icon: "🏥", title: "実習対策サポート", description: "レポート・コミュニケーション相談" },
+  { icon: "message-square", title: "Slackコミュニティ", description: "質問し放題・交流し放題" },
+  { icon: "file-text", title: "学習テンプレート", description: "計画表・分析シート等" },
+  { icon: "book-open", title: "要点まとめ資料", description: "科目別重要ポイント" },
+  { icon: "bar-chart-2", title: "過去問分析", description: "頻出分野の傾向対策" },
+  { icon: "calendar", title: "月2回オンラインイベント", description: "勉強会・相談会" },
+  { icon: "users", title: "実習/就職サポート", description: "先輩への相談環境" },
 ];
+
+const Icons = {
+  "message-square": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
+  "file-text": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>`,
+  "book-open": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>`,
+  "bar-chart-2": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>`,
+  "calendar": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>`,
+  "users": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>`
+};
 ---
 
 <BaseLayout 
   title="入会する"
   description="PT国試コミュニティへの入会方法。月額500円で質問し放題、学習テンプレート、仲間との交流が手に入ります。"
 >
-  <!-- ヒーロー -->
-  <section class="join-hero">
-    <div class="container">
-      <p class="join-hero__label">JOIN US</p>
-      <h1 class="join-hero__title">今すぐ始めよう</h1>
-      <p class="join-hero__subtitle">月額500円で、あなたの国試対策が変わります</p>
+  <section class="page-hero">
+    <div class="container text-center">
+      <h1 class="page-hero__title scroll-fade-up">MEMBERSHIP</h1>
+      <p class="page-hero__subtitle scroll-fade-up delay-1">
+        月500円で、あなたの学習環境が変わります。<br>
+        いつでも解約OK。リスクなく始められます。
+      </p>
     </div>
   </section>
 
   <!-- 料金プラン -->
   <section class="section">
-    <div class="container">
-      <div class="pricing-card">
-        <div class="pricing-card__header">
-          <span class="pricing-card__badge">おすすめ</span>
-          <h2 class="pricing-card__title">スタンダードプラン</h2>
-          <div class="pricing-card__price">
-            <span class="pricing-card__currency">¥</span>
-            <span class="pricing-card__amount">500</span>
-            <span class="pricing-card__period">/月（税込）</span>
+    <div class="container container--narrow">
+      <div class="pricing-card scroll-fade-up">
+        <div class="pricing-header">
+          <div class="pricing-badge">STANDARD PLAN</div>
+          <h2 class="pricing-title">月額プラン</h2>
+          <div class="pricing-price">
+            <span class="currency">¥</span>
+            <span class="amount">500</span>
+            <span class="period">/月（税込）</span>
           </div>
-          <p class="pricing-card__note">いつでも解約OK</p>
         </div>
         
-        <div class="pricing-card__content">
-          <h3 class="pricing-card__includes-title">含まれるもの</h3>
-          <div class="pricing-card__includes">
+        <div class="pricing-content">
+          <p class="pricing-desc">以下のすべての機能が含まれています</p>
+          <div class="pricing-features">
             {includes.map((item) => (
-              <div class="include-item">
-                <span class="include-item__icon">{item.icon}</span>
-                <div>
-                  <p class="include-item__title">{item.title}</p>
-                  <p class="include-item__desc">{item.description}</p>
+              <div class="feature-row">
+                <div class="feature-icon">
+                  <Fragment set:html={Icons[item.icon]} />
+                </div>
+                <div class="feature-text">
+                  <strong>{item.title}</strong>
+                  <span>{item.description}</span>
                 </div>
               </div>
             ))}
           </div>
           
-          <button class="btn btn--primary btn--lg pricing-card__cta" disabled>
-            準備中
-          </button>
-          
-          <p class="pricing-card__secure">
-            🔒 決済システム準備中
-          </p>
+          <div class="text-center mt-8">
+            <button class="btn btn--primary btn--lg pricing-cta" disabled>
+              準備中
+            </button>
+            <p class="pricing-note">現在、決済システムの準備中です。もうしばらくお待ちください。</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 入会後の流れ -->
-  <section class="section section--warm">
+  <!-- 入会フロー -->
+  <section class="section section--cream">
     <div class="container">
-      <div class="section__header">
-        <p class="section__label">Flow</p>
-        <h2 class="section__title">入会後の流れ</h2>
+      <div class="section-header text-center scroll-fade-up">
+        <span class="section-label">FLOW</span>
+        <h2 class="section-title">入会までの流れ</h2>
       </div>
       
-      <div class="steps">
+      <div class="steps-list">
         {steps.map((step, index) => (
-          <div class="step-item">
-            <div class="step-item__number">{step.number}</div>
-            <div class="step-item__content">
-              <h3 class="step-item__title">{step.title}</h3>
-              <p class="step-item__description">{step.description}</p>
-            </div>
-            {index < steps.length - 1 && <div class="step-item__line"></div>}
+          <div class="step-card scroll-fade-up" style={`transition-delay: ${index * 0.1}s`}>
+            <div class="step-number">{step.number}</div>
+            <h3 class="step-title">{step.title}</h3>
+            <p class="step-desc">{step.description}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 解約について -->
-  <section class="section section--alt">
-    <div class="container container--narrow">
-      <div class="section__header">
-        <p class="section__label">Cancellation</p>
-        <h2 class="section__title">解約について</h2>
-      </div>
-      
-      <div class="card">
-        <div class="cancel-info">
-          <div class="cancel-info__item">
-            <span class="cancel-info__icon">✓</span>
-            <p><strong>いつでも解約可能</strong> - 管理画面から簡単に手続きできます</p>
-          </div>
-          <div class="cancel-info__item">
-            <span class="cancel-info__icon">✓</span>
-            <p><strong>解約後も当月末まで利用可能</strong> - 次回請求日まではサービスを継続できます</p>
-          </div>
-          <div class="cancel-info__item">
-            <span class="cancel-info__icon">✓</span>
-            <p><strong>違約金・手数料なし</strong> - 解約による追加費用は一切ありません</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 注意事項 -->
+  <!-- FAQ for Join -->
   <section class="section">
     <div class="container container--narrow">
-      <div class="section__header">
-        <h2 class="section__title">ご利用にあたって</h2>
+      <div class="section-header text-center scroll-fade-up">
+        <span class="section-label">Q&A</span>
+        <h2 class="section-title">よくある質問</h2>
       </div>
       
-      <div class="notice-list">
-        <div class="notice-item">
-          <p>本サービスは<strong>合格を保証するものではありません</strong>。学習成果は個人の努力により異なります。</p>
+      <div class="faq-simple">
+        <div class="faq-item scroll-fade-up">
+          <h4 class="faq-q">支払い方法は何がありますか？</h4>
+          <p class="faq-a">クレジットカード決済（Visa, Mastercard, Amex, JCB, Diners Club, Discover）に対応しています。</p>
         </div>
-        <div class="notice-item">
-          <p>提供される情報は参考目的であり、公式教材や教科書に代わるものではありません。</p>
+        <div class="faq-item scroll-fade-up">
+          <h4 class="faq-q">月の途中から入会した場合の料金は？</h4>
+          <p class="faq-a">入会日から1ヶ月ごとの請求となります。いつ入会しても損をすることはありません。</p>
         </div>
-        <div class="notice-item">
-          <p>コミュニティ内では互いを尊重したコミュニケーションをお願いします。</p>
+        <div class="faq-item scroll-fade-up">
+          <h4 class="faq-q">解約はどうすればいいですか？</h4>
+          <p class="faq-a">マイページまたは運営への連絡で簡単に解約できます。引き止めなどは一切行いません。</p>
         </div>
       </div>
-      
-      <div class="text-center mt-8">
-        <a href="/terms" class="btn btn--secondary">利用規約を確認する</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- 最終CTA -->
-  <section class="cta-section">
-    <div class="container cta-section__content">
-      <h2 class="cta-section__title">まずは1ヶ月試してみませんか？</h2>
-      <p class="cta-section__subtitle">
-        いつでも解約OK。リスクなく始められます。
-      </p>
-      <p class="cta-section__note">決済システム準備中</p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Join Hero */
-  .join-hero {
+  .page-hero {
     background: var(--gradient-hero);
-    color: white;
-    padding: calc(80px + var(--space-16)) 0 var(--space-16);
-    text-align: center;
+    color: #fff;
+    padding: var(--space-20) 0;
   }
   
-  .join-hero__label {
-    display: inline-block;
-    padding: var(--space-2) var(--space-4);
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
+  .page-hero__title {
+    color: #fff;
+    font-size: 3rem;
     margin-bottom: var(--space-4);
-    backdrop-filter: blur(4px);
+    letter-spacing: 0.1em;
   }
   
-  .join-hero__title {
-    font-size: var(--text-4xl);
-    color: white;
-    margin-bottom: var(--space-4);
+  .page-hero__subtitle {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.1rem;
   }
   
-  .join-hero__subtitle {
-    font-size: var(--text-xl);
-    opacity: 0.9;
+  .container--narrow {
+    max-width: 800px;
   }
   
   /* Pricing Card */
   .pricing-card {
-    max-width: 500px;
-    margin: 0 auto;
-    background: var(--color-bg-white);
+    background: #fff;
     border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
     overflow: hidden;
-    box-shadow: var(--shadow-xl);
-  }
-  
-  .pricing-card__header {
-    background: var(--gradient-primary);
-    color: white;
-    padding: var(--space-8);
-    text-align: center;
+    margin-top: -80px; /* ネガティブマージンでヒーローに重ねる */
     position: relative;
+    z-index: 10;
   }
   
-  .pricing-card__badge {
+  .pricing-header {
+    background: var(--bg-cream);
+    padding: var(--space-8) var(--space-8) var(--space-4);
+    text-align: center;
+    border-bottom: 1px solid var(--border-light);
+  }
+  
+  .pricing-badge {
     display: inline-block;
-    padding: var(--space-1) var(--space-3);
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
     border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-4);
+    letter-spacing: 0.1em;
+  }
+  
+  .pricing-title {
+    font-size: 1.5rem;
     margin-bottom: var(--space-4);
   }
   
-  .pricing-card__title {
-    font-size: var(--text-xl);
-    color: white;
-    margin-bottom: var(--space-4);
-  }
-  
-  .pricing-card__price {
+  .pricing-price {
     display: flex;
     align-items: baseline;
     justify-content: center;
-    gap: var(--space-1);
+    color: var(--primary);
   }
   
-  .pricing-card__currency {
-    font-size: var(--text-2xl);
-    font-weight: var(--font-bold);
-  }
-  
-  .pricing-card__amount {
-    font-size: var(--text-6xl);
-    font-weight: var(--font-bold);
+  .amount {
+    font-size: 4rem;
+    font-weight: 700;
     line-height: 1;
     font-family: 'Inter', sans-serif;
   }
   
-  .pricing-card__period {
-    font-size: var(--text-lg);
-    opacity: 0.9;
+  .currency {
+    font-size: 1.5rem;
+    margin-right: 4px;
   }
   
-  .pricing-card__note {
-    margin-top: var(--space-2);
-    font-size: var(--text-sm);
-    opacity: 0.8;
+  .period {
+    font-size: 1rem;
+    color: var(--text-light);
   }
   
-  .pricing-card__content {
+  .pricing-content {
     padding: var(--space-8);
   }
   
-  .pricing-card__includes-title {
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: var(--space-4);
+  .pricing-desc {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: var(--space-8);
   }
   
-  .pricing-card__includes {
+  .pricing-features {
     display: grid;
     gap: var(--space-4);
     margin-bottom: var(--space-8);
   }
   
-  .include-item {
+  @media (min-width: 768px) {
+    .pricing-features {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  .feature-row {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: var(--space-3);
   }
   
-  .include-item__icon {
-    font-size: 1.5rem;
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-warm);
+    color: var(--primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
   }
   
-  .include-item__title {
-    font-weight: var(--font-semibold);
-    font-size: var(--text-base);
-    margin-bottom: var(--space-1);
+  .feature-icon :global(svg) {
+    width: 20px;
+    height: 20px;
   }
   
-  .include-item__desc {
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
+  .feature-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
   }
   
-  .pricing-card__cta {
+  .feature-text strong {
+    color: var(--text);
+  }
+  
+  .feature-text span {
+    color: var(--text-light);
+    font-size: 0.8rem;
+  }
+  
+  .pricing-cta {
     width: 100%;
+    max-width: 400px;
     margin-bottom: var(--space-4);
   }
   
-  .pricing-card__cta:disabled {
-    background: var(--color-text-muted);
+  .pricing-cta:disabled {
+    background: #ccc;
+    box-shadow: none;
     cursor: not-allowed;
   }
   
-  .pricing-card__secure {
-    text-align: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
+  .pricing-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
   }
   
   /* Steps */
-  .steps {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  .step-item {
-    display: flex;
+  .steps-list {
+    display: grid;
     gap: var(--space-6);
-    position: relative;
-    padding-bottom: var(--space-8);
   }
   
-  .step-item__number {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0;
-    background: var(--gradient-primary);
-    color: white;
-    border-radius: var(--radius-full);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--text-xl);
-    font-weight: var(--font-bold);
+  @media (min-width: 768px) {
+    .steps-list {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  .step-card {
+    background: #fff;
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .step-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--bg-warm);
     font-family: 'Inter', sans-serif;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    opacity: 0.5;
+    z-index: 0;
+  }
+  
+  .step-title {
     position: relative;
     z-index: 1;
-  }
-  
-  .step-item__content {
-    flex: 1;
-    padding-top: var(--space-2);
-  }
-  
-  .step-item__title {
-    font-size: var(--text-lg);
+    font-size: 1.1rem;
     margin-bottom: var(--space-2);
+    color: var(--primary);
   }
   
-  .step-item__description {
-    color: var(--color-text-light);
-    font-size: var(--text-base);
+  .step-desc {
+    position: relative;
+    z-index: 1;
+    font-size: 0.9rem;
   }
   
-  .step-item__line {
-    position: absolute;
-    left: 23px;
-    top: 56px;
-    bottom: 0;
-    width: 2px;
-    background: var(--color-border);
-  }
-  
-  /* Container narrow */
-  .container--narrow {
-    max-width: 700px;
-  }
-  
-  /* Cancel Info */
-  .cancel-info {
+  /* FAQ Simple */
+  .faq-simple {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-8);
   }
   
-  .cancel-info__item {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-  }
-  
-  .cancel-info__icon {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    background: var(--color-primary);
-    color: white;
-    border-radius: var(--radius-full);
+  .faq-q {
+    font-size: 1.1rem;
+    margin-bottom: var(--space-2);
+    color: var(--text);
     display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: var(--text-sm);
-    font-weight: var(--font-bold);
+    gap: var(--space-2);
   }
   
-  .cancel-info__item p {
-    margin: 0;
-    color: var(--color-text-light);
+  .faq-q::before {
+    content: 'Q';
+    color: var(--primary);
+    font-weight: 700;
   }
   
-  /* Notice */
-  .notice-list {
-    display: grid;
-    gap: var(--space-4);
-  }
-  
-  .notice-item {
-    padding: var(--space-4);
-    background: var(--color-bg-alt);
-    border-radius: var(--radius-lg);
-    border-left: 3px solid var(--color-secondary);
-  }
-  
-  .notice-item p {
-    margin: 0;
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
-  }
-  
-  /* CTA Note */
-  .cta-section__note {
-    margin-top: var(--space-4);
-    color: rgba(255, 255, 255, 0.8);
-    font-size: var(--text-lg);
+  .faq-a {
+    padding-left: 1.5rem;
+    color: var(--text-light);
   }
 </style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('.scroll-fade-up').forEach(el => observer.observe(el));
+</script>

@@ -1,84 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../config/site';
 
-const faqCategories = [
+const faqs = [
   {
-    title: "入会・料金について",
-    icon: "💳",
-    faqs: [
+    category: "サービス全般",
+    items: [
       {
-        question: "月額料金以外に費用はかかりますか？",
-        answer: "いいえ、月額500円（税込）のみです。入会金、年会費、その他追加費用は一切ありません。すべての機能・資料にアクセスできます。"
+        q: "どのような学生が対象ですか？",
+        a: "理学療法士養成校（大学・専門学校）に通う全学年の学生が対象です。特に国試対策を本格的に始める最終学年の利用が多いですが、低学年のうちから基礎固めとして利用される方も歓迎しています。"
       },
       {
-        question: "支払い方法は何がありますか？",
-        answer: "クレジットカード決済（Visa、Mastercard、American Express、JCB）に対応しています。Stripeを利用した安全な決済システムです。"
+        q: "専門学校生でも参加できますか？",
+        a: "はい、もちろんです。大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。"
       },
       {
-        question: "いつでも解約できますか？",
-        answer: "はい、いつでも解約可能です。Stripeの管理画面から数クリックで手続きできます。解約後も当月末までサービスをご利用いただけます。違約金や手数料は一切ありません。"
-      },
-      {
-        question: "途中から入会しても損はありませんか？",
-        answer: "はい、いつ入会しても問題ありません。過去のアーカイブ動画や資料にもすべてアクセスできますので、途中参加でも安心です。"
+        q: "他の予備校と何が違いますか？",
+        a: "「授業」ではなく「自走する力」を重視している点が最大の違いです。講義動画を見るだけでなく、自分で計画を立て、質問し、仲間と励まし合いながら学習習慣を身につける環境を提供します。また、月額500円という圧倒的な低価格も特徴です。"
       }
     ]
   },
   {
-    title: "サービス内容について",
-    icon: "📚",
-    faqs: [
+    category: "機能・サポート",
+    items: [
       {
-        question: "具体的にどんな資料が使えますか？",
-        answer: "年間学習計画表、週間スケジュールテンプレート、科目別要点まとめ、暗記カード、過去問分析シート、実習対策資料など、500点以上の学習資料が使い放題です。"
+        q: "Slackを使ったことがなくても大丈夫ですか？",
+        a: "はい、問題ありません。入会後に図解入りの利用ガイドをお送りします。スマホアプリでLINEのように直感的に操作できるので、すぐに慣れることができます。"
       },
       {
-        question: "質問への回答はどのくらいで届きますか？",
-        answer: "原則24時間以内に回答します。緊急の質問や試験直前の場合は、できる限り早く対応するよう努めています。"
+        q: "質問はいつでもできますか？",
+        a: "はい、24時間365日いつでも質問可能です。回答は原則24時間以内に行いますが、内容によっては少しお時間をいただく場合もあります。"
       },
       {
-        question: "月2回のイベントは必ず参加が必要ですか？",
-        answer: "いいえ、参加は任意です。すべてのイベントはアーカイブ録画を残しますので、リアルタイムで参加できなくても後から視聴できます。"
-      },
-      {
-        question: "専門学校生でも参加できますか？",
-        answer: "はい、もちろんです。大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。"
+        q: "過去の資料も見れますか？",
+        a: "はい、Resource Hub（Canva）にある資料は、入会時期に関わらずすべて閲覧・ダウンロード可能です。"
       }
     ]
   },
   {
-    title: "学習効果について",
-    icon: "🎯",
-    faqs: [
+    category: "料金・手続き",
+    items: [
       {
-        question: "合格は保証されますか？",
-        answer: "申し訳ありませんが、合格を保証することはできません。学習成果は個人の努力や学習時間により異なります。私たちは効率的な学習環境を提供しますが、最終的な結果は皆さんの努力次第です。"
+        q: "支払い方法は何がありますか？",
+        a: "クレジットカード決済（Visa, Mastercard, Amex, JCB, Diners Club, Discover）に対応しています。"
       },
       {
-        question: "国試直前でも効果はありますか？",
-        answer: "はい、直前期でも十分活用できます。直前期用の優先順位リスト、頻出テーマのまとめ、最終チェック資料など、直前対策専用の資料も用意しています。"
+        q: "最低契約期間はありますか？",
+        a: "いいえ、ありません。1ヶ月単位でいつでも解約可能です。"
       },
       {
-        question: "1年生や2年生でも意味がありますか？",
-        answer: "はい、むしろ早めからの参加をおすすめします。学習習慣の形成、定期試験対策、実習準備など、低学年から活用できる内容も多くあります。"
-      }
-    ]
-  },
-  {
-    title: "その他",
-    icon: "❓",
-    faqs: [
-      {
-        question: "コミュニティのルールはありますか？",
-        answer: "はい、相互尊重を基本としたコミュニティガイドラインがあります。誹謗中傷、スパム行為、営利目的の利用などは禁止しています。詳しくは利用規約をご確認ください。"
-      },
-      {
-        question: "運営メンバーはどんな人ですか？",
-        answer: "国家試験で高得点（238点、226点など）を取得した現役理学療法士が運営しています。詳しくは「運営者紹介」ページをご覧ください。"
-      },
-      {
-        question: "お問い合わせはどこからできますか？",
-        answer: "Slackコミュニティ内の専用チャンネル、またはメール（contact@example.com）でお問い合わせいただけます。"
+        q: "解約方法を教えてください",
+        a: "会員専用マイページからいつでも解約手続きが可能です。解約後も、その月の契約満了日まではサービスをご利用いただけます。"
       }
     ]
   }
@@ -87,188 +59,235 @@ const faqCategories = [
 
 <BaseLayout 
   title="よくある質問"
-  description="PT国試コミュニティに関するよくある質問と回答。入会、料金、サービス内容、解約方法などについて。"
+  description="PT国試コミュニティに関するよくある質問と回答をまとめています。"
 >
-  <!-- ヒーロー -->
   <section class="page-hero">
-    <div class="container">
-      <p class="page-hero__label">FAQ</p>
-      <h1 class="page-hero__title">よくある質問</h1>
-      <p class="page-hero__subtitle">気になることがあればお気軽にお問い合わせください</p>
+    <div class="container text-center">
+      <h1 class="page-hero__title scroll-fade-up">FAQ</h1>
+      <p class="page-hero__subtitle scroll-fade-up delay-1">
+        疑問や不安を解消して、<br>
+        安心して学習をスタートさせましょう。
+      </p>
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="section">
     <div class="container container--narrow">
-      {faqCategories.map((category) => (
-        <div class="faq-category">
-          <div class="faq-category__header">
-            <span class="faq-category__icon">{category.icon}</span>
-            <h2 class="faq-category__title">{category.title}</h2>
-          </div>
+      {faqs.map((group, index) => (
+        <div class="faq-group scroll-fade-up">
+          <h2 class="faq-group__title">{group.category}</h2>
           <div class="faq-list">
-            {category.faqs.map((faq) => (
-              <div class="faq-item">
-                <button class="faq-item__question" onclick="this.parentElement.classList.toggle('active')">
-                  <span>{faq.question}</span>
-                  <span class="faq-item__icon">+</span>
+            {group.items.map(item => (
+              <div class="faq-accordion">
+                <button class="faq-accordion__trigger">
+                  <span class="faq-q-mark">Q</span>
+                  <span class="faq-q-text">{item.q}</span>
+                  <span class="faq-icon"></span>
                 </button>
-                <div class="faq-item__answer">
-                  <p>{faq.answer}</p>
+                <div class="faq-accordion__content">
+                  <div class="faq-accordion__inner">
+                    <span class="faq-a-mark">A</span>
+                    <p>{item.a}</p>
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
       ))}
-    </div>
-  </section>
 
-  <!-- CTA -->
-  <section class="section section--warm">
-    <div class="container text-center">
-      <h2 class="section__title">他に質問がありますか？</h2>
-      <p class="section__subtitle mb-8">お気軽にお問い合わせください</p>
-      <div class="cta-buttons">
-        <a href="/join" class="btn btn--primary btn--lg">今すぐ始める</a>
-        <a href="mailto:contact@example.com" class="btn btn--secondary btn--lg">お問い合わせ</a>
+      <div class="contact-box scroll-fade-up">
+        <h3 class="contact-box__title">まだ疑問が解決しませんか？</h3>
+        <p class="contact-box__text">
+          その他のご質問は、以下のメールアドレスまでお気軽にお問い合わせください。
+        </p>
+        <a href={`mailto:${siteConfig.email}`} class="contact-box__link">{siteConfig.email}</a>
       </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  /* Page Hero */
   .page-hero {
-    background: var(--gradient-hero);
-    color: white;
-    padding: calc(80px + var(--space-16)) 0 var(--space-16);
-    text-align: center;
-  }
-  
-  .page-hero__label {
-    display: inline-block;
-    padding: var(--space-2) var(--space-4);
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
-    margin-bottom: var(--space-4);
-    backdrop-filter: blur(4px);
+    background: var(--bg-cream);
+    padding: var(--space-20) 0 var(--space-8);
   }
   
   .page-hero__title {
-    font-size: var(--text-4xl);
-    color: white;
+    font-size: 2.5rem;
     margin-bottom: var(--space-4);
+    letter-spacing: 0.1em;
   }
   
-  .page-hero__subtitle {
-    font-size: var(--text-xl);
-    opacity: 0.9;
-  }
-  
-  /* Container narrow */
   .container--narrow {
     max-width: 800px;
   }
   
-  /* FAQ Category */
-  .faq-category {
+  .faq-group {
     margin-bottom: var(--space-12);
   }
   
-  .faq-category__header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+  .faq-group__title {
+    font-size: 1.5rem;
+    color: var(--primary);
     margin-bottom: var(--space-6);
+    padding-bottom: var(--space-2);
+    border-bottom: 2px solid var(--bg-warm);
+    display: inline-block;
   }
   
-  .faq-category__icon {
-    font-size: 2rem;
-  }
-  
-  .faq-category__title {
-    font-size: var(--text-xl);
-    margin: 0;
-  }
-  
-  /* FAQ List */
   .faq-list {
-    display: grid;
-    gap: var(--space-3);
-  }
-  
-  /* FAQ Item */
-  .faq-item {
-    background: var(--color-bg-white);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-border-light);
-    transition: all var(--transition-fast);
-  }
-  
-  .faq-item:hover {
-    box-shadow: var(--shadow-md);
-  }
-  
-  .faq-item__question {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .faq-accordion {
+    background: #fff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  
+  .faq-accordion__trigger {
     width: 100%;
-    padding: var(--space-5) var(--space-6);
-    background: transparent;
+    display: flex;
+    align-items: center;
+    padding: var(--space-5);
+    background: none;
     border: none;
+    text-align: left;
     cursor: pointer;
     font-family: inherit;
-    font-size: var(--text-base);
-    font-weight: var(--font-semibold);
-    color: var(--color-text);
-    text-align: left;
-    transition: background var(--transition-fast);
+    position: relative;
+    transition: background 0.3s;
   }
   
-  .faq-item__question:hover {
-    background: var(--color-primary-bg);
+  .faq-accordion__trigger:hover {
+    background: var(--bg-warm);
   }
   
-  .faq-item__icon {
-    font-size: var(--text-xl);
-    color: var(--color-primary);
-    font-weight: var(--font-bold);
-    transition: transform var(--transition-fast);
+  .faq-q-mark {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-right: var(--space-4);
+    flex-shrink: 0;
   }
   
-  .faq-item.active .faq-item__icon {
-    transform: rotate(45deg);
+  .faq-q-text {
+    flex: 1;
+    font-weight: 700;
+    font-size: 1rem;
+    padding-right: var(--space-8);
   }
   
-  .faq-item__answer {
+  .faq-icon {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+  
+  .faq-icon::before,
+  .faq-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: var(--primary);
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-icon::before {
+    width: 16px;
+    height: 2px;
+    transform: translate(-50%, -50%);
+  }
+  
+  .faq-icon::after {
+    width: 2px;
+    height: 16px;
+    transform: translate(-50%, -50%);
+  }
+  
+  .faq-accordion.active .faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+  
+  .faq-accordion__content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-normal), padding var(--transition-normal);
+    transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
-  .faq-item.active .faq-item__answer {
-    max-height: 500px;
-    padding: 0 var(--space-6) var(--space-5);
+  .logo-accordion.active .faq-accordion__content {
+    /* JSで高さ指定 */
   }
   
-  .faq-item__answer p {
-    color: var(--color-text-light);
-    line-height: 1.8;
-    margin: 0;
-  }
-  
-  /* CTA Buttons */
-  .cta-buttons {
+  .faq-accordion__inner {
+    padding: 0 var(--space-5) var(--space-6);
     display: flex;
-    gap: var(--space-4);
-    justify-content: center;
-    flex-wrap: wrap;
+    border-top: 1px solid var(--border-light);
+  }
+  
+  .faq-a-mark {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-light);
+    margin-right: var(--space-4);
+    margin-top: var(--space-1);
+    flex-shrink: 0;
+  }
+  
+  .contact-box {
+    text-align: center;
+    padding: var(--space-10);
+    background: var(--bg-cream);
+    border-radius: var(--radius-xl);
+    margin-top: var(--space-16);
+  }
+  
+  .contact-box__title {
+    font-size: 1.25rem;
+    margin-bottom: var(--space-4);
+  }
+  
+  .contact-box__link {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: underline;
   }
 </style>
+
+<script>
+  // Accordion
+  const triggers = document.querySelectorAll('.faq-accordion__trigger');
+  
+  triggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const parent = trigger.parentElement;
+      const content = parent?.querySelector('.faq-accordion__content') as HTMLElement;
+      
+      parent?.classList.toggle('active');
+      
+      if (parent?.classList.contains('active')) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      } else {
+        content.style.maxHeight = '0';
+      }
+    });
+  });
+
+  // Scroll Fade
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  
+  document.querySelectorAll('.scroll-fade-up').forEach(el => observer.observe(el));
+</script>

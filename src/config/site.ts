@@ -26,7 +26,7 @@ export const navLinks = [
   { label: "ホーム", href: "/" },
   { label: "入会する", href: "/join" },
   { label: "学習資産", href: "/resources" },
-  { label: "教材比較", href: "/materials" },
+  { label: "特商法", href: "/legal/tokusho" },
   { label: "FAQ", href: "/faq" },
   { label: "運営者紹介", href: "/about" },
 ];
@@ -36,7 +36,6 @@ export const footerLinks = {
   main: [
     { label: "入会する", href: "/join" },
     { label: "学習資産", href: "/resources" },
-    { label: "教材・サービス", href: "/materials" },
     { label: "学校関係者の方へ", href: "/for-schools" },
     { label: "運営者について", href: "/about" },
     { label: "よくある質問", href: "/faq" },
@@ -44,6 +43,7 @@ export const footerLinks = {
   legal: [
     { label: "利用規約", href: "/terms" },
     { label: "プライバシーポリシー", href: "/privacy" },
+    { label: "特定商取引法に基づく表記", href: "/legal/tokusho" },
     { label: "広告について", href: "/policy/affiliate-disclosure" },
   ],
 };

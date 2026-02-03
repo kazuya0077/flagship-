@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+
+const legalInfo = [
+  {
+    term: "販売業者",
+    desc: "PT国試コミュニティ運営事務局"
+  },
+  {
+    term: "運営責任者",
+    desc: "白幡"
+  },
+  {
+    term: "所在地",
+    desc: "請求があり次第提供致しますので、必要な方はお問い合わせください。"
+  },
+  {
+    term: "電話番号",
+    desc: "請求があり次第提供致しますので、必要な方はお問い合わせください。"
+  },
+  {
+    term: "メールアドレス",
+    desc: siteConfig.email
+  },
+  {
+    term: "販売価格",
+    desc: `月額${siteConfig.monthlyPrice}円（税込）`
+  },
+  {
+    term: "商品代金以外の必要料金",
+    desc: "インターネット接続料金その他の電気通信回線の通信に関する費用はお客様にて別途ご用意いただく必要があります（金額は、お客様が契約した各事業者が定める通り）。"
+  },
+  {
+    term: "支払方法",
+    desc: "クレジットカード決済"
+  },
+  {
+    term: "支払時期",
+    desc: "初回お申込み時に決済され、以降毎月同日に決済されます。"
+  },
+  {
+    term: "商品の引渡時期",
+    desc: "決済完了後、直ちにご利用いただけます。"
+  },
+  {
+    term: "返品・返金について",
+    desc: "デジタルコンテンツの性質上、返品・返金はお受けしておりません。解約はいつでも可能です。"
+  },
+  {
+    term: "動作環境",
+    desc: "推奨ブラウザ：Google Chrome, Safari, Microsoft Edge, Firefoxの最新版"
+  }
+];
+---
+
+<BaseLayout 
+  title="特定商取引法に基づく表記"
+  description="特定商取引法に基づく表記。販売業者、支払方法、返品・キャンセル等に関する情報。"
+  noIndex={true}
+>
+  <section class="page-hero">
+    <div class="container">
+      <h1 class="page-hero__title">特定商取引法に基づく表記</h1>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="legal-table">
+        {legalInfo.map((item) => (
+          <div class="legal-row">
+            <div class="legal-term">{item.term}</div>
+            <div class="legal-desc">{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: var(--bg-cream);
+    padding: calc(80px + var(--space-8)) 0 var(--space-8);
+    text-align: center;
+  }
+  
+  .page-hero__title {
+    font-size: var(--text-2xl);
+    color: var(--text);
+  }
+  
+  .container--narrow {
+    max-width: 800px;
+  }
+  
+  .legal-table {
+    border-top: 1px solid var(--border);
+  }
+  
+  .legal-row {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--border);
+  }
+  
+  @media (min-width: 768px) {
+    .legal-row {
+      flex-direction: row;
+    }
+  }
+  
+  .legal-term {
+    background: var(--bg-warm);
+    padding: var(--space-4);
+    font-weight: var(--font-bold);
+    min-width: 240px;
+  }
+  
+  .legal-desc {
+    padding: var(--space-4);
+    flex: 1;
+    line-height: 1.8;
+  }
+</style>
