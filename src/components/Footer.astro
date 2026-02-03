@@ -36,6 +36,7 @@ const year = new Date().getFullYear();
           {footerLinks.legal.map(link => (
             <li><a href={link.href}>{link.label}</a></li>
           ))}
+          <li><a href="https://4eyputymsc.microcms.io/apis/items" target="_blank" rel="noopener noreferrer" class="admin-link">管理者ログイン</a></li>
         </ul>
       </div>
     </div>
@@ -128,5 +129,10 @@ const year = new Date().getFullYear();
     border-top: 1px solid var(--border);
     font-size: 0.8rem;
     color: var(--text-muted);
+  }
+
+  .admin-link {
+    font-size: 0.75rem !important;
+    opacity: 0.5;
   }
 </style>
