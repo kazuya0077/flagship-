@@ -59,7 +59,8 @@ const stats = [
   { label: "継続率", value: "98", unit: "%" },
 ];
 
-import { recommendItems } from '../data/items';
+import { getRecommendItems } from '../library/microcms';
+const items = await getRecommendItems();
 ---
 
 <BaseLayout 
@@ -185,7 +186,7 @@ import { recommendItems } from '../data/items';
       <h2 class="section-title scroll-fade-up">推奨教材</h2>
       
       <div class="asp-grid">
-        {recommendItems.map(item => (
+        {items.map(item => (
           <AspLink 
             title={item.title}
             description={item.description}
