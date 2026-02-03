@@ -59,8 +59,9 @@ const stats = [
   { label: "継続率", value: "98", unit: "%" },
 ];
 
-import { getRecommendItems } from '../library/microcms';
+import { getRecommendItems, getBlogs } from '../library/microcms';
 const items = await getRecommendItems();
+const blogs = await getBlogs(3); // 最新3件
 ---
 
 <BaseLayout 
@@ -197,6 +198,42 @@ const items = await getRecommendItems();
       </div>
     </div>
   </section>
+
+  <!-- Blog Section -->
+  {blogs.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <span class="section-label">BLOG</span>
+        <h2 class="section-title scroll-fade-up">新着記事</h2>
+        
+        <div class="blog-grid">
+          {blogs.map(blog => (
+            <a href={`/blog/${blog.id}`} class="blog-card scroll-fade-up">
+              <div class="blog-card__image">
+                {blog.eyecatch ? (
+                  <img src={blog.eyecatch} alt={blog.title} loading="lazy" />
+                ) : (
+                  <div class="blog-card__placeholder">NO IMAGE</div>
+                )}
+              </div>
+              <div class="blog-card__content">
+                <time class="blog-card__date" datetime={blog.publishedAt}>
+                  {new Date(blog.publishedAt).toLocaleDateString('ja-JP')}
+                </time>
+                <h3 class="blog-card__title">{blog.title}</h3>
+              </div>
+            </a>
+          ))}
+        </div>
+        
+        <div class="text-center mt-8">
+          <p class="text-muted">
+            <small>※MicroCMSで記事を追加すると自動でここに表示されます</small>
+          </p>
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- CTA -->
   <section class="cta-section">
@@ -371,6 +408,78 @@ const items = await getRecommendItems();
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: 0;
     opacity: 0.5;
+  }
+
+  /* Blog Card */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .blog-card {
+    text-decoration: none;
+    color: var(--text);
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .blog-card__image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg-panel);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .blog-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .blog-card:hover .blog-card__image img {
+    transform: scale(1.05);
+  }
+
+  .blog-card__placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-weight: 700;
+  }
+
+  .blog-card__content {
+    padding: 24px;
+  }
+
+  .blog-card__date {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: 8px;
+  }
+
+  .blog-card__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 </style>
 

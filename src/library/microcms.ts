@@ -81,3 +81,94 @@ export const getRecommendItems = async (): Promise<Item[]> => {
         return localItems;
     }
 };
+
+// ブログの型定義
+export type Blog = {
+    id: string;
+    title: string;
+    content: string;
+    eyecatch: string | null;
+    publishedAt: string;
+    category?: string;
+};
+
+// MicroCMSのブログ一覧レスポンス
+type MicroCMSBlogResponse = {
+    contents: {
+        id: string;
+        title: string;
+        content: string;
+        eyecatch?: MicroCMSImage;
+        publishedAt: string;
+        category?: { id: string; name: string }[];
+    }[];
+    totalCount: number;
+    offset: number;
+    limit: number;
+};
+
+// ブログ一覧取得
+export const getBlogs = async (limit = 10): Promise<Blog[]> => {
+    if (!MICROCMS_SERVICE_DOMAIN || !MICROCMS_API_KEY) {
+        return [];
+    }
+
+    try {
+        const response = await fetch(
+            `https://${MICROCMS_SERVICE_DOMAIN}.microcms.io/api/v1/blogs?limit=${limit}&orders=-publishedAt`,
+            {
+                headers: {
+                    'X-MICROCMS-API-KEY': MICROCMS_API_KEY,
+                },
+            }
+        );
+
+        if (!response.ok) return [];
+
+        const data: MicroCMSBlogResponse = await response.json();
+
+        return data.contents.map((content) => ({
+            id: content.id,
+            title: content.title,
+            content: content.content,
+            eyecatch: content.eyecatch?.url || null,
+            publishedAt: content.publishedAt,
+        }));
+    } catch (error) {
+        console.error('Error fetching blogs:', error);
+        return [];
+    }
+};
+
+// ブログ詳細取得
+export const getBlogDetail = async (contentId: string): Promise<Blog | null> => {
+    if (!MICROCMS_SERVICE_DOMAIN || !MICROCMS_API_KEY) {
+        return null;
+    }
+
+    try {
+        const response = await fetch(
+            `https://${MICROCMS_SERVICE_DOMAIN}.microcms.io/api/v1/blogs/${contentId}`,
+            {
+                headers: {
+                    'X-MICROCMS-API-KEY': MICROCMS_API_KEY,
+                },
+            }
+        );
+
+        if (!response.ok) return null;
+
+        const content: any = await response.json();
+
+        return {
+            id: content.id,
+            title: content.title,
+            content: content.content,
+            eyecatch: content.eyecatch?.url || null,
+            publishedAt: content.publishedAt,
+        };
+    } catch (error) {
+        console.error('Error fetching blog detail:', error);
+        return null;
+    }
+};

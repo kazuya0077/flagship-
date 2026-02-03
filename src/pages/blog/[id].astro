@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getBlogDetail } from '../../library/microcms';
+
+export const prerender = false; // SSRモード（ビルド時ではなくリクエスト時に取得）
+
+const { id } = Astro.params;
+const blog = await getBlogDetail(id as string);
+
+if (!blog) {
+  return Astro.redirect('/404');
+}
+
+// 日付フォーマット
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return `${date.getFullYear()}.${date.getMonth() + 1}.${date.getDate()}`;
+};
+---
+
+<BaseLayout 
+  title={blog.title} 
+  description={blog.content.replace(/<[^>]*>/g, '').slice(0, 100) + '...'}
+  image={blog.eyecatch || undefined}
+>
+  <article class="blog-post">
+    {/* Header */}
+    <header class="blog-header container container--narrow">
+      <div class="blog-meta">
+        <time datetime={blog.publishedAt}>{formatDate(blog.publishedAt)}</time>
+        <span class="blog-category">BLOG</span>
+      </div>
+      <h1 class="blog-title">{blog.title}</h1>
+      
+      {blog.eyecatch && (
+        <div class="blog-eyecatch">
+          <img src={blog.eyecatch} alt={blog.title} />
+        </div>
+      )}
+    </header>
+
+    {/* Content */}
+    <div class="container container--narrow">
+      <div class="blog-content" set:html={blog.content} />
+      
+      <div class="blog-footer">
+        <a href="/" class="btn btn--secondary">ホームに戻る</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    padding-top: 120px;
+    padding-bottom: 80px;
+  }
+
+  .blog-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .blog-meta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
+  }
+
+  .blog-title {
+    font-size: 2rem;
+    line-height: 1.4;
+    margin-bottom: 40px;
+  }
+
+  .blog-eyecatch {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 16/9;
+  }
+
+  .blog-eyecatch img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Rich Text Styles */
+  .blog-content {
+    background: var(--bg-white);
+    padding: 60px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+  
+  .blog-footer {
+    margin-top: 60px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .blog-title { font-size: 1.5rem; }
+    .blog-content { padding: 24px; font-size: 1rem; }
+  }
+</style>
+
+<style is:global>
+  /* MicroCMS Rich Textの内容用スタイル */
+  .blog-content h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 3em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid var(--primary-light);
+  }
+
+  .blog-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-top: 2.5em;
+    margin-bottom: 1em;
+  }
+
+  .blog-content p {
+    margin-bottom: 1.5em;
+  }
+
+  .blog-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    margin: 2em 0;
+  }
+  
+  .blog-content ul {
+    list-style: disc;
+    margin-left: 1.5em;
+    margin-bottom: 1.5em;
+  }
+  
+  .blog-content a {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+</style>
