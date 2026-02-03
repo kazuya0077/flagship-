@@ -1,7 +1,7 @@
 ---
 title: "臨床実習に役立つ参考書"
 description: "臨床実習に向けた準備と現場で役立つ参考書を紹介。レポート作成、患者対応、評価の進め方まで。"
-category: "clinical-practice"
+category: "clinical"
 publishedDate: 2024-02-25
 ---
 

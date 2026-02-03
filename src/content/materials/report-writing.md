@@ -1,7 +1,7 @@
 ---
 title: "症例レポートの書き方教材"
 description: "臨床実習で必須の症例レポート作成をサポートする教材を紹介。ICFの活用、論理的な考察の書き方まで。"
-category: "clinical-practice"
+category: "clinical"
 publishedDate: 2024-03-01
 ---
 

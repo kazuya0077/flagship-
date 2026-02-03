@@ -1,7 +1,7 @@
 ---
 title: "国試直前期のおすすめ教材"
 description: "国試まで残り1〜2ヶ月の直前期に効果的な教材を紹介。ポイント整理と最終確認に最適な参考書を厳選。"
-category: "kokushi-comprehensive"
+category: "kokushi"
 publishedDate: 2024-01-20
 ---
 

@@ -6,11 +6,11 @@ const materialsCollection = defineCollection({
         title: z.string(),
         description: z.string(),
         category: z.enum([
-            'kokushi-comprehensive',
+            'kokushi',
             'anatomy',
             'kinesiology',
-            'internal-medicine',
-            'clinical-practice'
+            'internal',
+            'clinical'
         ]),
         publishedDate: z.date(),
         updatedDate: z.date().optional(),

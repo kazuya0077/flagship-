@@ -1,12 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../config/site';
 
 const steps = [
   {
     number: 1,
     title: "下の「今すぐ始める」から決済",
-    description: "Stripeの安全な決済ページで月額500円のサブスクリプションに登録します。"
+    description: "決済ページで月額500円のサブスクリプションに登録します。"
   },
   {
     number: 2,
@@ -77,12 +76,12 @@ const includes = [
             ))}
           </div>
           
-          <a href={siteConfig.links.stripeSubscription} class="btn btn--primary btn--lg pricing-card__cta" target="_blank" rel="noopener noreferrer">
-            今すぐ始める
-          </a>
+          <button class="btn btn--primary btn--lg pricing-card__cta" disabled>
+            準備中
+          </button>
           
           <p class="pricing-card__secure">
-            🔒 Stripeによる安全な決済
+            🔒 決済システム準備中
           </p>
         </div>
       </div>
@@ -124,7 +123,7 @@ const includes = [
         <div class="cancel-info">
           <div class="cancel-info__item">
             <span class="cancel-info__icon">✓</span>
-            <p><strong>いつでも解約可能</strong> - Stripeの管理画面から簡単に手続きできます</p>
+            <p><strong>いつでも解約可能</strong> - 管理画面から簡単に手続きできます</p>
           </div>
           <div class="cancel-info__item">
             <span class="cancel-info__icon">✓</span>
@@ -171,9 +170,7 @@ const includes = [
       <p class="cta-section__subtitle">
         いつでも解約OK。リスクなく始められます。
       </p>
-      <a href={siteConfig.links.stripeSubscription} class="btn btn--primary btn--lg" target="_blank" rel="noopener noreferrer">
-        今すぐ始める（月額500円）
-      </a>
+      <p class="cta-section__note">決済システム準備中</p>
     </div>
   </section>
 </BaseLayout>
@@ -319,6 +316,11 @@ const includes = [
     margin-bottom: var(--space-4);
   }
   
+  .pricing-card__cta:disabled {
+    background: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+  
   .pricing-card__secure {
     text-align: center;
     font-size: var(--text-sm);
@@ -432,5 +434,12 @@ const includes = [
     margin: 0;
     font-size: var(--text-sm);
     color: var(--color-text-light);
+  }
+  
+  /* CTA Note */
+  .cta-section__note {
+    margin-top: var(--space-4);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: var(--text-lg);
   }
 </style>

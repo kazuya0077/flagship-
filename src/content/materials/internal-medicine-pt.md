@@ -1,7 +1,7 @@
 ---
 title: "内科系疾患の理学療法テキスト"
 description: "循環器・呼吸器・代謝系疾患の理学療法を学ぶためのおすすめ教材。国試対策と臨床実習に役立つ教材を厳選。"
-category: "internal-medicine"
+category: "internal"
 publishedDate: 2024-02-15
 ---
 

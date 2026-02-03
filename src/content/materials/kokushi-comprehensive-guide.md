@@ -1,7 +1,7 @@
 ---
 title: "国試対策問題集の比較【2024年版】"
 description: "理学療法士国家試験対策の総合問題集を徹底比較。クエスチョン・バンク、過去問でた問など人気教材の特徴を解説。"
-category: "kokushi-comprehensive"
+category: "kokushi"
 publishedDate: 2024-01-15
 ---
 

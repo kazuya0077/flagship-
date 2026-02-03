@@ -1,7 +1,7 @@
 ---
 title: "フィジカルアセスメントの学習教材"
 description: "バイタルサインの測定やリスク管理を学ぶためのおすすめ教材。安全な理学療法実施のための知識を身につける。"
-category: "internal-medicine"
+category: "internal"
 publishedDate: 2024-02-20
 ---
 

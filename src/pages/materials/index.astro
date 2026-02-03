@@ -12,6 +12,12 @@ const categories = [
   { id: 'internal', name: '内科系', icon: '🫀' },
   { id: 'clinical', name: '実習対策', icon: '🏥' },
 ];
+
+// 日付フォーマット関数
+function formatDate(date: Date | undefined): string {
+  if (!date) return '';
+  return new Date(date).toLocaleDateString('ja-JP');
+}
 ---
 
 <BaseLayout 
@@ -38,7 +44,6 @@ const categories = [
             本サイトの一部記事にはアフィリエイトリンクが含まれています。
             リンク経由で商品を購入した場合、私たちは紹介料を受け取ることがあります。
             ただし、これにより読者が追加料金を負担することはありません。
-            また、アフィリエイトの有無が記事の内容や評価に影響を与えることはありません。
           </p>
           <a href="/policy/affiliate-disclosure" class="notice-card__link">詳しく見る →</a>
         </div>
@@ -68,7 +73,7 @@ const categories = [
                 {categories.find(c => c.id === material.data.category)?.name}
               </span>
               <span class="material-card__date">
-                {material.data.publishDate.toLocaleDateString('ja-JP')}
+                {formatDate(material.data.publishedDate)}
               </span>
             </div>
             <h3 class="material-card__title">{material.data.title}</h3>
@@ -287,11 +292,9 @@ const categories = [
     btn.addEventListener('click', () => {
       const category = btn.getAttribute('data-category');
       
-      // ボタンのアクティブ状態
       filterBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       
-      // カードのフィルター
       cards.forEach(card => {
         const cardCategory = card.getAttribute('data-category');
         if (category === 'all' || cardCategory === category) {
