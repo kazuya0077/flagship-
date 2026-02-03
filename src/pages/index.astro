@@ -58,6 +58,8 @@ const stats = [
   { label: "回答時間", value: "24", unit: "h以内" },
   { label: "継続率", value: "98", unit: "%" },
 ];
+
+import { recommendItems } from '../data/items';
 ---
 
 <BaseLayout 
@@ -183,18 +185,14 @@ const stats = [
       <h2 class="section-title scroll-fade-up">推奨教材</h2>
       
       <div class="asp-grid">
-        <AspLink 
-          title="クエスチョン・バンク 2026"
-          description="国試対策の決定版。まずはこれを周回することから全てが始まります。"
-          links={{ amazon: "#", rakuten: "#" }}
-          image="/assets/images/qb-book.jpg"
-        />
-        <AspLink 
-          title="病気がみえる vol.7 脳・神経"
-          description="視覚的に理解できる最強の参考書。解剖生理の理解に必須です。"
-          links={{ amazon: "#", rakuten: "#", yahoo: "#" }}
-          image="/assets/images/byomieru.jpg"
-        />
+        {recommendItems.map(item => (
+          <AspLink 
+            title={item.title}
+            description={item.description}
+            links={item.links}
+            image={item.image}
+          />
+        ))}
       </div>
     </div>
   </section>
