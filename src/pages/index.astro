@@ -1,224 +1,200 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import AspLink from '../components/AspLink.astro';
 
-// SVG Icons
-const Icons = {
-  slack: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10H19V8.5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/><path d="M9.5 14c.83 0 1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5S8 21.33 8 20.5v-5c0-.83.67-1.5 1.5-1.5z"/><path d="M3.5 14H5v1.5c0 .83-.67 1.5-1.5 1.5S2 16.33 2 15.5 2.67 14 3.5 14z"/><path d="M14 14.5c0-.83.67-1.5 1.5-1.5h5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-5c-.83 0-1.5-.67-1.5-1.5z"/><path d="M15.5 19H14v1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/><path d="M10 9.5C10 8.67 9.33 8 8.5 8h-5C2.67 8 2 8.67 2 9.5S2.67 11 3.5 11h5c.83 0 1.5-.67 1.5-1.5z"/><path d="M8.5 5H10V3.5C10 2.67 9.33 2 8.5 2S7 2.67 7 3.5 7.67 5 8.5 5z"/></svg>`,
-  book: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`,
-  users: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-  check: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`
-};
-
+// Bento Grid Items
 const features = [
   {
-    number: "01",
-    title: "質問し放題のSlackコミュニティ",
-    description: "何から勉強すればいいかわからない...そんな時も大丈夫。高得点合格者や先輩がSlackで丁寧に回答します。",
-    icon: Icons.slack,
-    color: "#EF8560"
+    title: "質問し放題",
+    desc: "24時間365日、いつでもSlackで質問可能。高得点合格者が丁寧に回答します。",
+    colSpan: 2,
+    rowSpan: 2,
+    image: "/assets/images/feature-slack.jpg",
+    color: "#E3F2FD", // Imageがない場合の背景
+    icon: "message-circle" 
   },
   {
-    number: "02",
-    title: "高得点合格者が作った学習資産",
-    description: "国試238点取得者が作成した学習テンプレート、要点まとめ、過去問分析シート。「何を」「どう」やるかが明確に。",
-    icon: Icons.book,
-    color: "#F8CB88"
+    title: "学習資産へのアクセス",
+    desc: "合格者のノウハウが詰まった分析シートやまとめノートを自由にDL。",
+    colSpan: 1,
+    rowSpan: 1,
+    image: "/assets/images/feature-resources.jpg",
+    color: "#FFF3E0",
+    icon: "folder"
   },
   {
-    number: "03",
-    title: "仲間と一緒に学ぶ習慣づくり",
-    description: "毎週の学習宣言、進捗共有で自然と学習習慣が身につきます。同じ目標を持つ仲間がいるから、モチベーションが続きます。",
-    icon: Icons.users,
-    color: "#8BCDA7"
+    title: "月額500円",
+    desc: "参考書1冊より安い価格で、最高の学習環境を。",
+    colSpan: 1,
+    rowSpan: 1,
+    image: null,
+    color: "#E8F5E9",
+    icon: "credit-card"
+  },
+  {
+    title: "仲間との繋がり",
+    desc: "同じ目標を持つ仲間と励まし合い、モチベーションを維持。",
+    colSpan: 1,
+    rowSpan: 1,
+    image: "/assets/images/feature-community.jpg",
+    color: "#FCE4EC",
+    icon: "users"
+  },
+  {
+    title: "オンライン勉強会",
+    desc: "月2回の勉強会や相談会で、直接アドバイスを受けられます。",
+    colSpan: 1,
+    rowSpan: 1,
+    image: null,
+    color: "#F3E5F5",
+    icon: "video"
   }
 ];
 
+// Stats
 const stats = [
-  { number: 238, unit: "点", label: "講師の国試得点" },
-  { number: 500, unit: "+", label: "学習資料数" },
-  { number: 24, unit: "h", label: "以内に回答" },
-  { number: 98, unit: "%", label: "継続率" },
+  { label: "講師国試得点", value: "238", unit: "点" },
+  { label: "学習資料数", value: "500", unit: "+" },
+  { label: "回答時間", value: "24", unit: "h以内" },
+  { label: "継続率", value: "98", unit: "%" },
 ];
 ---
 
 <BaseLayout 
-  title="TOP"
-  description="理学療法士国家試験を目指す学生のための学習コミュニティ。月500円で質問し放題、学習テンプレート、仲間との交流が手に入ります。"
+  title="フラッグシップ"
+  description="自走する力を育む、理学療法士国家試験対策の学習コミュニティ。"
 >
-  <!-- オープニングアニメーション -->
+  <!-- Opening Animation -->
   <div class="opening-overlay">
-    <div class="opening-logo">Coming Soon...</div>
+    <div class="opening-logo">
+      <span class="logo-text">Flagship</span>
+      <span class="logo-sub">PT National Exam Community</span>
+    </div>
   </div>
 
-  <!-- ヒーローセクション -->
+  <!-- Hero Section -->
   <section class="hero">
-    <div class="hero__slider">
-      <!-- 実際には適切な画像に差し替えてください -->
-      <div class="hero__slide active" style="background-image: url('https://placehold.co/1920x1080/FFF5F0/EF8560?text=Study+With+Friends');"></div>
-      <div class="hero__slide" style="background-image: url('https://placehold.co/1920x1080/FFF9F0/F8CB88?text=Focus+On+Goals');"></div>
-      <div class="hero__slide" style="background-image: url('https://placehold.co/1920x1080/F0F9F4/8BCDA7?text=Growth+Together');"></div>
+    <div class="hero__bg-slider">
+      <div class="hero__slide active img-placeholder" style="background-image: url('/assets/images/hero-1.jpg');"></div>
+      <div class="hero__slide img-placeholder" style="background-image: url('/assets/images/hero-2.jpg');"></div>
+      <div class="hero__slide img-placeholder" style="background-image: url('/assets/images/hero-3.jpg');"></div>
     </div>
     
     <div class="hero__overlay"></div>
     
-    <div class="container hero__content">
-      <div class="hero__text-wrapper scroll-fade-up">
-        <p class="hero__label">理学療法士国家試験対策コミュニティ</p>
+    <div class="container hero__container">
+      <div class="hero__content scroll-fade-up">
+        <span class="hero__tag">PT国試コミュニティ</span>
         <h1 class="hero__title">
-          一人で悩まない。<br>
-          <span class="text-gradient">仲間</span>と一緒に、<br>
-          未来を掴もう。
+          自走する力を、<br>
+          <span class="text-primary">ここ</span>から。
         </h1>
-        <p class="hero__subtitle">
-          月500円で始める、新しい学習のカタチ。<br>
-          質問・相談・共有が、あなたの合格を支えます。
+        <p class="hero__lead">
+          一人で悩まない。仲間と共に、<br class="sp-only">
+          最短距離で合格を勝ち取る場所。
         </p>
-        
         <div class="hero__actions">
-          <a href="/join" class="btn btn--primary btn--lg">
-            コミュニティに参加する
+          <a href="/join" class="btn btn--primary">
+            今すぐ参加する
           </a>
-          <a href="#about" class="btn btn--secondary btn--lg">
+          <a href="#about" class="btn btn--secondary">
             詳しく見る
           </a>
         </div>
       </div>
     </div>
-    
-    <div class="hero__scroll">
-      <span>SCROLL</span>
-      <div class="scroll-line"></div>
-    </div>
   </section>
 
-  <!-- コンセプト -->
-  <section class="section section--message" id="about">
+  <!-- About Section -->
+  <section id="about" class="section">
     <div class="container container--narrow text-center">
-      <h2 class="section-title scroll-fade-up">
-        その人らしい<span class="highlight">合格</span>を、<br>
-        仲間とともに。
-      </h2>
-      <p class="section-text scroll-fade-up delay-1">
-        理学療法士国家試験は、単なる知識の暗記ではありません。<br>
-        臨床に出た後も役立つ「考え方」や「学び方」を身につける大切な期間です。
-      </p>
-      <p class="section-text scroll-fade-up delay-2">
-        しかし、膨大な範囲とプレッシャーの中で、<br>
-        一人で孤独に戦っている学生が多すぎると感じています。
-      </p>
-      <p class="section-text scroll-fade-up delay-3">
-        私たちは、同じ志を持つ仲間とのつながりと、<br>
-        効果的な学習環境を提供することで、<br>
-        あなたの国試対策を全力でサポートします。
+      <span class="section-label">CONCEPT</span>
+      <h2 class="section-title scroll-fade-up">なぜ、「フラッグシップ」なのか。</h2>
+      <p class="scroll-fade-up delay-1">
+        ただ知識を詰め込むだけの予備校ではありません。<br>
+        「なぜ？」を問い、自ら考え、解決する力を養う。<br>
+        それは、国試合格だけでなく、<br>
+        その先の臨床でも通用する「プロフェッショナルの土台」を作るためです。
       </p>
     </div>
   </section>
 
-  <!-- 特徴セクション -->
-  <section class="section section--features">
+  <!-- Features (PC: Bento Grid / SP: Carousel) -->
+  <section class="section section--bg">
     <div class="container">
-      <div class="section-header text-center scroll-fade-up">
-        <span class="section-label">FEATURES</span>
-        <h2 class="section-title">PT国試コミュニティの<br>3つの特徴</h2>
-      </div>
+      <span class="section-label">FEATURES</span>
+      <h2 class="section-title scroll-fade-up">学習を加速させる環境</h2>
 
-      <div class="features-list">
-        {features.map((feature, index) => (
-          <div class={`feature-item ${index % 2 === 1 ? 'feature-item--reverse' : ''} scroll-fade-up`}>
-            <div class="feature-item__visual">
-              <div class="feature-circle" style={`background-color: ${feature.color}20; color: ${feature.color};`}>
-                <Fragment set:html={feature.icon} />
+      <!-- PC Layout -->
+      <div class="bento-grid pc-only">
+        {features.map(item => (
+          <div class={`bento-item col-span-${item.colSpan} row-span-${item.rowSpan} scroll-fade-up`}>
+            {item.image ? (
+              <div class="bento-visual">
+                <img src={item.image} alt={item.title} loading="lazy" onError="this.style.display='none'; this.parentElement.classList.add('img-placeholder')" />
               </div>
-            </div>
-            <div class="feature-item__content">
-              <span class="feature-number" style={`color: ${feature.color}`}>{feature.number}</span>
-              <h3 class="feature-title">{feature.title}</h3>
-              <p class="feature-desc">{feature.description}</p>
+            ) : (
+              <div class="bento-bg" style={`background-color: ${item.color}`}></div>
+            )}
+            <div class="bento-content">
+              <h3 class="bento-title">{item.title}</h3>
+              <p class="bento-desc">{item.desc}</p>
             </div>
           </div>
         ))}
       </div>
-    </div>
-  </section>
 
-  <!-- 数字セクション -->
-  <section class="section section--stats">
-    <div class="container">
-      <div class="stats-grid">
-        {stats.map((stat, index) => (
-          <div class="stat-item scroll-fade-up" style={`transition-delay: ${index * 0.1}s`}>
-            <div class="stat-value">
-              <span class="count-up" data-target={stat.number}>0</span>
-              <span class="stat-unit">{stat.unit}</span>
+      <!-- SP Layout -->
+      <div class="carousel-stack sp-only">
+        {features.map(item => (
+          <div class="carousel-item scroll-fade-up">
+            <div class="carousel-visual img-placeholder">
+              {item.image && <img src={item.image} alt={item.title} loading="lazy" onError="this.style.display='none'" />}
             </div>
-            <p class="stat-label">{stat.label}</p>
+            <h3 class="bento-title mt-4">{item.title}</h3>
+            <p class="bento-desc">{item.desc}</p>
           </div>
         ))}
+        <!-- Swipe Hint -->
+        <div class="carousel-hint">Swipe &rarr;</div>
       </div>
+
     </div>
   </section>
 
-  <!-- おすすめ教材（ASP） -->
+  <!-- Stats -->
   <section class="section">
     <div class="container">
-      <div class="section-header text-center scroll-fade-up">
-        <span class="section-label">RECOMMEND</span>
-        <h2 class="section-title">おすすめ参考書・グッズ</h2>
-        <p>国試対策に必須のアイテムをピックアップしました。</p>
-      </div>
-
-      <div class="asp-grid">
-        <div class="asp-link-box scroll-fade-up">
-          <div class="asp-info">
-            <h4>クエスチョン・バンク 2025</h4>
-            <p>過去問解説の決定版。まずはこれを周回するのが合格への近道です。</p>
+      <div class="stats-grid">
+        {stats.map(stat => (
+          <div class="stat-item scroll-fade-up">
+            <div class="stat-value">{stat.value}<span class="stat-unit">{stat.unit}</span></div>
+            <div class="stat-label">{stat.label}</div>
           </div>
-          <div class="asp-btn-group">
-            <a href="#" class="asp-btn asp-btn--amazon">Amazon</a>
-            <a href="#" class="asp-btn asp-btn--rakuten">Rakuten</a>
-            <a href="#" class="asp-btn asp-btn--yahoo">Yahoo!</a>
-          </div>
-        </div>
-        
-        <div class="asp-link-box scroll-fade-up delay-1">
-          <div class="asp-info">
-            <h4>病気がみえる vol.7 脳・神経</h4>
-            <p>イラストが豊富でイメージしやすい。解剖・生理の理解に必須の一冊。</p>
-          </div>
-          <div class="asp-btn-group">
-            <a href="#" class="asp-btn asp-btn--amazon">Amazon</a>
-            <a href="#" class="asp-btn asp-btn--rakuten">Rakuten</a>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section class="section section--cream">
-    <div class="container container--narrow">
-      <div class="section-header text-center scroll-fade-up">
-        <span class="section-label">FAQ</span>
-        <h2 class="section-title">よくある質問</h2>
-      </div>
+  <!-- ASP Links -->
+  <section class="section section--bg">
+    <div class="container">
+      <span class="section-label">RECOMMEND</span>
+      <h2 class="section-title scroll-fade-up">推奨教材</h2>
       
-      <dl class="faq-list">
-        <div class="faq-item scroll-fade-up">
-          <dt class="faq-question">専門学校生でも参加できますか？</dt>
-          <dd class="faq-answer">はい、もちろんです。大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。</dd>
-        </div>
-        <div class="faq-item scroll-fade-up">
-          <dt class="faq-question">いつでも解約できますか？</dt>
-          <dd class="faq-answer">はい、いつでも解約可能です。マイページからいつでもお手続きいただけます。違約金もありません。</dd>
-        </div>
-        <div class="faq-item scroll-fade-up">
-          <dt class="faq-question">Slackを使ったことがなくても大丈夫ですか？</dt>
-          <dd class="faq-answer">はい、参加後に使い方のガイドをお送りしますのでご安心ください。スマホアプリでLINEのように簡単に使えます。</dd>
-        </div>
-      </dl>
-      
-      <div class="text-center mt-8">
-        <a href="/faq" class="btn btn--secondary">もっと見る</a>
+      <div class="asp-grid">
+        <AspLink 
+          title="クエスチョン・バンク 2026"
+          description="国試対策の決定版。まずはこれを周回することから全てが始まります。"
+          links={{ amazon: "#", rakuten: "#" }}
+          image="/assets/images/qb-book.jpg"
+        />
+        <AspLink 
+          title="病気がみえる vol.7 脳・神経"
+          description="視覚的に理解できる最強の参考書。解剖生理の理解に必須です。"
+          links={{ amazon: "#", rakuten: "#", yahoo: "#" }}
+          image="/assets/images/byomieru.jpg"
+        />
       </div>
     </div>
   </section>
@@ -226,48 +202,135 @@ const stats = [
   <!-- CTA -->
   <section class="cta-section">
     <div class="container text-center">
-      <h2 class="cta-title scroll-fade-up">国試対策を、<br>一緒に始めませんか？</h2>
+      <h2 class="cta-title scroll-fade-up">未来を変える準備は<br>できましたか？</h2>
       <p class="cta-text scroll-fade-up delay-1">
-        月額500円・いつでも解約OK。<br>
-        まずは1ヶ月、コミュニティの雰囲気を体験してみてください。
+        月額500円。リスクはありません。<br>
+        あなたの挑戦を、全力でサポートします。
       </p>
-      <a href="/join" class="btn btn--primary btn--lg scroll-fade-up delay-2">
-        今すぐ申し込む
+      <a href="/join" class="btn btn--secondary btn--lg scroll-fade-up delay-2">
+        メンバーシップに参加する
       </a>
     </div>
   </section>
+
 </BaseLayout>
 
 <style>
-  /* SVG Fragment */
-  :global(svg) {
-    width: 100%;
-    height: 100%;
+  /* Hero */
+  .hero {
+    height: 90vh;
+    min-height: 600px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  .hero__bg-slider, .hero__slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+  
+  .hero__slide {
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+  
+  .hero__slide.active { opacity: 1; }
+  
+  .hero__overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.2) 100%);
+    z-index: 1;
+  }
+  
+  .hero__container {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .hero__content { max-width: 600px; }
+  
+  .hero__tag {
+    display: inline-block;
+    padding: 6px 12px;
+    background: var(--text);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    border-radius: 4px;
+  }
+  
+  .hero__title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  
+  .hero__lead {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+  }
+  
+  .hero__actions {
+    display: flex;
+    gap: 16px;
+  }
+  
+  /* Stats */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+  
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .stat-unit { font-size: 1rem; color: var(--text); margin-left: 4px; }
+  .stat-label { font-size: 0.9rem; color: var(--text-light); }
+  
+  @media(min-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    .hero__title { font-size: 4.5rem; }
   }
 
-  /* オープニング */
+  /* CTA */
+  .cta-section {
+    background: var(--primary);
+    color: white;
+    padding: 120px 0;
+  }
+  
+  .cta-title { color: white; margin-bottom: 24px; }
+  .cta-text { color: rgba(255,255,255,0.9); margin-bottom: 40px; }
+  
+  /* Opening & Others */
   .opening-overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: white;
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeOut 0.5s ease-out 1.5s forwards;
+    animation: fadeOut 0.5s ease 1.5s forwards;
     pointer-events: none;
   }
   
-  .opening-logo {
-    font-size: 2rem;
-    font-weight: bold;
-    color: var(--primary);
-    opacity: 0;
-    animation: fadeInOut 1.5s ease-in-out forwards;
-  }
+  .opening-logo { font-size: 2rem; font-weight: 700; color: var(--primary); opacity: 0; animation: fadeInOut 1.5s ease forwards; text-align: center; }
+  .logo-sub { display: block; font-size: 0.8rem; color: var(--text-light); font-weight: 400; margin-top: 8px; }
   
   @keyframes fadeInOut {
     0% { opacity: 0; transform: translateY(10px); }
@@ -275,409 +338,61 @@ const stats = [
     80% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(-10px); }
   }
-  
-  @keyframes fadeOut {
-    to { opacity: 0; visibility: hidden; }
-  }
+  @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-  /* ヒーローセクション */
-  .hero {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-    display: flex;
-    align-items: center;
+  .text-primary { color: var(--primary); }
+  .mt-4 { margin-top: 1rem; }
+  .section--bg { background: var(--bg-panel); }
+  
+  /* SP Carousel */
+  .carousel-visual {
+    height: 180px;
+    background: #EEE;
+    border-radius: var(--radius-md);
+    margin-bottom: 16px;
     overflow: hidden;
   }
   
-  .hero__slider {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
+  .carousel-visual img { width: 100%; height: 100%; object-fit: cover; }
   
-  .hero__slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 2s ease;
-    transform: scale(1.05); /* ズーム効果 */
-    animation: zoomOut 10s infinite alternate;
-  }
-  
-  .hero__slide.active {
-    opacity: 1;
-  }
-  
-  @keyframes zoomOut {
-    from { transform: scale(1.1); }
-    to { transform: scale(1); }
-  }
-  
-  .hero__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.4) 100%);
-    z-index: 1;
-  }
-  
-  .hero__content {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .hero__text-wrapper {
-    max-width: 600px;
-  }
-  
-  .hero__label {
-    display: inline-block;
-    padding: 6px 16px;
-    background: rgba(239, 133, 96, 0.1);
-    color: var(--primary);
-    border-radius: var(--radius-full);
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-bottom: var(--space-4);
-    backdrop-filter: blur(4px);
-  }
-  
-  .hero__title {
-    font-size: 2.5rem;
-    line-height: 1.3;
-    margin-bottom: var(--space-6);
-  }
-  
-  @media (min-width: 768px) {
-    .hero__title {
-      font-size: 3.5rem;
-    }
-  }
-  
-  .text-gradient {
-    background: var(--gradient-hero);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .hero__subtitle {
-    font-size: 1rem;
-    margin-bottom: var(--space-8);
-    color: var(--text-light);
-  }
-  
-  .hero__actions {
-    display: flex;
-    gap: var(--space-4);
-  }
-  
-  .hero__scroll {
-    position: absolute;
-    bottom: 32px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-    text-align: center;
-    color: var(--primary);
-  }
-  
-  .hero__scroll span {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    display: block;
-    margin-bottom: 8px;
-  }
-  
-  .scroll-line {
-    width: 1px;
-    height: 48px;
-    background: rgba(239, 133, 96, 0.3);
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .scroll-line::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    background: var(--primary);
-    animation: scrollDown 1.5s infinite;
-  }
-  
-  @keyframes scrollDown {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(200%); }
-  }
-
-  /* セクション共通 */
-  .section {
-    padding: var(--space-20) 0;
-  }
-  
-  .section--cream {
-    background: var(--bg-cream);
-  }
-  
-  .section-label {
-    display: block;
-    font-size: 0.875rem;
-    color: var(--primary);
-    letter-spacing: 0.1em;
-    margin-bottom: var(--space-2);
-    font-weight: 700;
-  }
-  
-  .section-title {
-    font-size: 2rem;
-    margin-bottom: var(--space-12);
-  }
-  
-  .highlight {
-    color: var(--primary);
-  }
-
-  /* 特徴セクション */
-  .features-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-12);
+  .asp-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
     max-width: 900px;
     margin: 0 auto;
   }
   
-  .feature-item {
-    display: flex;
-    align-items: center;
-    gap: var(--space-8);
-  }
-  
-  .feature-item--reverse {
-    flex-direction: row-reverse;
-  }
-  
-  .feature-item__visual {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .feature-circle {
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 48px;
-    position: relative;
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  .feature-item__content {
-    flex: 1.5;
-  }
-  
-  .feature-number {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1;
-    font-family: 'Inter', sans-serif;
-    opacity: 0.2;
-    display: block;
-    margin-bottom: -20px;
-  }
-  
-  .feature-title {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-4);
-  }
-  
-  @media (max-width: 768px) {
-    .feature-item {
-      flex-direction: column;
-      text-align: center;
-    }
-    
-    .feature-item--reverse {
-      flex-direction: column;
-    }
-    
-    .feature-item__content {
-      text-align: center;
-    }
-  }
-  
-  /* 数字セクション */
-  .section--stats {
-    background: var(--bg-warm);
-    padding: var(--space-16) 0;
-  }
-  
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-8);
-  }
-  
   @media (min-width: 768px) {
-    .stats-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
+    .asp-grid { grid-template-columns: 1fr 1fr; }
   }
   
-  .stat-item {
-    text-align: center;
-  }
-  
-  .stat-value {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--primary);
-    line-height: 1;
-    margin-bottom: var(--space-2);
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .stat-unit {
-    font-size: 1.5rem;
-  }
-  
-  .stat-label {
-    font-size: 0.875rem;
-    color: var(--text-light);
-  }
-  
-  /* ASP */
-  .asp-grid {
-    display: grid;
-    gap: var(--space-6);
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  /* FAQ */
-  .faq-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-6);
-  }
-  
-  .faq-item {
-    background: #fff;
-    padding: var(--space-6);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-  }
-  
-  .faq-question {
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: var(--space-2);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-  }
-  
-  .faq-question::before {
-    content: 'Q.';
-    font-size: 1.2em;
-  }
-  
-  .faq-answer {
-    padding-left: 2em;
-    margin: 0;
-  }
-  
-  /* CTA */
-  .cta-section {
-    background: var(--gradient-hero);
-    padding: var(--space-20) 0;
-    color: #fff;
-  }
-  
-  .cta-title {
-    font-size: 2.5rem;
-    color: #fff;
-    margin-bottom: var(--space-6);
-  }
-  
-  .cta-text {
-    font-size: 1.125rem;
-    color: rgba(255,255,255,0.9);
-    margin-bottom: var(--space-8);
-  }
-  
-  .btn--lg {
-    padding: 20px 48px;
-    font-size: 1.125rem;
+  .bento-bg {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.5;
   }
 </style>
 
 <script>
-  // スライドショー
+  // Simple Slider
   const slides = document.querySelectorAll('.hero__slide');
-  let currentSlide = 0;
-  
-  setInterval(() => {
-    slides[currentSlide].classList.remove('active');
-    currentSlide = (currentSlide + 1) % slides.length;
-    slides[currentSlide].classList.add('active');
-  }, 5000);
-  
-  // スクロールアニメーション
-  const observer = new IntersectionObserver((entries) => {
+  let current = 0;
+  if(slides.length > 0) {
+    setInterval(() => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }, 5000);
+  }
+
+  // Scroll Observer
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if(entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1 });
   
   document.querySelectorAll('.scroll-fade-up').forEach(el => observer.observe(el));
-  
-  // カウントアップ
-  const countObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !entry.target.classList.contains('counted')) {
-        entry.target.classList.add('counted');
-        const target = parseInt(entry.target.getAttribute('data-target') || '0');
-        let count = 0;
-        const duration = 2000;
-        const interval = 20;
-        const step = target / (duration / interval);
-        
-        const timer = setInterval(() => {
-          count += step;
-          if (count >= target) {
-            entry.target.textContent = target.toString();
-            clearInterval(timer);
-          } else {
-            entry.target.textContent = Math.floor(count).toString();
-          }
-        }, interval);
-      }
-    });
-  }, { threshold: 0.5 });
-  
-  document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
 </script>

@@ -1,223 +1,132 @@
 ---
-import { siteConfig } from '../config/site';
+import { footerLinks, siteConfig } from '../config/site';
 
-const footerLinks = {
-  main: [
-    { label: 'ホーム', href: '/' },
-    { label: '入会する', href: '/join' },
-    { label: '学習資産', href: '/resources' },
-    { label: '教材比較', href: '/materials' },
-  ],
-  support: [
-    { label: 'FAQ', href: '/faq' },
-    { label: '運営者紹介', href: '/about' },
-    { label: '学校関係者の方へ', href: '/for-schools' },
-  ],
-  legal: [
-    { label: '利用規約', href: '/terms' },
-    { label: 'プライバシーポリシー', href: '/privacy' },
-    { label: '広告について', href: '/policy/affiliate-disclosure' },
-  ],
-};
+const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
-  <div class="footer__container">
-    <div class="footer__main">
+  <div class="container">
+    <div class="footer__grid">
+      <!-- Brand -->
       <div class="footer__brand">
-        <a href="/" class="footer__logo">
-          <span class="footer__logo-icon">🎓</span>
-          <span class="footer__logo-text">{siteConfig.name}</span>
-        </a>
+        <span class="footer__logo">{siteConfig.name}</span>
         <p class="footer__tagline">{siteConfig.tagline}</p>
-        <p class="footer__description">
-          理学療法士を目指す学生のための、<br />
-          オンライン学習コミュニティです。
-        </p>
+        <div class="footer__socials">
+          <!-- X (Twitter) Icon -->
+          <a href={`https://twitter.com/${siteConfig.twitterHandle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
       </div>
-      
+
+      <!-- Links -->
       <div class="footer__links">
-        <div class="footer__links-group">
-          <h4 class="footer__links-title">メニュー</h4>
-          <ul class="footer__links-list">
-            {footerLinks.main.map((link) => (
-              <li>
-                <a href={link.href} class="footer__link">{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        <div class="footer__links-group">
-          <h4 class="footer__links-title">サポート</h4>
-          <ul class="footer__links-list">
-            {footerLinks.support.map((link) => (
-              <li>
-                <a href={link.href} class="footer__link">{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
-        
-        <div class="footer__links-group">
-          <h4 class="footer__links-title">法的情報</h4>
-          <ul class="footer__links-list">
-            {footerLinks.legal.map((link) => (
-              <li>
-                <a href={link.href} class="footer__link">{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <h4 class="footer__head">Contents</h4>
+        <ul>
+          {footerLinks.main.map(link => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div class="footer__links">
+        <h4 class="footer__head">Legal</h4>
+        <ul>
+          {footerLinks.legal.map(link => (
+            <li><a href={link.href}>{link.label}</a></li>
+          ))}
+        </ul>
       </div>
     </div>
-    
+
     <div class="footer__bottom">
-      <p class="footer__copyright">
-        &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
-      </p>
-      <p class="footer__contact">
-        お問い合わせ: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
-      </p>
+      <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: var(--color-text);
-    color: rgba(255, 255, 255, 0.8);
-    padding: var(--space-16) 0 var(--space-8);
+    background: var(--bg-white);
+    padding: 80px 0 40px;
+    border-top: 1px solid var(--border);
   }
   
-  .footer__container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--space-6);
-  }
-  
-  .footer__main {
+  .footer__grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-12);
-    margin-bottom: var(--space-12);
-  }
-  
-  .footer__brand {
-    max-width: 300px;
-  }
-  
-  .footer__logo {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    text-decoration: none;
-    color: white;
-    margin-bottom: var(--space-4);
-  }
-  
-  .footer__logo-icon {
-    font-size: 1.5rem;
-  }
-  
-  .footer__logo-text {
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    color: white;
-  }
-  
-  .footer__tagline {
-    color: var(--color-primary-light);
-    font-weight: var(--font-semibold);
-    font-size: var(--text-sm);
-    margin-bottom: var(--space-3);
-  }
-  
-  .footer__description {
-    font-size: var(--text-sm);
-    line-height: 1.8;
-    opacity: 0.8;
-  }
-  
-  .footer__links {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8);
-  }
-  
-  .footer__links-title {
-    color: white;
-    font-size: var(--text-sm);
-    font-weight: var(--font-semibold);
-    margin-bottom: var(--space-4);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .footer__links-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-  }
-  
-  .footer__link {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    font-size: var(--text-sm);
-    transition: color var(--transition-fast);
-  }
-  
-  .footer__link:hover {
-    color: var(--color-primary-light);
-  }
-  
-  .footer__bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: var(--space-6);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    text-align: center;
-  }
-  
-  .footer__copyright,
-  .footer__contact {
-    font-size: var(--text-sm);
-    margin: 0;
-    opacity: 0.7;
-  }
-  
-  .footer__contact a {
-    color: var(--color-primary-light);
-    text-decoration: none;
-  }
-  
-  .footer__contact a:hover {
-    text-decoration: underline;
+    gap: 40px;
+    margin-bottom: 60px;
   }
   
   @media (min-width: 768px) {
-    .footer__main {
-      grid-template-columns: 1fr 2fr;
-    }
-    
-    .footer__bottom {
-      flex-direction: row;
-      justify-content: space-between;
-      text-align: left;
+    .footer__grid {
+      grid-template-columns: 2fr 1fr 1fr;
     }
   }
   
-  @media (max-width: 640px) {
-    .footer__links {
-      grid-template-columns: 1fr 1fr;
-    }
-    
-    .footer__links-group:last-child {
-      grid-column: span 2;
-    }
+  .footer__logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--text);
+    display: block;
+    margin-bottom: 16px;
+  }
+  
+  .footer__tagline {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 24px;
+  }
+  
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-panel);
+    color: var(--text);
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .social-link:hover {
+    background: var(--text);
+    color: white;
+  }
+  
+  .footer__head {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+  
+  .footer__links ul {
+    list-style: none;
+  }
+  
+  .footer__links li {
+    margin-bottom: 12px;
+  }
+  
+  .footer__links a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+  }
+  
+  .footer__links a:hover {
+    color: var(--primary);
+  }
+  
+  .footer__bottom {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-muted);
   }
 </style>

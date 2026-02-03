@@ -1,7 +1,7 @@
 // サイト全体の設定
 export const siteConfig = {
-  name: "PT国試コミュニティ",
-  tagline: "一人で悩まない、仲間と一緒に国試を乗り越えよう",
+  name: "フラッグシップ",
+  tagline: "自走する力を育む、理学療法士国試対策の旗艦",
   description: "理学療法士国家試験対策の学習コミュニティ。勉強の型、質問できる環境、学習資産をまとめて提供。月500円で学習を継続可能に。",
   url: "https://flagship-2i0.pages.dev",
   email: "info@pt-community.example.com",
@@ -15,7 +15,7 @@ export const siteConfig = {
   },
 
   // ソーシャル
-  twitterHandle: "@pt_community",
+  twitterHandle: "@flagship_pt",
 
   // 価格
   monthlyPrice: 500,

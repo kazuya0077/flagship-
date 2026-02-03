@@ -1,0 +1,155 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  links: {
+    amazon?: string;
+    rakuten?: string;
+    yahoo?: string;
+  };
+  image?: string;
+}
+
+const { title, description, links, image } = Astro.props;
+---
+
+<div class="asp-card scroll-fade-up">
+  {image ? (
+    <div class="asp-card__image">
+      <img src={image} alt={title} loading="lazy" />
+    </div>
+  ) : (
+    <div class="asp-card__image placeholder">
+      <span>NO IMAGE</span>
+    </div>
+  )}
+  
+  <div class="asp-card__content">
+    <h3 class="asp-card__title">{title}</h3>
+    {description && <p class="asp-card__desc">{description}</p>}
+    
+    <div class="asp-btn-group">
+      {links.amazon && (
+        <a href={links.amazon} target="_blank" rel="noopener noreferrer sponsored" class="asp-btn asp-btn--amazon">
+          Amazon
+        </a>
+      )}
+      {links.rakuten && (
+        <a href={links.rakuten} target="_blank" rel="noopener noreferrer sponsored" class="asp-btn asp-btn--rakuten">
+          楽天
+        </a>
+      )}
+      {links.yahoo && (
+        <a href={links.yahoo} target="_blank" rel="noopener noreferrer sponsored" class="asp-btn asp-btn--yahoo">
+          Yahoo!
+        </a>
+      )}
+    </div>
+  </div>
+</div>
+
+<style>
+  .asp-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .asp-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .asp-card__image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: var(--bg-cream);
+  }
+  
+  .asp-card__image.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  
+  .asp-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .asp-card__content {
+    padding: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .asp-card__title {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin-bottom: var(--space-2);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .asp-card__desc {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-bottom: var(--space-4);
+    line-height: 1.6;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex: 1;
+  }
+  
+  .asp-btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+  
+  .asp-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 6px 0;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  
+  .asp-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .asp-btn--amazon { background: #FF9900; }
+  .asp-btn--rakuten { background: #BF0000; }
+  .asp-btn--yahoo { background: #FF0033; }
+  
+  @media (min-width: 600px) {
+    .asp-card {
+      flex-direction: row;
+    }
+    .asp-card__image {
+      width: 160px;
+      aspect-ratio: 1/1;
+    }
+  }
+</style>
