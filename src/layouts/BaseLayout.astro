@@ -1,7 +1,6 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import StickyHeader from '../components/StickyHeader.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -14,12 +13,12 @@ interface Props {
 const { 
   title, 
   description = "理学療法士国家試験対策の学習コミュニティ。勉強の型、質問できる環境、学習資産をまとめて提供。月500円で学習を継続可能に。",
-  ogImage = "/images/og-default.png",
+  ogImage = "/og-default.png",
   noIndex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const fullTitle = title === "ホーム" ? "PT国試コミュニティ | 理学療法士国家試験の学習コミュニティ" : `${title} | PT国試コミュニティ`;
+const fullTitle = title === "TOP" ? "PT国試コミュニティ | 理学療法士国家試験の学習コミュニティ" : `${title} | PT国試コミュニティ`;
 ---
 
 <!DOCTYPE html>
@@ -53,11 +52,10 @@ const fullTitle = title === "ホーム" ? "PT国試コミュニティ | 理学�
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
   <Header />
-  <StickyHeader />
   
   <main>
     <slot />
@@ -66,22 +64,6 @@ const fullTitle = title === "ホーム" ? "PT国試コミュニティ | 理学�
   <Footer />
   
   <script>
-    // スクロール時に追従ヘッダーを表示
-    const stickyHeader = document.querySelector('.sticky-header') as HTMLElement;
-    let lastScrollY = 0;
-    
-    window.addEventListener('scroll', () => {
-      const currentScrollY = window.scrollY;
-      
-      if (currentScrollY > 400) {
-        stickyHeader?.classList.add('visible');
-      } else {
-        stickyHeader?.classList.remove('visible');
-      }
-      
-      lastScrollY = currentScrollY;
-    });
-    
     // スムーズスクロール
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
@@ -101,20 +83,3 @@ const fullTitle = title === "ホーム" ? "PT国試コミュニティ | 理学�
   </script>
 </body>
 </html>
-
-<style is:global>
-  /* Sticky Header Styles */
-  .sticky-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: var(--z-sticky);
-    transform: translateY(-100%);
-    transition: transform var(--transition-normal);
-  }
-  
-  .sticky-header.visible {
-    transform: translateY(0);
-  }
-</style>

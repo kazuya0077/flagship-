@@ -1,52 +1,83 @@
 ---
-import { footerLinks, siteConfig } from '../config/site';
+import { siteConfig } from '../config/site';
+
+const footerLinks = {
+  main: [
+    { label: 'ホーム', href: '/' },
+    { label: '入会する', href: '/join' },
+    { label: '学習資産', href: '/resources' },
+    { label: '教材比較', href: '/materials' },
+  ],
+  support: [
+    { label: 'FAQ', href: '/faq' },
+    { label: '運営者紹介', href: '/about' },
+    { label: '学校関係者の方へ', href: '/for-schools' },
+  ],
+  legal: [
+    { label: '利用規約', href: '/terms' },
+    { label: 'プライバシーポリシー', href: '/privacy' },
+    { label: '広告について', href: '/policy/affiliate-disclosure' },
+  ],
+};
 ---
 
 <footer class="footer">
-  <div class="container">
-    <div class="footer__grid">
+  <div class="footer__container">
+    <div class="footer__main">
       <div class="footer__brand">
         <a href="/" class="footer__logo">
-          <span class="footer__logo-icon">📚</span>
-          <span>PT国試コミュニティ</span>
+          <span class="footer__logo-icon">🎓</span>
+          <span class="footer__logo-text">{siteConfig.name}</span>
         </a>
+        <p class="footer__tagline">{siteConfig.tagline}</p>
         <p class="footer__description">
-          理学療法士を目指す学生のための学習コミュニティ。
-          国試対策から実習・就職まで一貫してサポートします。
-        </p>
-        <p class="footer__contact">
-          お問い合わせ: <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+          理学療法士を目指す学生のための、<br />
+          オンライン学習コミュニティです。
         </p>
       </div>
       
       <div class="footer__links">
-        <h4 class="footer__heading">サービス</h4>
-        <ul class="footer__list">
-          {footerLinks.main.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-        </ul>
+        <div class="footer__links-group">
+          <h4 class="footer__links-title">メニュー</h4>
+          <ul class="footer__links-list">
+            {footerLinks.main.map((link) => (
+              <li>
+                <a href={link.href} class="footer__link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div class="footer__links-group">
+          <h4 class="footer__links-title">サポート</h4>
+          <ul class="footer__links-list">
+            {footerLinks.support.map((link) => (
+              <li>
+                <a href={link.href} class="footer__link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        
+        <div class="footer__links-group">
+          <h4 class="footer__links-title">法的情報</h4>
+          <ul class="footer__links-list">
+            {footerLinks.legal.map((link) => (
+              <li>
+                <a href={link.href} class="footer__link">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-      
-      <div class="footer__links">
-        <h4 class="footer__heading">法的事項</h4>
-        <ul class="footer__list">
-          {footerLinks.legal.map((link) => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-        </ul>
-      </div>
-    </div>
-    
-    <div class="footer__disclaimer">
-      <p>
-        ※当サイトは合格を保証するものではありません。学習成果は個人の努力と状況により異なります。
-      </p>
     </div>
     
     <div class="footer__bottom">
       <p class="footer__copyright">
-        &copy; {new Date().getFullYear()} PT国試コミュニティ. All rights reserved.
+        &copy; {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+      </p>
+      <p class="footer__contact">
+        お問い合わせ: <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
       </p>
     </div>
   </div>
@@ -55,110 +86,138 @@ import { footerLinks, siteConfig } from '../config/site';
 <style>
   .footer {
     background: var(--color-text);
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
     padding: var(--space-16) 0 var(--space-8);
   }
   
-  .footer__grid {
+  .footer__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+  }
+  
+  .footer__main {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--space-12);
     margin-bottom: var(--space-12);
+  }
+  
+  .footer__brand {
+    max-width: 300px;
   }
   
   .footer__logo {
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-weight: 700;
-    font-size: var(--text-xl);
-    color: white;
     text-decoration: none;
+    color: white;
     margin-bottom: var(--space-4);
-  }
-  
-  .footer__logo:hover {
-    color: var(--color-primary-light);
   }
   
   .footer__logo-icon {
-    font-size: var(--text-2xl);
+    font-size: 1.5rem;
+  }
+  
+  .footer__logo-text {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: white;
+  }
+  
+  .footer__tagline {
+    color: var(--color-primary-light);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-3);
   }
   
   .footer__description {
-    color: var(--color-text-muted);
     font-size: var(--text-sm);
     line-height: 1.8;
-    margin-bottom: var(--space-4);
+    opacity: 0.8;
   }
   
-  .footer__contact {
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
+  .footer__links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8);
   }
   
-  .footer__contact a {
-    color: var(--color-primary-light);
-  }
-  
-  .footer__heading {
+  .footer__links-title {
     color: white;
-    font-size: var(--text-base);
-    font-weight: 600;
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
     margin-bottom: var(--space-4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
   
-  .footer__list {
+  .footer__links-list {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
   }
   
-  .footer__list li {
-    margin-bottom: var(--space-2);
-  }
-  
-  .footer__list a {
-    color: var(--color-text-muted);
+  .footer__link {
+    color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     font-size: var(--text-sm);
     transition: color var(--transition-fast);
   }
   
-  .footer__list a:hover {
-    color: white;
-  }
-  
-  .footer__disclaimer {
-    padding: var(--space-6);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-8);
-  }
-  
-  .footer__disclaimer p {
-    color: var(--color-text-muted);
-    font-size: var(--text-sm);
-    text-align: center;
-    margin: 0;
+  .footer__link:hover {
+    color: var(--color-primary-light);
   }
   
   .footer__bottom {
-    padding-top: var(--space-8);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
     text-align: center;
   }
   
-  .footer__copyright {
-    color: var(--color-text-muted);
+  .footer__copyright,
+  .footer__contact {
     font-size: var(--text-sm);
     margin: 0;
+    opacity: 0.7;
   }
   
-  @media (max-width: 768px) {
-    .footer__grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-8);
+  .footer__contact a {
+    color: var(--color-primary-light);
+    text-decoration: none;
+  }
+  
+  .footer__contact a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (min-width: 768px) {
+    .footer__main {
+      grid-template-columns: 1fr 2fr;
+    }
+    
+    .footer__bottom {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .footer__links {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .footer__links-group:last-child {
+      grid-column: span 2;
     }
   }
 </style>

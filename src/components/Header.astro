@@ -1,59 +1,80 @@
 ---
-import { navLinks, siteConfig } from '../config/site';
+import { siteConfig } from '../config/site';
+
+const navItems = [
+  { label: 'ホーム', href: '/' },
+  { label: '入会する', href: '/join' },
+  { label: '学習資産', href: '/resources' },
+  { label: '教材比較', href: '/materials' },
+  { label: 'FAQ', href: '/faq' },
+  { label: '運営者紹介', href: '/about' },
+];
 ---
 
-<header class="header">
-  <div class="container header__container">
+<header class="header" id="header">
+  <div class="header__container">
     <a href="/" class="header__logo">
-      <span class="header__logo-icon">📚</span>
-      <span class="header__logo-text">PT国試コミュニティ</span>
+      <span class="header__logo-icon">🎓</span>
+      <span class="header__logo-text">{siteConfig.name}</span>
     </a>
     
-    <nav class="header__nav">
+    <nav class="header__nav" id="nav">
       <ul class="header__nav-list">
-        {navLinks.map((link) => (
+        {navItems.map((item) => (
           <li class="header__nav-item">
-            <a href={link.href} class="header__nav-link">{link.label}</a>
+            <a href={item.href} class="header__nav-link">{item.label}</a>
           </li>
         ))}
       </ul>
     </nav>
     
-    <a href="/join" class="btn btn--primary btn--sm header__cta">
-      入会する
+    <a href="/join" class="header__cta btn btn--primary btn--sm">
+      今すぐ始める
     </a>
     
-    <button class="header__menu-btn" aria-label="メニューを開く">
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="header__menu-btn" id="menuBtn" aria-label="メニューを開く">
+      <span class="header__menu-icon"></span>
     </button>
   </div>
-  
-  <!-- Mobile Nav -->
-  <nav class="header__mobile-nav">
-    <ul class="header__mobile-nav-list">
-      {navLinks.map((link) => (
-        <li>
-          <a href={link.href} class="header__mobile-nav-link">{link.label}</a>
+</header>
+
+<!-- モバイルメニュー -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu__content">
+    <ul class="mobile-menu__list">
+      {navItems.map((item) => (
+        <li class="mobile-menu__item">
+          <a href={item.href} class="mobile-menu__link">{item.label}</a>
         </li>
       ))}
-      <li>
-        <a href="/join" class="btn btn--primary">入会する</a>
-      </li>
     </ul>
-  </nav>
-</header>
+    <a href="/join" class="btn btn--primary btn--lg mobile-menu__cta">
+      今すぐ始める
+    </a>
+  </div>
+</div>
 
 <style>
   .header {
-    position: relative;
-    padding: var(--space-4) 0;
-    background: white;
-    border-bottom: 1px solid var(--color-border);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255, 251, 235, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border-light);
+    transition: all var(--transition-normal);
+  }
+  
+  .header.scrolled {
+    box-shadow: var(--shadow-md);
   }
   
   .header__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--space-4) var(--space-6);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -64,148 +85,204 @@ import { navLinks, siteConfig } from '../config/site';
     display: flex;
     align-items: center;
     gap: var(--space-2);
-    font-weight: 700;
-    font-size: var(--text-lg);
-    color: var(--color-text);
     text-decoration: none;
-  }
-  
-  .header__logo:hover {
-    color: var(--color-primary);
+    color: var(--color-text);
   }
   
   .header__logo-icon {
-    font-size: var(--text-2xl);
+    font-size: 1.5rem;
+  }
+  
+  .header__logo-text {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text);
   }
   
   .header__nav {
-    flex: 1;
+    display: none;
   }
   
   .header__nav-list {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-6);
+    gap: var(--space-1);
     list-style: none;
     margin: 0;
     padding: 0;
   }
   
   .header__nav-link {
-    color: var(--color-text-light);
+    display: block;
+    padding: var(--space-2) var(--space-3);
     font-size: var(--text-sm);
-    font-weight: 500;
+    font-weight: var(--font-medium);
+    color: var(--color-text-light);
     text-decoration: none;
-    padding: var(--space-2) 0;
-    position: relative;
-    transition: color var(--transition-fast);
-  }
-  
-  .header__nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: var(--color-primary);
-    transform: scaleX(0);
-    transition: transform var(--transition-fast);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
   }
   
   .header__nav-link:hover {
     color: var(--color-primary);
-  }
-  
-  .header__nav-link:hover::after {
-    transform: scaleX(1);
+    background: var(--color-primary-bg);
   }
   
   .header__cta {
-    flex-shrink: 0;
+    display: none;
   }
   
   .header__menu-btn {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    padding: var(--space-2);
-    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
     border: none;
     cursor: pointer;
+    position: relative;
   }
   
-  .header__menu-btn span {
-    display: block;
+  .header__menu-icon,
+  .header__menu-icon::before,
+  .header__menu-icon::after {
     width: 24px;
     height: 2px;
     background: var(--color-text);
-    transition: transform var(--transition-fast);
+    border-radius: 2px;
+    transition: all var(--transition-fast);
   }
   
-  .header__mobile-nav {
-    display: none;
+  .header__menu-icon::before,
+  .header__menu-icon::after {
+    content: '';
     position: absolute;
-    top: 100%;
+    left: 10px;
+  }
+  
+  .header__menu-icon::before {
+    top: 15px;
+  }
+  
+  .header__menu-icon::after {
+    top: 27px;
+  }
+  
+  .header__menu-btn.active .header__menu-icon {
+    background: transparent;
+  }
+  
+  .header__menu-btn.active .header__menu-icon::before {
+    top: 21px;
+    transform: rotate(45deg);
+  }
+  
+  .header__menu-btn.active .header__menu-icon::after {
+    top: 21px;
+    transform: rotate(-45deg);
+  }
+  
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
     left: 0;
     right: 0;
-    background: white;
-    border-top: 1px solid var(--color-border);
-    box-shadow: var(--shadow-lg);
-    padding: var(--space-6);
+    bottom: 0;
+    z-index: 999;
+    background: var(--color-bg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-normal);
   }
   
-  .header__mobile-nav.open {
-    display: block;
+  .mobile-menu.active {
+    opacity: 1;
+    visibility: visible;
   }
   
-  .header__mobile-nav-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .mobile-menu__content {
+    padding: calc(80px + var(--space-8)) var(--space-6) var(--space-8);
     display: flex;
     flex-direction: column;
-    gap: var(--space-4);
+    gap: var(--space-6);
+    height: 100%;
   }
   
-  .header__mobile-nav-link {
+  .mobile-menu__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .mobile-menu__item {
+    border-bottom: 1px solid var(--color-border-light);
+  }
+  
+  .mobile-menu__link {
     display: block;
-    padding: var(--space-3) 0;
+    padding: var(--space-5) 0;
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
     color: var(--color-text);
-    font-weight: 500;
     text-decoration: none;
-    border-bottom: 1px solid var(--color-border);
+    transition: color var(--transition-fast);
   }
   
-  @media (max-width: 1024px) {
+  .mobile-menu__link:hover {
+    color: var(--color-primary);
+  }
+  
+  .mobile-menu__cta {
+    margin-top: auto;
+  }
+  
+  @media (min-width: 1024px) {
     .header__nav {
-      display: none;
+      display: block;
     }
     
     .header__cta {
-      display: none;
+      display: inline-flex;
     }
     
     .header__menu-btn {
-      display: flex;
+      display: none;
+    }
+    
+    .mobile-menu {
+      display: none;
     }
   }
 </style>
 
 <script>
-  const menuBtn = document.querySelector('.header__menu-btn');
-  const mobileNav = document.querySelector('.header__mobile-nav');
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const header = document.getElementById('header');
   
+  // ハンバーガーメニュー
   menuBtn?.addEventListener('click', () => {
-    mobileNav?.classList.toggle('open');
+    menuBtn.classList.toggle('active');
+    mobileMenu?.classList.toggle('active');
+    document.body.style.overflow = mobileMenu?.classList.contains('active') ? 'hidden' : '';
   });
   
-  // リンククリックで閉じる
-  const mobileLinks = document.querySelectorAll('.header__mobile-nav a');
-  mobileLinks.forEach(link => {
+  // スクロール時のヘッダースタイル
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  });
+  
+  // モバイルメニュー内リンククリックで閉じる
+  document.querySelectorAll('.mobile-menu__link').forEach(link => {
     link.addEventListener('click', () => {
-      mobileNav?.classList.remove('open');
+      menuBtn?.classList.remove('active');
+      mobileMenu?.classList.remove('active');
+      document.body.style.overflow = '';
     });
   });
 </script>

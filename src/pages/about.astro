@@ -1,294 +1,336 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../config/site';
+
+const members = [
+  {
+    initial: "A",
+    name: "講師A",
+    role: "国試238点取得",
+    bio: "国家試験で238点を取得。コンサル企業での勤務経験を経て、現在は地域医療に従事しています。戦略的な学習計画の立て方、効率的な暗記方法、モチベーション管理など、単なる知識だけでなく「勉強の仕方」を伝えていきます。",
+    specialties: ["学習計画", "キャリア相談", "モチベーション管理"]
+  },
+  {
+    initial: "B",
+    name: "講師B",
+    role: "国試226点取得",
+    bio: "国家試験226点取得。産業保健分野での勤務経験があり、学会運営にも携わっています。臨床実習での立ち振る舞い、レポートの書き方、バイザーとのコミュニケーションなど、実践的なスキルをアドバイスします。",
+    specialties: ["実習対策", "産業保健", "レポート作成"]
+  }
+];
+
+const values = [
+  {
+    icon: "🤝",
+    title: "仲間と一緒に",
+    description: "一人で悩まないこと。質問し、助け合い、励まし合える環境を大切にしています。"
+  },
+  {
+    icon: "📈",
+    title: "効率的に学ぶ",
+    description: "がむしゃらに勉強するのではなく、戦略的かつ効率的に学習を進める方法を提供します。"
+  },
+  {
+    icon: "🎯",
+    title: "目標達成をサポート",
+    description: "国家試験合格という共通の目標に向けて、一人ひとりに寄り添ったサポートを行います。"
+  }
+];
 ---
 
 <BaseLayout 
-  title="運営者について" 
-  description="PT国試コミュニティの運営メンバー紹介。国家試験高得点取得者や多様な実務経験を持つ理学療法士が運営しています。"
+  title="運営者紹介"
+  description="PT国試コミュニティの運営メンバー紹介。国試高得点取得者があなたの学習をサポートします。"
 >
-  <section class="about-hero">
-    <div class="container text-center">
-      <h1 class="about-hero__title">運営者について</h1>
-      <p class="about-hero__subtitle">
-        現役理学療法士が、あなたの学習をサポートします
-      </p>
+  <!-- ヒーロー -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero__label">About Us</p>
+      <h1 class="page-hero__title">運営者紹介</h1>
+      <p class="page-hero__subtitle">国試高得点取得者があなたの学習をサポートします</p>
     </div>
   </section>
-  
+
+  <!-- ミッション -->
   <section class="section">
     <div class="container container--narrow">
-      
-      <!-- ミッション -->
-      <div class="mission-section">
-        <h2>私たちのミッション</h2>
-        <p class="mission-text">
-          理学療法士を目指すすべての学生が、<strong>正しい学び方</strong>を身につけ、
-          <strong>孤独にならず</strong>に国試対策を進められる環境を作ること。
+      <div class="mission-block">
+        <h2 class="mission-block__title">私たちのミッション</h2>
+        <p class="mission-block__text">
+          「一人で悩まない、仲間と一緒に国試を乗り越えよう」
         </p>
-        <p class="mission-text">
-          そして、国試合格だけでなく、<strong>実習・就職まで見据えた長期的な成長</strong>を支援すること。
-          これが私たちのミッションです。
+        <p class="mission-block__description">
+          理学療法士国家試験は、長い勉強期間と膨大な範囲が特徴です。一人で取り組むと不安やモチベーションの低下に悩まされがち。私たちは、同じ目標を持つ仲間とのつながりと、効率的な学習環境を提供することで、あなたの国試合格をサポートします。
         </p>
       </div>
-      
-      <!-- 運営メンバー -->
-      <div class="team-section">
-        <h2>運営メンバー</h2>
-        
-        <div class="member-card">
-          <div class="member-card__avatar">👨‍⚕️</div>
-          <div class="member-card__content">
-            <h3 class="member-card__name">運営講師A</h3>
-            <div class="member-card__badge">国試238点取得</div>
-            <p class="member-card__bio">
-              理学療法士として臨床経験を積んだ後、コンサル企業での勤務を経験。
-              現在は地域医療に携わりながら、学生支援活動を行っています。
-              国試対策では、効率的な学習法と計画の立て方を重点的にサポートします。
-            </p>
-            <div class="member-card__expertise">
-              <span class="badge">国試対策</span>
-              <span class="badge">学習計画</span>
-              <span class="badge">キャリア相談</span>
+    </div>
+  </section>
+
+  <!-- 大切にしていること -->
+  <section class="section section--warm">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Values</p>
+        <h2 class="section__title">大切にしていること</h2>
+      </div>
+      <div class="grid grid--3">
+        {values.map((value) => (
+          <div class="card value-card">
+            <span class="value-card__icon">{value.icon}</span>
+            <h3 class="value-card__title">{value.title}</h3>
+            <p class="value-card__description">{value.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- メンバー紹介 -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Team</p>
+        <h2 class="section__title">運営メンバー</h2>
+      </div>
+      <div class="members-grid">
+        {members.map((member) => (
+          <div class="member-card">
+            <div class="member-card__header">
+              <div class="member-card__avatar">{member.initial}</div>
+              <div>
+                <h3 class="member-card__name">{member.name}</h3>
+                <p class="member-card__role">{member.role}</p>
+              </div>
+            </div>
+            <p class="member-card__bio">{member.bio}</p>
+            <div class="member-card__tags">
+              {member.specialties.map((specialty) => (
+                <span class="badge badge--outline">{specialty}</span>
+              ))}
             </div>
           </div>
-        </div>
-        
-        <div class="member-card">
-          <div class="member-card__avatar">👩‍⚕️</div>
-          <div class="member-card__content">
-            <h3 class="member-card__name">運営講師B</h3>
-            <div class="member-card__badge">国試226点取得</div>
-            <p class="member-card__bio">
-              産業保健分野での経験を持ち、学会運営にも携わっています。
-              実習前の準備や、臨床現場で必要なスキルについてアドバイスします。
-              学生の皆さんが安心して国試に臨めるよう、全力でサポートします。
-            </p>
-            <div class="member-card__expertise">
-              <span class="badge">実習対策</span>
-              <span class="badge">産業保健</span>
-              <span class="badge">学会活動</span>
-            </div>
-          </div>
-        </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 運営方針 -->
+  <section class="section">
+    <div class="container container--narrow">
+      <div class="section__header">
+        <p class="section__label">Policy</p>
+        <h2 class="section__title">運営方針</h2>
       </div>
       
-      <!-- 運営方針 -->
-      <div class="policy-section">
-        <h2>運営方針</h2>
-        
-        <div class="policy-list">
-          <div class="policy-item">
-            <div class="policy-item__icon">🎯</div>
-            <div>
-              <h4>事実ベースの情報提供</h4>
-              <p>
-                誇大な表現や根拠のない情報は発信しません。
-                運営者の実体験と、エビデンスに基づいた情報のみをお届けします。
-              </p>
-            </div>
-          </div>
-          
-          <div class="policy-item">
-            <div class="policy-item__icon">🤝</div>
-            <div>
-              <h4>学生目線のサポート</h4>
-              <p>
-                私たちも学生時代を経験してきました。
-                上から目線ではなく、一緒に学ぶ仲間としてサポートします。
-              </p>
-            </div>
-          </div>
-          
-          <div class="policy-item">
-            <div class="policy-item__icon">📈</div>
-            <div>
-              <h4>継続的な改善</h4>
-              <p>
-                会員の皆さんの声を聞きながら、コンテンツやサービスを
-                常に改善していきます。
-              </p>
-            </div>
-          </div>
-          
-          <div class="policy-item">
-            <div class="policy-item__icon">⚠️</div>
-            <div>
-              <h4>合格保証はしません</h4>
-              <p>
-                努力を代わりにすることはできません。
-                私たちにできるのは、効果的な学習方法と継続しやすい環境を提供することです。
-              </p>
-            </div>
-          </div>
+      <div class="policy-list">
+        <div class="policy-item">
+          <h3 class="policy-item__title">🎓 教育的価値の追求</h3>
+          <p class="policy-item__text">商業的な利益よりも、学生の学習成果を最優先に考えます。過度な勧誘や誇大広告は行いません。</p>
+        </div>
+        <div class="policy-item">
+          <h3 class="policy-item__title">🔒 プライバシーの保護</h3>
+          <p class="policy-item__text">メンバーの個人情報は厳重に管理し、第三者への提供は行いません。</p>
+        </div>
+        <div class="policy-item">
+          <h3 class="policy-item__title">💬 オープンなコミュニケーション</h3>
+          <p class="policy-item__text">質問や要望はいつでも受け付けています。メンバーの声を聴き、サービス改善に活かします。</p>
+        </div>
+        <div class="policy-item">
+          <h3 class="policy-item__title">⚖️ 公平な情報提供</h3>
+          <p class="policy-item__text">教材比較などの情報は、客観的な視点で提供します。アフィリエイトの有無で評価を変えることはありません。</p>
         </div>
       </div>
-      
-      <!-- お問い合わせ -->
-      <div class="contact-box">
-        <h3>お問い合わせ</h3>
-        <p>
-          ご質問やご相談がありましたら、お気軽にお問い合わせください。
-        </p>
-        <p>
-          <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
-        </p>
-      </div>
-      
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container cta-section__content">
+      <h2 class="cta-section__title">一緒に国試を乗り越えよう</h2>
+      <p class="cta-section__subtitle">
+        月額500円で、仲間・学習資産・サポートが手に入ります
+      </p>
+      <a href="/join" class="btn btn--primary btn--lg">
+        入会する
+      </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .about-hero {
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  /* Page Hero */
+  .page-hero {
+    background: var(--gradient-hero);
     color: white;
+    padding: calc(80px + var(--space-16)) 0 var(--space-16);
+    text-align: center;
   }
   
-  .about-hero__title {
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--space-4);
+    backdrop-filter: blur(4px);
+  }
+  
+  .page-hero__title {
     font-size: var(--text-4xl);
     color: white;
     margin-bottom: var(--space-4);
   }
   
-  .about-hero__subtitle {
+  .page-hero__subtitle {
     font-size: var(--text-xl);
     opacity: 0.9;
   }
   
+  /* Container narrow */
   .container--narrow {
-    max-width: 800px;
+    max-width: 700px;
   }
   
-  /* Mission */
-  .mission-section {
+  /* Mission Block */
+  .mission-block {
     text-align: center;
-    margin-bottom: var(--space-16);
-  }
-  
-  .mission-section h2 {
-    margin-bottom: var(--space-6);
-  }
-  
-  .mission-text {
-    font-size: var(--text-lg);
-    line-height: 2;
-    color: var(--color-text-light);
-  }
-  
-  /* Team */
-  .team-section {
-    margin-bottom: var(--space-16);
-  }
-  
-  .team-section h2 {
-    text-align: center;
-    margin-bottom: var(--space-8);
-  }
-  
-  .member-card {
-    display: flex;
-    gap: var(--space-6);
-    background: var(--color-bg-alt);
-    border-radius: var(--radius-lg);
     padding: var(--space-8);
-    margin-bottom: var(--space-6);
+    background: var(--color-bg-white);
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .mission-block__title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: var(--space-4);
+  }
+  
+  .mission-block__text {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text);
+    margin-bottom: var(--space-4);
+  }
+  
+  .mission-block__description {
+    color: var(--color-text-light);
+    line-height: 1.9;
+  }
+  
+  /* Value Card */
+  .value-card {
+    text-align: center;
+    padding: var(--space-8);
+  }
+  
+  .value-card__icon {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: var(--space-4);
+  }
+  
+  .value-card__title {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+  
+  .value-card__description {
+    color: var(--color-text-light);
+    font-size: var(--text-base);
+  }
+  
+  /* Members Grid */
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-8);
+  }
+  
+  @media (max-width: 768px) {
+    .members-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Member Card */
+  .member-card {
+    background: var(--color-bg-white);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-8);
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .member-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
   }
   
   .member-card__avatar {
-    font-size: 4rem;
+    width: 72px;
+    height: 72px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
     flex-shrink: 0;
   }
   
   .member-card__name {
     font-size: var(--text-xl);
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-1);
   }
   
-  .member-card__badge {
-    display: inline-block;
-    background: var(--color-primary);
-    color: white;
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-full);
+  .member-card__role {
     font-size: var(--text-sm);
-    font-weight: 500;
-    margin-bottom: var(--space-4);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
   }
   
   .member-card__bio {
     color: var(--color-text-light);
-    margin-bottom: var(--space-4);
+    line-height: 1.8;
+    flex: 1;
   }
   
-  .member-card__expertise {
+  .member-card__tags {
     display: flex;
     gap: var(--space-2);
     flex-wrap: wrap;
   }
   
   /* Policy */
-  .policy-section {
-    margin-bottom: var(--space-16);
-  }
-  
-  .policy-section h2 {
-    text-align: center;
-    margin-bottom: var(--space-8);
-  }
-  
   .policy-list {
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: var(--space-4);
   }
   
   .policy-item {
-    display: flex;
-    gap: var(--space-4);
-    padding: var(--space-5);
-    background: white;
-    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    background: var(--color-bg-white);
+    border-radius: var(--radius-xl);
     box-shadow: var(--shadow-sm);
   }
   
-  .policy-item__icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
-  }
-  
-  .policy-item h4 {
-    font-size: var(--text-base);
+  .policy-item__title {
+    font-size: var(--text-lg);
     margin-bottom: var(--space-2);
   }
   
-  .policy-item p {
-    font-size: var(--text-sm);
+  .policy-item__text {
     color: var(--color-text-light);
     margin: 0;
-  }
-  
-  /* Contact */
-  .contact-box {
-    background: var(--color-primary-bg);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    text-align: center;
-  }
-  
-  .contact-box h3 {
-    margin-bottom: var(--space-4);
-  }
-  
-  .contact-box p {
-    margin-bottom: var(--space-2);
-  }
-  
-  @media (max-width: 640px) {
-    .member-card {
-      flex-direction: column;
-      text-align: center;
-    }
   }
 </style>

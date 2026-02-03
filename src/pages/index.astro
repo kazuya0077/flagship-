@@ -1,292 +1,335 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FeatureCard from '../components/FeatureCard.astro';
-import FaqItem from '../components/FaqItem.astro';
-import Testimonial from '../components/Testimonial.astro';
 import { siteConfig } from '../config/site';
 
-const features = [
+// 悩みデータ
+const worries = [
+  { icon: "😰", text: "何から勉強すればいいかわからない..." },
+  { icon: "😔", text: "一人で勉強してると不安になる..." },
+  { icon: "🤯", text: "過去問の解説を読んでも理解できない..." },
+  { icon: "😫", text: "モチベーションが続かない..." },
+];
+
+// 解決策
+const solutions = [
   {
-    icon: "📝",
-    title: "学習の型が手に入る",
-    description: "計画の立て方、優先順位のつけ方、効率的な周回方法など、国試対策の「型」を身につけられます。がむしゃらに頑張るのではなく、戦略的に学習を進める力が身につきます。"
-  },
-  {
+    number: 1,
     icon: "💬",
-    title: "質問とフィードバック",
-    description: "Slackで疑問点を気軽に質問。運営メンバーや仲間からフィードバックを受けられます。一人で悩まず、すぐに解決できる環境があなたの学習を加速させます。"
+    title: "質問し放題のSlackコミュニティ",
+    text: "わからないことはすぐに質問。高得点合格者や先輩が丁寧に回答します。一人で悩む時間を減らして、効率的に学習を進められます。"
   },
   {
-    icon: "🎯",
-    title: "実習と就職まで見据える",
-    description: "国試対策だけでなく、実習準備やキャリアの視点も提供。合格後も見据えた学びで、長期的な成長をサポートします。"
+    number: 2,
+    icon: "📚",
+    title: "高得点合格者が作った学習資産",
+    text: "国試238点取得者が作成した学習テンプレート、要点まとめ、過去問分析シートなど。効率的な学習をサポートする資料が使い放題。"
+  },
+  {
+    number: 3,
+    icon: "👥",
+    title: "仲間と一緒に学ぶ習慣づくり",
+    text: "毎週の学習宣言、進捗共有で自然と学習習慣が身につきます。同じ目標を持つ仲間がいるから、モチベーションが続きます。"
   }
 ];
 
+// 数字で見る
 const stats = [
-  { number: "週3回", label: "学習チェック・Q&A対応" },
-  { number: "月2回", label: "ミニ講義・イベント開催" },
-  { number: "50+", label: "学習テンプレート・資料" },
-  { number: "24時間", label: "Slackで仲間とつながる" }
+  { number: "238", unit: "点", label: "講師の国試最高得点" },
+  { number: "500", unit: "+", label: "学習テンプレート数" },
+  { number: "24", unit: "h", label: "以内に質問回答" },
+  { number: "500", unit: "円", label: "月額料金" },
 ];
 
+// 月500円で得られるもの
 const benefits = [
-  { icon: "📋", title: "学習テンプレート", desc: "計画表、進捗管理、暗記カードなど実践的なテンプレート" },
-  { icon: "📚", title: "要点まとめ資料", desc: "科目別・テーマ別の要点をまとめた学習資料" },
-  { icon: "❓", title: "質問・回答環境", desc: "Slackでいつでも質問、定期的な回答会" },
-  { icon: "🔗", title: "学習資産ハブ", desc: "全ての学習資産に一つの場所からアクセス" },
-  { icon: "📅", title: "定期イベント", desc: "ミニ講義、勉強会、情報交換会" },
-  { icon: "👥", title: "仲間とのつながり", desc: "同じ目標を持つ仲間と励まし合える環境" }
-];
-
-const faqs = [
   {
-    question: "月額500円で本当に大丈夫ですか？",
-    answer: "はい。運営コストを最小限に抑え、できるだけ多くの学生に学習環境を届けたいという想いから、この価格設定にしています。コンテンツの質は価格に関係なく、全力で提供しています。"
+    icon: "💬",
+    title: "Slackコミュニティへのアクセス",
+    description: "質問チャンネル、雑談チャンネル、学習報告チャンネルなど目的別のチャンネルで交流。先輩や仲間といつでもつながれます。",
+    detail: "質問への回答は原則24時間以内"
   },
   {
-    question: "いつでも解約できますか？",
+    icon: "📋",
+    title: "学習テンプレート・資料",
+    description: "年間計画表、週間スケジュール、科目別要点まとめ、暗記カード、過去問分析シートなど。すべてダウンロードして使えます。",
+    detail: "随時新しい資料を追加"
+  },
+  {
+    icon: "🎓",
+    title: "月2回のミニ講義・イベント",
+    description: "オンラインで参加できる勉強会やQ&Aセッション。アーカイブも残るので、自分のペースで視聴できます。",
+    detail: "参加は任意・強制なし"
+  },
+  {
+    icon: "🏥",
+    title: "実習対策サポート",
+    description: "臨床実習に向けた準備、レポートの書き方、バイザーとのコミュニケーションなど、実習の不安も相談できます。",
+    detail: "実習経験者がアドバイス"
+  }
+];
+
+// メンバー
+const members = [
+  {
+    initial: "A",
+    name: "講師A",
+    role: "国試238点取得",
+    bio: "コンサル企業勤務を経て現在は地域医療に従事。国試対策では戦略的な学習計画の立て方を指導。",
+    tags: ["学習計画", "キャリア相談"]
+  },
+  {
+    initial: "B",
+    name: "講師B",
+    role: "国試226点取得",
+    bio: "産業保健分野での経験を持ち、学会運営にも携わる。実習対策や臨床現場で必要なスキルをアドバイス。",
+    tags: ["実習対策", "産業保健"]
+  }
+];
+
+// 利用者の声
+const testimonials = [
+  {
+    quote: "一人で勉強していた時は不安ばかりでしたが、同じ目標を持つ仲間ができて心強いです。質問してすぐ回答がもらえるのも助かります。",
+    name: "M.Sさん",
+    role: "専門学校3年生"
+  },
+  {
+    quote: "学習テンプレートのおかげで、何をすればいいか迷わなくなりました。計画通りに進められて自信がつきました。",
+    name: "K.Tさん",
+    role: "大学4年生"
+  },
+  {
+    quote: "月500円でこれだけのサポートが受けられるのは本当にありがたい。予備校に通う余裕がない自分には最適でした。",
+    name: "Y.Nさん",
+    role: "専門学校4年生"
+  }
+];
+
+// FAQ
+const faqs = [
+  {
+    question: "専門学校生でも参加できますか？",
+    answer: "はい、もちろんです。大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。"
+  },
+  {
+    question: "途中から入会しても大丈夫ですか？",
+    answer: "はい、いつでも入会可能です。過去のアーカイブや資料にもアクセスできますので、途中からでも問題ありません。"
+  },
+  {
+    question: "解約はいつでもできますか？",
     answer: "はい、いつでも解約可能です。Stripeの管理画面から簡単に手続きできます。解約後も当月末までサービスをご利用いただけます。"
   },
   {
-    question: "専門学校生でも参加できますか？",
-    answer: "もちろんです！大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。学年も問いません。"
-  },
-  {
-    question: "Slackを使ったことがないのですが...",
-    answer: "ご安心ください。参加後に使い方ガイドをお送りします。LINEのようなチャットツールで、すぐに慣れていただけます。"
-  },
-  {
     question: "合格は保証されますか？",
-    answer: "申し訳ありませんが、合格を保証することはできません。学習成果は個人の努力と状況により異なります。ただし、効果的な学習方法と継続しやすい環境を提供することで、みなさんの目標達成を全力でサポートします。"
-  }
-];
-
-const testimonials = [
-  {
-    text: "一人で勉強していた時は不安でいっぱいでしたが、同じ目標を持つ仲間ができて心強いです。質問もすぐに答えてもらえるので、つまずいても前に進めます。",
-    author: "Aさん",
-    role: "専門学校3年生",
-    initial: "A"
-  },
-  {
-    text: "学習計画の立て方がわからなかったのですが、テンプレートのおかげで迷わず進められるようになりました。おすすめの教材情報も助かっています。",
-    author: "Bさん",
-    role: "大学4年生",
-    initial: "B"
-  },
-  {
-    text: "月500円でこのサポートは本当にありがたいです。毎週の振り返りで、自分の進捗を客観的に見られるようになりました。",
-    author: "Cさん",
-    role: "専門学校2年生",
-    initial: "C"
+    answer: "申し訳ありませんが、合格を保証することはできません。学習成果は個人の努力により異なります。私たちは効果的な学習環境を提供しますが、最終的な結果は皆さんの努力次第です。"
   }
 ];
 ---
 
-<BaseLayout title="ホーム">
-  <!-- Hero Section -->
+<BaseLayout 
+  title="TOP"
+  description="理学療法士国家試験を目指す学生のための学習コミュニティ。月500円で質問し放題、学習テンプレート、仲間との交流が手に入ります。"
+>
+  <!-- ヒーローセクション -->
   <section class="hero">
-    <div class="container hero__container">
-      <div class="hero__content">
-        <h1 class="hero__title">
-          国試に受かるだけで<br class="hero__br" />終わらせない。
-          <span class="hero__title-accent">実習と就職までつなぐ</span><br />
-          学習コミュニティ
-        </h1>
-        <p class="hero__subtitle">
-          勉強の型、質問できる環境、学習資産をまとめて提供。<br />
-          月500円で学習を継続可能に。
-        </p>
-        <div class="hero__cta">
-          <a href="/join" class="btn btn--primary btn--lg">今すぐ入会する</a>
-          <a href="#features" class="btn btn--secondary btn--lg">詳しく見る</a>
-        </div>
-      </div>
-      <div class="hero__visual">
-        <div class="hero__image-placeholder">
-          <span>📚</span>
-          <p>理学療法士を目指す仲間と学ぶ</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Message Section -->
-  <section id="message" class="section section--alt">
-    <div class="container">
-      <span class="section__label">Message</span>
-      <h2 class="section__title">なぜこのコミュニティを作るのか</h2>
-      <div class="message-content">
-        <p>
-          理学療法士を目指す学生の多くが、<strong>孤独</strong>と<strong>不安</strong>を抱えています。
-        </p>
-        <p>
-          「このやり方で合っているのかな」「みんなどれくらい勉強してるんだろう」「質問したいけど誰に聞けばいいかわからない」
-        </p>
-        <p>
-          私たちは、そんな悩みを解消するためにこのコミュニティを立ち上げました。
-        </p>
-        <p>
-          <strong>正しい学び方を知り、仲間と高め合い、自信を持って国試に臨める。</strong><br />
-          そして、<strong>実習や就職まで見据えた長期的な成長</strong>を支える場所。
-        </p>
-        <p>
-          それがPT国試コミュニティの目指す姿です。
-        </p>
-      </div>
-    </div>
-  </section>
-  
-  <!-- Features Section -->
-  <section id="features" class="section">
-    <div class="container">
-      <span class="section__label">Features</span>
-      <h2 class="section__title">3つの特徴</h2>
-      <p class="section__subtitle">国試対策を「孤独な戦い」から「仲間との学び」へ</p>
-      
-      <div class="grid grid--3">
-        {features.map((feature) => (
-          <FeatureCard 
-            icon={feature.icon} 
-            title={feature.title} 
-            description={feature.description} 
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-  
-  <!-- Numbers Section -->
-  <section id="numbers" class="section section--primary">
-    <div class="container">
-      <span class="section__label" style="color: rgba(255,255,255,0.7);">Numbers</span>
-      <h2 class="section__title" style="color: white;">数字で見るコミュニティ</h2>
-      
-      <div class="grid grid--4 stats-grid">
-        {stats.map((stat) => (
-          <div class="stat stat--light">
-            <div class="stat__number">{stat.number}</div>
-            <div class="stat__label">{stat.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-  
-  <!-- Benefits Section -->
-  <section id="benefits" class="section section--alt">
-    <div class="container">
-      <span class="section__label">Benefits</span>
-      <h2 class="section__title">月500円で受け取れるもの</h2>
-      <p class="section__subtitle">学習に必要なすべてが揃っています</p>
-      
-      <div class="grid grid--3 benefits-grid">
-        {benefits.map((benefit) => (
-          <div class="benefit-card">
-            <span class="benefit-card__icon">{benefit.icon}</span>
-            <h3 class="benefit-card__title">{benefit.title}</h3>
-            <p class="benefit-card__desc">{benefit.desc}</p>
-          </div>
-        ))}
-      </div>
-      
-      <div class="price-box">
-        <div class="price-box__price">
-          <span class="price-box__currency">月額</span>
-          <span class="price-box__amount">500</span>
-          <span class="price-box__unit">円</span>
-        </div>
-        <p class="price-box__note">※税込み・いつでも解約可能</p>
-        <a href="/join" class="btn btn--primary btn--lg">今すぐ入会する</a>
-      </div>
-    </div>
-  </section>
-  
-  <!-- About Us Section -->
-  <section id="about-us" class="section">
-    <div class="container">
-      <span class="section__label">About Us</span>
-      <h2 class="section__title">運営者の強み</h2>
-      <p class="section__subtitle">信頼できる運営が、あなたの学習をサポートします</p>
-      
-      <div class="about-grid">
-        <div class="about-card">
-          <div class="about-card__icon">🏆</div>
-          <h3 class="about-card__title">国家試験高得点の運営講師</h3>
-          <p class="about-card__text">
-            運営講師は国家試験で<strong>238点、226点</strong>を取得した理学療法士です。
-            実際の経験に基づいた、効果的な学習方法をお伝えします。
-          </p>
-        </div>
-        
-        <div class="about-card">
-          <div class="about-card__icon">💼</div>
-          <h3 class="about-card__title">多様な実務経験</h3>
-          <p class="about-card__text">
-            若手理学療法士として、<strong>コンサル企業、産業保健、地域医療、学会運営</strong>など、
-            幅広い分野で活躍するメンバーが運営しています。国試後のキャリアについても相談可能です。
-          </p>
-        </div>
-      </div>
-      
-      <p class="about-note">
-        ※点数は運営者個人の実績です。同様の結果を保証するものではありません。
+    <div class="hero__bg"></div>
+    <div class="container hero__content">
+      <p class="hero__label">PT学生のための学習コミュニティ</p>
+      <h1 class="hero__title">
+        一人で悩まない。<br />
+        仲間と一緒に、<br />
+        <span class="hero__title-accent">国試を乗り越えよう。</span>
+      </h1>
+      <p class="hero__subtitle">
+        月500円で始める、理学療法士学生のための学習環境。<br />
+        質問し放題・学習資産・仲間とのつながりがここにあります。
       </p>
+      <div class="hero__cta">
+        <a href="/join" class="btn btn--primary btn--lg">
+          今すぐ始める
+          <span class="hero__arrow">→</span>
+        </a>
+        <p class="hero__price">月額 <strong>500円</strong>（税込）</p>
+      </div>
     </div>
   </section>
-  
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="section section--alt">
+
+  <!-- 悩み共感セクション -->
+  <section class="section section--alt">
     <div class="container">
-      <span class="section__label">Voice</span>
-      <h2 class="section__title">参加者の声</h2>
-      
-      <div class="grid grid--3">
-        {testimonials.map((item) => (
-          <Testimonial
-            text={item.text}
-            author={item.author}
-            role={item.role}
-            initial={item.initial}
-          />
+      <div class="section__header">
+        <p class="section__label">Your Worries</p>
+        <h2 class="section__title">こんな悩み、ありませんか？</h2>
+      </div>
+      <div class="grid grid--2 grid--4-desktop">
+        {worries.map((worry) => (
+          <div class="worry-card">
+            <span class="worry-card__icon">{worry.icon}</span>
+            <p class="worry-card__text">{worry.text}</p>
+          </div>
         ))}
       </div>
-      
-      <p class="testimonials-note">※個人の感想です。効果には個人差があります。</p>
     </div>
   </section>
-  
-  <!-- FAQ Section -->
-  <section id="faq" class="section">
-    <div class="container container--narrow">
-      <span class="section__label">FAQ</span>
-      <h2 class="section__title">よくある質問</h2>
+
+  <!-- 解決策セクション -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Solutions</p>
+        <h2 class="section__title">PT国試コミュニティなら、<br />その悩みを解決できます</h2>
+      </div>
+      <div class="grid grid--3">
+        {solutions.map((solution) => (
+          <div class="solution-card">
+            <span class="solution-card__number">{solution.number}</span>
+            <span class="solution-card__icon">{solution.icon}</span>
+            <h3 class="solution-card__title">{solution.title}</h3>
+            <p class="solution-card__text">{solution.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 数字で見るセクション -->
+  <section class="section section--warm">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Numbers</p>
+        <h2 class="section__title">数字で見るPT国試コミュニティ</h2>
+      </div>
+      <div class="stats-grid">
+        {stats.map((stat) => (
+          <div class="stat-item">
+            <p class="stat-item__number">
+              {stat.number}<span class="stat-item__unit">{stat.unit}</span>
+            </p>
+            <p class="stat-item__label">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 月500円で得られるもの -->
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Benefits</p>
+        <h2 class="section__title">月500円で得られるもの</h2>
+        <p class="section__subtitle">すべての機能が月額500円で使い放題。追加料金は一切ありません。</p>
+      </div>
       
+      {benefits.map((benefit, index) => (
+        <div class="feature-block">
+          <div class="feature-block__content">
+            <div class="feature-block__icon">{benefit.icon}</div>
+            <h3 class="feature-block__title">{benefit.title}</h3>
+            <p class="feature-block__text">{benefit.description}</p>
+            <p class="badge badge--outline">{benefit.detail}</p>
+          </div>
+          <div class="feature-block__visual">
+            <div class="feature-placeholder" style={`background: linear-gradient(135deg, hsl(${25 + index * 15}, 90%, 95%) 0%, hsl(${35 + index * 15}, 85%, 90%) 100%);`}>
+              <span class="feature-placeholder__icon">{benefit.icon}</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- 講師紹介 -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Team</p>
+        <h2 class="section__title">運営メンバー</h2>
+        <p class="section__subtitle">国試高得点取得者があなたの学習をサポートします</p>
+      </div>
+      <div class="grid grid--2">
+        {members.map((member) => (
+          <div class="card member-card">
+            <div class="member-card__header">
+              <div class="member-card__avatar">{member.initial}</div>
+              <div>
+                <h3 class="member-card__name">{member.name}</h3>
+                <p class="member-card__role">{member.role}</p>
+              </div>
+            </div>
+            <p class="member-card__bio">{member.bio}</p>
+            <div class="member-card__tags">
+              {member.tags.map((tag) => (
+                <span class="badge badge--outline">{tag}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 利用者の声 -->
+  <section class="section section--warm">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__label">Voices</p>
+        <h2 class="section__title">利用者の声</h2>
+      </div>
+      <div class="grid grid--3">
+        {testimonials.map((testimonial) => (
+          <div class="testimonial-card">
+            <p class="testimonial-card__quote">{testimonial.quote}</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">{testimonial.name[0]}</div>
+              <div>
+                <p class="testimonial-card__name">{testimonial.name}</p>
+                <p class="testimonial-card__role">{testimonial.role}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="section__header">
+        <p class="section__label">FAQ</p>
+        <h2 class="section__title">よくある質問</h2>
+      </div>
       <div class="faq-list">
         {faqs.map((faq) => (
-          <FaqItem question={faq.question} answer={faq.answer} />
+          <div class="faq-item">
+            <div class="faq-item__question" onclick="this.nextElementSibling.classList.toggle('active'); this.querySelector('.faq-icon').textContent = this.nextElementSibling.classList.contains('active') ? '−' : '+'">
+              <span>{faq.question}</span>
+              <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-item__answer">
+              {faq.answer}
+            </div>
+          </div>
         ))}
       </div>
-      
-      <p class="text-center mt-8">
-        <a href="/faq">その他のよくある質問を見る →</a>
-      </p>
+      <div class="text-center mt-8">
+        <a href="/faq" class="btn btn--secondary">すべての質問を見る</a>
+      </div>
     </div>
   </section>
-  
-  <!-- Final CTA Section -->
-  <section class="section cta-section">
-    <div class="container text-center">
-      <h2 class="cta-section__title">国試対策を、一緒に始めませんか？</h2>
+
+  <!-- 最終CTA -->
+  <section class="cta-section">
+    <div class="container cta-section__content">
+      <h2 class="cta-section__title">今すぐ始めよう</h2>
       <p class="cta-section__subtitle">
-        月500円で、学習の型・質問環境・仲間が手に入ります。
+        月額500円で、あなたの国試対策が変わります。<br />
+        いつでも解約OK。まずは1ヶ月試してみませんか？
       </p>
-      
-      <div class="cta-section__buttons">
-        <a href="/join" class="btn btn--primary btn--lg">今すぐ入会する</a>
-        <a href="/for-schools" class="btn btn--secondary btn--lg">学校関係者の方はこちら</a>
-      </div>
+      <a href="/join" class="btn btn--primary btn--lg">
+        入会する
+      </a>
     </div>
   </section>
 </BaseLayout>
@@ -294,286 +337,187 @@ const testimonials = [
 <style>
   /* Hero */
   .hero {
-    padding: var(--space-20) 0;
-    background: linear-gradient(135deg, var(--color-bg) 0%, var(--color-primary-bg) 100%);
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
   }
   
-  .hero__container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-12);
-    align-items: center;
+  .hero__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-hero);
+    z-index: 0;
+  }
+  
+  .hero__bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'/%3E%3C/svg%3E");
+  }
+  
+  .hero__content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding: var(--space-20) 0;
+  }
+  
+  .hero__label {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--space-6);
+    backdrop-filter: blur(4px);
   }
   
   .hero__title {
-    font-size: var(--text-4xl);
+    font-size: var(--text-5xl);
     line-height: 1.3;
+    color: white;
     margin-bottom: var(--space-6);
   }
   
   .hero__title-accent {
-    color: var(--color-primary);
+    background: linear-gradient(90deg, #FDE68A 0%, #FBBF24 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
   
   .hero__subtitle {
     font-size: var(--text-xl);
-    color: var(--color-text-light);
+    opacity: 0.95;
+    max-width: 600px;
     margin-bottom: var(--space-8);
     line-height: 1.8;
   }
   
   .hero__cta {
     display: flex;
-    gap: var(--space-4);
-    flex-wrap: wrap;
-  }
-  
-  .hero__visual {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .hero__image-placeholder {
-    width: 100%;
-    max-width: 400px;
-    aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    border-radius: var(--radius-xl);
-    display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-align: center;
-    padding: var(--space-8);
+    align-items: flex-start;
+    gap: var(--space-4);
   }
   
-  .hero__image-placeholder span {
-    font-size: 5rem;
-    margin-bottom: var(--space-4);
+  .hero__arrow {
+    transition: transform var(--transition-fast);
   }
   
-  .hero__image-placeholder p {
+  .btn:hover .hero__arrow {
+    transform: translateX(4px);
+  }
+  
+  .hero__price {
     font-size: var(--text-lg);
-    margin: 0;
+    opacity: 0.9;
   }
   
-  @media (max-width: 1024px) {
-    .hero__container {
-      grid-template-columns: 1fr;
-      text-align: center;
-    }
-    
-    .hero__cta {
-      justify-content: center;
-    }
-    
-    .hero__visual {
-      order: -1;
-    }
-    
-    .hero__image-placeholder {
-      max-width: 300px;
-    }
-    
-    .hero__br {
-      display: none;
-    }
-  }
-  
-  /* Message */
-  .message-content {
-    max-width: 800px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .message-content p {
-    font-size: var(--text-lg);
-    line-height: 2;
-  }
-  
-  /* Stats */
-  .stat--light {
-    color: white;
-  }
-  
-  .stat--light .stat__number {
-    color: white;
-  }
-  
-  .stat--light .stat__label {
-    color: rgba(255, 255, 255, 0.8);
-  }
-  
-  /* Benefits */
-  .benefit-card {
-    background: white;
-    padding: var(--space-6);
-    border-radius: var(--radius-lg);
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-normal);
-  }
-  
-  .benefit-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-  }
-  
-  .benefit-card__icon {
-    font-size: 2.5rem;
-    display: block;
-    margin-bottom: var(--space-3);
-  }
-  
-  .benefit-card__title {
-    font-size: var(--text-lg);
-    margin-bottom: var(--space-2);
-  }
-  
-  .benefit-card__desc {
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
-    margin: 0;
-  }
-  
-  .price-box {
-    margin-top: var(--space-12);
-    text-align: center;
-    padding: var(--space-10);
-    background: white;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-lg);
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .price-box__price {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-  }
-  
-  .price-box__currency {
-    font-size: var(--text-xl);
-    color: var(--color-text-light);
-  }
-  
-  .price-box__amount {
-    font-size: 4rem;
-    font-weight: 700;
-    color: var(--color-primary);
-    line-height: 1;
-  }
-  
-  .price-box__unit {
+  .hero__price strong {
     font-size: var(--text-2xl);
-    color: var(--color-text);
+    font-weight: var(--font-bold);
   }
   
-  .price-box__note {
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-6);
-  }
-  
-  /* About */
-  .about-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-8);
-    margin-bottom: var(--space-8);
-  }
-  
-  .about-card {
-    background: var(--color-bg-alt);
-    padding: var(--space-8);
-    border-radius: var(--radius-lg);
-    text-align: center;
-  }
-  
-  .about-card__icon {
-    font-size: 3rem;
-    margin-bottom: var(--space-4);
-  }
-  
-  .about-card__title {
-    font-size: var(--text-xl);
-    margin-bottom: var(--space-4);
-  }
-  
-  .about-card__text {
-    color: var(--color-text-light);
-    line-height: 1.8;
-    margin: 0;
-  }
-  
-  .about-note {
-    text-align: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-  }
-  
-  @media (max-width: 768px) {
-    .about-grid {
-      grid-template-columns: 1fr;
+  /* Grid desktop override */
+  @media (min-width: 1024px) {
+    .grid--4-desktop {
+      grid-template-columns: repeat(4, 1fr);
     }
   }
   
-  /* Testimonials */
-  .testimonials-note {
-    text-align: center;
-    font-size: var(--text-sm);
-    color: var(--color-text-muted);
-    margin-top: var(--space-8);
-  }
-  
-  /* FAQ */
+  /* Container narrow */
   .container--narrow {
     max-width: 800px;
   }
   
-  .faq-list {
-    margin-top: var(--space-8);
-  }
-  
-  /* CTA Section */
-  .cta-section {
-    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    color: white;
-    padding: var(--space-20) 0;
-  }
-  
-  .cta-section__title {
-    font-size: var(--text-3xl);
-    color: white;
-    margin-bottom: var(--space-4);
-  }
-  
-  .cta-section__subtitle {
-    font-size: var(--text-xl);
-    opacity: 0.9;
-    margin-bottom: var(--space-8);
-  }
-  
-  .cta-section__buttons {
+  /* Feature visual placeholder */
+  .feature-placeholder {
     display: flex;
-    gap: var(--space-4);
+    align-items: center;
     justify-content: center;
+    height: 300px;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .feature-placeholder__icon {
+    font-size: 5rem;
+    opacity: 0.8;
+  }
+  
+  /* Member card */
+  .member-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  
+  .member-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  
+  .member-card__avatar {
+    width: 64px;
+    height: 64px;
+    background: var(--gradient-primary);
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+  }
+  
+  .member-card__name {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-1);
+  }
+  
+  .member-card__role {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+  }
+  
+  .member-card__bio {
+    color: var(--color-text-light);
+  }
+  
+  .member-card__tags {
+    display: flex;
+    gap: var(--space-2);
     flex-wrap: wrap;
   }
   
-  .cta-section .btn--secondary {
-    background: transparent;
-    color: white;
-    border-color: white;
+  /* FAQ icon */
+  .faq-icon {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
   }
   
-  .cta-section .btn--secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero__title {
+      font-size: var(--text-3xl);
+    }
+    
+    .hero__subtitle {
+      font-size: var(--text-base);
+    }
   }
 </style>

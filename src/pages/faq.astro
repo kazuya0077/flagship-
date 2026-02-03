@@ -1,96 +1,84 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import FaqItem from '../components/FaqItem.astro';
-import { siteConfig } from '../config/site';
 
-const faqs = [
-  // 入会・料金について
+const faqCategories = [
   {
-    category: "入会・料金について",
-    items: [
+    title: "入会・料金について",
+    icon: "💳",
+    faqs: [
       {
-        question: "月額500円で本当にすべてのサービスを利用できますか？",
-        answer: "はい、500円で全てのサービス（Slackコミュニティ、学習資産、質問サポート、イベント参加など）をご利用いただけます。追加料金は一切ありません。"
+        question: "月額料金以外に費用はかかりますか？",
+        answer: "いいえ、月額500円（税込）のみです。入会金、年会費、その他追加費用は一切ありません。すべての機能・資料にアクセスできます。"
       },
       {
         question: "支払い方法は何がありますか？",
-        answer: "クレジットカードでのお支払いとなります。StripeというセキュアなK決済サービスを利用していますので、安心してご利用いただけます。"
+        answer: "クレジットカード決済（Visa、Mastercard、American Express、JCB）に対応しています。Stripeを利用した安全な決済システムです。"
       },
       {
         question: "いつでも解約できますか？",
-        answer: "はい、いつでも解約可能です。Stripeの管理画面から簡単に手続きできます。解約後も当月末までサービスをご利用いただけます。"
+        answer: "はい、いつでも解約可能です。Stripeの管理画面から数クリックで手続きできます。解約後も当月末までサービスをご利用いただけます。違約金や手数料は一切ありません。"
       },
       {
-        question: "途中から入会しても損しませんか？",
-        answer: "月の途中からでも安心してご入会いただけます。過去のコンテンツやアーカイブにもアクセスできます。"
+        question: "途中から入会しても損はありませんか？",
+        answer: "はい、いつ入会しても問題ありません。過去のアーカイブ動画や資料にもすべてアクセスできますので、途中参加でも安心です。"
       }
     ]
   },
-  // Slackについて
   {
-    category: "Slackについて",
-    items: [
+    title: "サービス内容について",
+    icon: "📚",
+    faqs: [
       {
-        question: "Slackって何ですか？使ったことがないのですが...",
-        answer: "SlackはLINEに似たチャットツールです。参加後に使い方ガイドをお送りしますので、初めての方でもすぐに慣れていただけます。パソコンでもスマートフォンでも利用可能です。"
+        question: "具体的にどんな資料が使えますか？",
+        answer: "年間学習計画表、週間スケジュールテンプレート、科目別要点まとめ、暗記カード、過去問分析シート、実習対策資料など、500点以上の学習資料が使い放題です。"
       },
       {
-        question: "質問はどのくらいで回答してもらえますか？",
-        answer: "運営メンバーは週3回程度（月・水・金）を目安に質問に回答しています。緊急性の高い質問には優先的に対応することもあります。また、コミュニティメンバー同士で教え合うことも歓迎しています。"
+        question: "質問への回答はどのくらいで届きますか？",
+        answer: "原則24時間以内に回答します。緊急の質問や試験直前の場合は、できる限り早く対応するよう努めています。"
       },
       {
-        question: "匿名で参加できますか？",
-        answer: "Slackでの表示名はニックネームでOKです。本名を公開する必要はありません。ただし、学習の目標や進捗を共有することで、より効果的にコミュニティを活用できます。"
-      }
-    ]
-  },
-  // 学習資産について
-  {
-    category: "学習資産について",
-    items: [
-      {
-        question: "学習資産とは具体的に何ですか？",
-        answer: "学習計画テンプレート、科目別要点まとめ、暗記カード、過去問分析シート、実習準備チェックリストなど、国試対策に役立つ資料やツールのことです。CanvaとGoogle Driveで提供しています。"
+        question: "月2回のイベントは必ず参加が必要ですか？",
+        answer: "いいえ、参加は任意です。すべてのイベントはアーカイブ録画を残しますので、リアルタイムで参加できなくても後から視聴できます。"
       },
-      {
-        question: "資料はダウンロードできますか？",
-        answer: "はい、PDF形式などでダウンロード可能です。オフラインでも学習にお使いいただけます。"
-      }
-    ]
-  },
-  // 対象者について
-  {
-    category: "対象者について",
-    items: [
       {
         question: "専門学校生でも参加できますか？",
-        answer: "もちろんです！大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。"
-      },
-      {
-        question: "何年生から参加できますか？",
-        answer: "学年は問いません。1年生から4年生（専門学校の場合は卒業年次まで）、どの学年でも参加可能です。早めに学習習慣を身につけたい方も歓迎です。"
-      },
-      {
-        question: "既卒で国試を受ける予定ですが参加できますか？",
-        answer: "はい、既卒の方も参加可能です。学習ペースや状況に合わせてサポートします。"
+        answer: "はい、もちろんです。大学生・専門学校生問わず、理学療法士を目指すすべての学生を歓迎しています。"
       }
     ]
   },
-  // その他
   {
-    category: "その他",
-    items: [
+    title: "学習効果について",
+    icon: "🎯",
+    faqs: [
       {
         question: "合格は保証されますか？",
-        answer: "申し訳ありませんが、合格を保証することはできません。学習成果は個人の努力と状況により異なります。私たちにできるのは、効果的な学習方法と継続しやすい環境を提供することです。"
+        answer: "申し訳ありませんが、合格を保証することはできません。学習成果は個人の努力や学習時間により異なります。私たちは効率的な学習環境を提供しますが、最終的な結果は皆さんの努力次第です。"
       },
       {
-        question: "教材の購入を強制されることはありますか？",
-        answer: "教材の購入を強制することは一切ありません。教材比較記事ではアフィリエイトリンクを使用していますが、これは運営費の一部に充てるためです。購入は完全に任意です。"
+        question: "国試直前でも効果はありますか？",
+        answer: "はい、直前期でも十分活用できます。直前期用の優先順位リスト、頻出テーマのまとめ、最終チェック資料など、直前対策専用の資料も用意しています。"
       },
       {
-        question: "禁止事項はありますか？",
-        answer: "コミュニティ内での誹謗中傷、著作権侵害、商用利用、個人情報の不正取得などは禁止しています。詳細は利用規約をご確認ください。皆さんが安心して学習できる環境を守るためのルールです。"
+        question: "1年生や2年生でも意味がありますか？",
+        answer: "はい、むしろ早めからの参加をおすすめします。学習習慣の形成、定期試験対策、実習準備など、低学年から活用できる内容も多くあります。"
+      }
+    ]
+  },
+  {
+    title: "その他",
+    icon: "❓",
+    faqs: [
+      {
+        question: "コミュニティのルールはありますか？",
+        answer: "はい、相互尊重を基本としたコミュニティガイドラインがあります。誹謗中傷、スパム行為、営利目的の利用などは禁止しています。詳しくは利用規約をご確認ください。"
+      },
+      {
+        question: "運営メンバーはどんな人ですか？",
+        answer: "国家試験で高得点（238点、226点など）を取得した現役理学療法士が運営しています。詳しくは「運営者紹介」ページをご覧ください。"
+      },
+      {
+        question: "お問い合わせはどこからできますか？",
+        answer: "Slackコミュニティ内の専用チャンネル、またはメール（contact@example.com）でお問い合わせいただけます。"
       }
     ]
   }
@@ -98,98 +86,189 @@ const faqs = [
 ---
 
 <BaseLayout 
-  title="よくある質問" 
-  description="PT国試コミュニティに関するよくある質問と回答。料金、Slack、学習資産、解約についてなど。"
+  title="よくある質問"
+  description="PT国試コミュニティに関するよくある質問と回答。入会、料金、サービス内容、解約方法などについて。"
 >
-  <section class="faq-hero">
-    <div class="container text-center">
-      <h1 class="faq-hero__title">よくある質問</h1>
-      <p class="faq-hero__subtitle">
-        ご不明な点がありましたらご確認ください
-      </p>
+  <!-- ヒーロー -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero__label">FAQ</p>
+      <h1 class="page-hero__title">よくある質問</h1>
+      <p class="page-hero__subtitle">気になることがあればお気軽にお問い合わせください</p>
     </div>
   </section>
-  
+
+  <!-- FAQ -->
   <section class="section">
     <div class="container container--narrow">
-      
-      {faqs.map((category) => (
+      {faqCategories.map((category) => (
         <div class="faq-category">
-          <h2 class="faq-category__title">{category.category}</h2>
+          <div class="faq-category__header">
+            <span class="faq-category__icon">{category.icon}</span>
+            <h2 class="faq-category__title">{category.title}</h2>
+          </div>
           <div class="faq-list">
-            {category.items.map((faq) => (
-              <FaqItem question={faq.question} answer={faq.answer} />
+            {category.faqs.map((faq) => (
+              <div class="faq-item">
+                <button class="faq-item__question" onclick="this.parentElement.classList.toggle('active')">
+                  <span>{faq.question}</span>
+                  <span class="faq-item__icon">+</span>
+                </button>
+                <div class="faq-item__answer">
+                  <p>{faq.answer}</p>
+                </div>
+              </div>
             ))}
           </div>
         </div>
       ))}
-      
-      <div class="contact-box">
-        <h3>解決しない場合は</h3>
-        <p>
-          上記で解決しない質問がありましたら、お気軽にお問い合わせください。
-        </p>
-        <p>
-          <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
-        </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section--warm">
+    <div class="container text-center">
+      <h2 class="section__title">他に質問がありますか？</h2>
+      <p class="section__subtitle mb-8">お気軽にお問い合わせください</p>
+      <div class="cta-buttons">
+        <a href="/join" class="btn btn--primary btn--lg">今すぐ始める</a>
+        <a href="mailto:contact@example.com" class="btn btn--secondary btn--lg">お問い合わせ</a>
       </div>
-      
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .faq-hero {
-    padding: var(--space-16) 0;
-    background: var(--color-bg-alt);
+  /* Page Hero */
+  .page-hero {
+    background: var(--gradient-hero);
+    color: white;
+    padding: calc(80px + var(--space-16)) 0 var(--space-16);
+    text-align: center;
   }
   
-  .faq-hero__title {
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--space-4);
+    backdrop-filter: blur(4px);
+  }
+  
+  .page-hero__title {
     font-size: var(--text-4xl);
+    color: white;
     margin-bottom: var(--space-4);
   }
   
-  .faq-hero__subtitle {
+  .page-hero__subtitle {
     font-size: var(--text-xl);
-    color: var(--color-text-light);
+    opacity: 0.9;
   }
   
+  /* Container narrow */
   .container--narrow {
     max-width: 800px;
   }
   
+  /* FAQ Category */
   .faq-category {
     margin-bottom: var(--space-12);
   }
   
+  .faq-category__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+  
+  .faq-category__icon {
+    font-size: 2rem;
+  }
+  
   .faq-category__title {
     font-size: var(--text-xl);
-    color: var(--color-primary);
-    margin-bottom: var(--space-4);
-    padding-bottom: var(--space-2);
-    border-bottom: 2px solid var(--color-primary);
+    margin: 0;
   }
   
+  /* FAQ List */
   .faq-list {
-    background: white;
+    display: grid;
+    gap: var(--space-3);
+  }
+  
+  /* FAQ Item */
+  .faq-item {
+    background: var(--color-bg-white);
     border-radius: var(--radius-lg);
-    padding: var(--space-4) var(--space-6);
+    overflow: hidden;
     box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-light);
+    transition: all var(--transition-fast);
   }
   
-  .contact-box {
+  .faq-item:hover {
+    box-shadow: var(--shadow-md);
+  }
+  
+  .faq-item__question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: var(--space-5) var(--space-6);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+    color: var(--color-text);
+    text-align: left;
+    transition: background var(--transition-fast);
+  }
+  
+  .faq-item__question:hover {
     background: var(--color-primary-bg);
-    border-radius: var(--radius-lg);
-    padding: var(--space-8);
-    text-align: center;
-    margin-top: var(--space-12);
   }
   
-  .contact-box h3 {
-    margin-bottom: var(--space-4);
+  .faq-item__icon {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    font-weight: var(--font-bold);
+    transition: transform var(--transition-fast);
   }
   
-  .contact-box p {
-    margin-bottom: var(--space-2);
+  .faq-item.active .faq-item__icon {
+    transform: rotate(45deg);
+  }
+  
+  .faq-item__answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-normal), padding var(--transition-normal);
+  }
+  
+  .faq-item.active .faq-item__answer {
+    max-height: 500px;
+    padding: 0 var(--space-6) var(--space-5);
+  }
+  
+  .faq-item__answer p {
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin: 0;
+  }
+  
+  /* CTA Buttons */
+  .cta-buttons {
+    display: flex;
+    gap: var(--space-4);
+    justify-content: center;
+    flex-wrap: wrap;
   }
 </style>

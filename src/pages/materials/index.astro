@@ -2,151 +2,185 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-// 記事を取得
 const allMaterials = await getCollection('materials');
 
-// カテゴリ一覧
+// カテゴリでグループ化
 const categories = [
-  { id: 'all', name: 'すべて' },
-  { id: 'kokushi-comprehensive', name: '国試総合' },
-  { id: 'anatomy', name: '解剖学' },
-  { id: 'kinesiology', name: '運動学' },
-  { id: 'internal-medicine', name: '内科系' },
-  { id: 'clinical-practice', name: '実習対策' },
+  { id: 'kokushi', name: '国試総合', icon: '📖' },
+  { id: 'anatomy', name: '解剖学', icon: '🦴' },
+  { id: 'kinesiology', name: '運動学', icon: '🏃' },
+  { id: 'internal', name: '内科系', icon: '🫀' },
+  { id: 'clinical', name: '実習対策', icon: '🏥' },
 ];
 ---
 
 <BaseLayout 
-  title="教材・サービス比較" 
-  description="理学療法士国家試験対策におすすめの教材・サービスを比較。国試総合、解剖学、運動学、内科系、実習対策のカテゴリ別に紹介。"
+  title="教材・サービス比較"
+  description="理学療法士国家試験対策に役立つ教材・参考書・アプリの比較記事一覧。PT学生による正直なレビュー。"
 >
-  <section class="materials-hero">
-    <div class="container text-center">
-      <h1 class="materials-hero__title">教材・サービス比較</h1>
-      <p class="materials-hero__subtitle">
-        国試対策におすすめの教材を<br class="sp-only" />カテゴリ別にご紹介
-      </p>
+  <!-- ヒーロー -->
+  <section class="page-hero">
+    <div class="container">
+      <p class="page-hero__label">Materials</p>
+      <h1 class="page-hero__title">教材・サービス比較</h1>
+      <p class="page-hero__subtitle">PT学生による正直なレビューで教材選びをサポート</p>
     </div>
   </section>
-  
+
+  <!-- 注意書き -->
+  <section class="section section--alt">
+    <div class="container container--narrow">
+      <div class="notice-card">
+        <p class="notice-card__icon">📢</p>
+        <div>
+          <p class="notice-card__title">広告について</p>
+          <p class="notice-card__text">
+            本サイトの一部記事にはアフィリエイトリンクが含まれています。
+            リンク経由で商品を購入した場合、私たちは紹介料を受け取ることがあります。
+            ただし、これにより読者が追加料金を負担することはありません。
+            また、アフィリエイトの有無が記事の内容や評価に影響を与えることはありません。
+          </p>
+          <a href="/policy/affiliate-disclosure" class="notice-card__link">詳しく見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- カテゴリフィルター -->
   <section class="section">
     <div class="container">
-      
-      <div class="alert alert--ad mb-8">
-        <strong>広告</strong>：このページにはアフィリエイトリンクが含まれています。
-        リンク経由で商品を購入された場合、当サイトが紹介料を受け取ることがあります。
-        詳しくは<a href="/policy/affiliate-disclosure">広告について</a>をご覧ください。
-      </div>
-      
-      <!-- カテゴリフィルタ -->
       <div class="category-filter">
+        <button class="category-btn active" data-category="all">すべて</button>
         {categories.map((cat) => (
-          <button 
-            class={`category-btn ${cat.id === 'all' ? 'active' : ''}`}
-            data-category={cat.id}
-          >
-            {cat.name}
+          <button class="category-btn" data-category={cat.id}>
+            {cat.icon} {cat.name}
           </button>
         ))}
       </div>
-      
+
       <!-- 記事一覧 -->
-      <div class="materials-grid" id="materials-grid">
+      <div class="materials-grid">
         {allMaterials.map((material) => (
-          <a 
-            href={`/materials/${material.slug}`} 
-            class="material-card"
-            data-category={material.data.category}
-          >
-            <span class="material-card__category">{
-              categories.find(c => c.id === material.data.category)?.name || material.data.category
-            }</span>
+          <a href={`/materials/${material.slug}`} class="material-card" data-category={material.data.category}>
+            <div class="material-card__header">
+              <span class="material-card__category">
+                {categories.find(c => c.id === material.data.category)?.icon}
+                {categories.find(c => c.id === material.data.category)?.name}
+              </span>
+              <span class="material-card__date">
+                {material.data.publishDate.toLocaleDateString('ja-JP')}
+              </span>
+            </div>
             <h3 class="material-card__title">{material.data.title}</h3>
             <p class="material-card__description">{material.data.description}</p>
             <span class="material-card__link">詳しく見る →</span>
           </a>
         ))}
       </div>
-      
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container cta-section__content">
+      <h2 class="cta-section__title">もっと効率的に学習したい？</h2>
+      <p class="cta-section__subtitle">
+        月額500円で学習テンプレートや質問環境が手に入ります
+      </p>
+      <a href="/join" class="btn btn--primary btn--lg">
+        コミュニティに参加する
+      </a>
     </div>
   </section>
 </BaseLayout>
 
-<script>
-  const categoryBtns = document.querySelectorAll('.category-btn');
-  const materialCards = document.querySelectorAll('.material-card');
-  
-  categoryBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const category = btn.getAttribute('data-category');
-      
-      // ボタンのアクティブ状態を切り替え
-      categoryBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      
-      // カードをフィルタリング
-      materialCards.forEach(card => {
-        const cardCategory = card.getAttribute('data-category');
-        if (category === 'all' || cardCategory === category) {
-          (card as HTMLElement).style.display = 'block';
-        } else {
-          (card as HTMLElement).style.display = 'none';
-        }
-      });
-    });
-  });
-</script>
-
 <style>
-  .materials-hero {
-    padding: var(--space-16) 0;
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  /* Page Hero */
+  .page-hero {
+    background: var(--gradient-hero);
     color: white;
+    padding: calc(80px + var(--space-16)) 0 var(--space-16);
+    text-align: center;
   }
   
-  .materials-hero__title {
+  .page-hero__label {
+    display: inline-block;
+    padding: var(--space-2) var(--space-4);
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    margin-bottom: var(--space-4);
+  }
+  
+  .page-hero__title {
     font-size: var(--text-4xl);
     color: white;
     margin-bottom: var(--space-4);
   }
   
-  .materials-hero__subtitle {
+  .page-hero__subtitle {
     font-size: var(--text-xl);
     opacity: 0.9;
   }
   
-  .sp-only {
-    display: none;
+  /* Container narrow */
+  .container--narrow {
+    max-width: 800px;
   }
   
-  .alert--ad {
-    background: #fff7ed;
-    border-left: 4px solid #f97316;
-    padding: var(--space-4) var(--space-6);
-    border-radius: var(--radius-md);
+  /* Notice Card */
+  .notice-card {
+    display: flex;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    background: var(--color-bg-white);
+    border-radius: var(--radius-xl);
+    border-left: 4px solid var(--color-secondary);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .notice-card__icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+  }
+  
+  .notice-card__title {
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-2);
+  }
+  
+  .notice-card__text {
     font-size: var(--text-sm);
+    color: var(--color-text-light);
+    line-height: 1.8;
+    margin-bottom: var(--space-2);
   }
   
-  .alert--ad a {
+  .notice-card__link {
+    font-size: var(--text-sm);
     color: var(--color-primary);
+    font-weight: var(--font-semibold);
   }
   
   /* Category Filter */
   .category-filter {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-3);
+    gap: var(--space-2);
     margin-bottom: var(--space-8);
     justify-content: center;
   }
   
   .category-btn {
-    padding: var(--space-2) var(--space-5);
-    background: white;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-bg-white);
     border: 2px solid var(--color-border);
     border-radius: var(--radius-full);
+    font-family: inherit;
     font-size: var(--text-sm);
-    font-weight: 500;
+    font-weight: var(--font-medium);
+    color: var(--color-text-light);
     cursor: pointer;
     transition: all var(--transition-fast);
   }
@@ -157,8 +191,8 @@ const categories = [
   }
   
   .category-btn.active {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
+    background: var(--gradient-primary);
+    border-color: transparent;
     color: white;
   }
   
@@ -169,57 +203,9 @@ const categories = [
     gap: var(--space-6);
   }
   
-  .material-card {
-    display: block;
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-md);
-    text-decoration: none;
-    transition: all var(--transition-normal);
-  }
-  
-  .material-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-xl);
-  }
-  
-  .material-card__category {
-    display: inline-block;
-    background: var(--color-primary-bg);
-    color: var(--color-primary);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-full);
-    font-size: var(--text-xs);
-    font-weight: 600;
-    margin-bottom: var(--space-3);
-  }
-  
-  .material-card__title {
-    font-size: var(--text-lg);
-    color: var(--color-text);
-    margin-bottom: var(--space-2);
-  }
-  
-  .material-card__description {
-    font-size: var(--text-sm);
-    color: var(--color-text-light);
-    margin-bottom: var(--space-4);
-  }
-  
-  .material-card__link {
-    font-size: var(--text-sm);
-    color: var(--color-primary);
-    font-weight: 500;
-  }
-  
   @media (max-width: 1024px) {
     .materials-grid {
       grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .sp-only {
-      display: inline;
     }
   }
   
@@ -228,4 +214,92 @@ const categories = [
       grid-template-columns: 1fr;
     }
   }
+  
+  /* Material Card */
+  .material-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-6);
+    background: var(--color-bg-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all var(--transition-normal);
+  }
+  
+  .material-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  .material-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+  
+  .material-card__category {
+    font-size: var(--text-xs);
+    font-weight: var(--font-semibold);
+    color: var(--color-primary);
+    background: var(--color-primary-bg);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-md);
+  }
+  
+  .material-card__date {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+  
+  .material-card__title {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-2);
+    line-height: 1.4;
+  }
+  
+  .material-card__description {
+    font-size: var(--text-sm);
+    color: var(--color-text-light);
+    flex: 1;
+    margin-bottom: var(--space-4);
+    line-height: 1.7;
+  }
+  
+  .material-card__link {
+    font-size: var(--text-sm);
+    color: var(--color-primary);
+    font-weight: var(--font-semibold);
+  }
+  
+  .material-card[data-hidden="true"] {
+    display: none;
+  }
 </style>
+
+<script>
+  const filterBtns = document.querySelectorAll('.category-btn');
+  const cards = document.querySelectorAll('.material-card');
+  
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const category = btn.getAttribute('data-category');
+      
+      // ボタンのアクティブ状態
+      filterBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // カードのフィルター
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || cardCategory === category) {
+          card.removeAttribute('data-hidden');
+        } else {
+          card.setAttribute('data-hidden', 'true');
+        }
+      });
+    });
+  });
+</script>
