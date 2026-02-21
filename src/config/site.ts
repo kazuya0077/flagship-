@@ -1,32 +1,28 @@
 // サイト全体の設定
 export const siteConfig = {
-  name: "フラッグシップ",
-  tagline: "自走する力を育む、理学療法士国試対策の旗艦",
-  description: "理学療法士国家試験対策の学習コミュニティ。勉強の型、質問できる環境、学習資産をまとめて提供。月500円で学習を継続可能に。",
+  name: "FLAGSHIP",
+  tagline: "PT国試対策・無料学習コミュニティ",
+  description: "理学療法士国家試験対策の情報サイト。おすすめ教材・学習法・無料Slackコミュニティを提供。合格者運営。",
   url: "https://flagship-2i0.pages.dev",
-  email: "info@pt-community.example.com",
+  email: "info@flagship-pt.jp",
 
-  // 外部リンク
+  // 外部リンク（Slackの招待リンクに差し替えてください）
   links: {
-    stripeSubscription: "https://buy.stripe.com/placeholder",
-    slackJoinGuide: "https://example.com/slack-guide",
+    slackJoin: "https://join.slack.com/placeholder",
     canvaResourceHub: "https://canva.com/placeholder",
     schoolInquiryForm: "https://forms.google.com/placeholder",
   },
 
   // ソーシャル
   twitterHandle: "@flagship_pt",
-
-  // 価格
-  monthlyPrice: 500,
 };
 
 // ナビゲーションリンク
 export const navLinks = [
   { label: "ホーム", href: "/" },
-  { label: "入会する", href: "/join" },
+  { label: "おすすめ教材", href: "/#books" },
   { label: "学習資産", href: "/resources" },
-  { label: "特商法", href: "/legal/tokusho" },
+  { label: "無料コミュニティ", href: "/join" },
   { label: "FAQ", href: "/faq" },
   { label: "運営者紹介", href: "/about" },
 ];

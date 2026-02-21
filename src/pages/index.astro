@@ -1,174 +1,205 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AspLink from '../components/AspLink.astro';
+import { siteConfig } from '../config/site';
 
-// Bento Grid Items
 const features = [
   {
-    title: "質問し放題",
-    desc: "24時間365日、いつでもSlackで質問可能。高得点合格者が丁寧に回答します。",
-    colSpan: 2,
-    rowSpan: 2,
-    image: "/assets/images/feature-slack.jpg",
-    color: "#E3F2FD", // Imageがない場合の背景
-    icon: "message-circle" 
-  },
-  {
-    title: "学習資産へのアクセス",
-    desc: "合格者のノウハウが詰まった分析シートやまとめノートを自由にDL。",
-    colSpan: 1,
-    rowSpan: 1,
-    image: "/assets/images/feature-resources.jpg",
+    title: "完全無料で参加",
+    desc: "入会費・月会費一切なし。Slackに参加するだけで、すべての学習コンテンツが無料で使えます。",
+    wide: true,
+    icon: "🎁",
     color: "#FFF3E0",
-    icon: "folder"
   },
   {
-    title: "月額500円",
-    desc: "参考書1冊より安い価格で、最高の学習環境を。",
-    colSpan: 1,
-    rowSpan: 1,
-    image: null,
+    title: "Slackで質問し放題",
+    desc: "24時間365日、いつでも質問OK。国試高得点合格者が丁寧に回答します。",
+    wide: false,
+    icon: "💬",
+    color: "#E3F2FD",
+  },
+  {
+    title: "学習資産を無料DL",
+    desc: "合格者のまとめノート・分析シートをすべて無料でダウンロードできます。",
+    wide: false,
+    icon: "📁",
     color: "#E8F5E9",
-    icon: "credit-card"
   },
   {
     title: "仲間との繋がり",
-    desc: "同じ目標を持つ仲間と励まし合い、モチベーションを維持。",
-    colSpan: 1,
-    rowSpan: 1,
-    image: "/assets/images/feature-community.jpg",
+    desc: "同じ目標を持つPT学生と励まし合い、一緒に国試合格を目指せます。",
+    wide: false,
+    icon: "👥",
     color: "#FCE4EC",
-    icon: "users"
   },
   {
-    title: "オンライン勉強会",
-    desc: "月2回の勉強会や相談会で、直接アドバイスを受けられます。",
-    colSpan: 1,
-    rowSpan: 1,
-    image: null,
+    title: "月2回のオンライン勉強会",
+    desc: "国試対策の疑問をリアルタイムで解消。直接アドバイスが受けられます。",
+    wide: false,
+    icon: "📖",
     color: "#F3E5F5",
-    icon: "video"
-  }
+  },
 ];
 
-// Stats
 const stats = [
   { label: "講師国試得点", value: "238", unit: "点" },
-  { label: "学習資料数", value: "500", unit: "+" },
+  { label: "学習資料数", value: "50", unit: "+" },
   { label: "回答時間", value: "24", unit: "h以内" },
   { label: "継続率", value: "98", unit: "%" },
+];
+
+const examCategories = [
+  { name: "解剖学・生理学", icon: "🧬", href: "/resources" },
+  { name: "運動学", icon: "🦴", href: "/resources" },
+  { name: "内部障害", icon: "❤️", href: "/resources" },
+  { name: "神経疾患", icon: "🧠", href: "/resources" },
+  { name: "整形外科疾患", icon: "🦿", href: "/resources" },
+  { name: "過去問・予想問", icon: "📝", href: "/resources" },
 ];
 
 import { getRecommendItems } from '../library/microcms';
 const items = await getRecommendItems();
 ---
 
-<BaseLayout 
-  title="フラッグシップ"
-  description="自走する力を育む、理学療法士国家試験対策の学習コミュニティ。"
+<BaseLayout
+  title="FLAGSHIP | PT国試対策・無料学習コミュニティ"
+  description="理学療法士国家試験対策の情報サイト。おすすめ教材・学習法・無料Slackコミュニティを提供。合格者運営。"
 >
   <!-- Opening Animation -->
   <div class="opening-overlay">
     <div class="opening-logo">
-      <span class="logo-text">Flagship</span>
-      <span class="logo-sub">PT National Exam Community</span>
+      <img src="/assets/images/flagship-logo.png" alt="FLAGSHIP" class="opening-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'" />
+      <span class="opening-text-fallback" style="display:none">FLAGSHIP</span>
     </div>
   </div>
 
-  <!-- Hero Section -->
+  <!-- ========== HERO ========== -->
   <section class="hero">
-    <div class="hero__bg-slider">
-      <div class="hero__slide img-placeholder" style="background-image: url('/assets/images/feature-community.jpg');"></div>
-      <div class="hero__slide img-placeholder" style="background-image: url('/assets/images/feature-resources.jpg');"></div>
-      <div class="hero__slide img-placeholder" style="background-image: url('/assets/images/feature-resources.jpg');"></div>
-    </div>
-    
-    <div class="hero__overlay"></div>
-    
     <div class="container hero__container">
       <div class="hero__content scroll-fade-up">
-        <span class="hero__tag">PT国試・学習コミュニティ</span>
+        <span class="hero__tag">PT国試対策 × 無料Slackコミュニティ</span>
         <h1 class="hero__title">
           自走する力を、<br>
           <span class="text-primary">ここ</span>から。
         </h1>
         <p class="hero__lead">
-          1年生からの学習習慣づくりも、国試直前の対策も。<br class="sp-only">
-          学年の垣根を超えて学び合い、<br class="sp-only">
-          プロフェッショナルとしての土台を築く場所。
+          理学療法士国家試験対策の情報を、無料で。<br>
+          おすすめ教材・効率的な学習法の発信と、<br>
+          合格者と繋がれる<strong>無料Slackコミュニティ</strong>を提供。
         </p>
         <div class="hero__actions">
-          <a href="/join" class="btn btn--primary">
-            メンバーシップに参加する
+          <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+            無料でSlackに参加する →
           </a>
-          <a href="#features" class="btn btn--secondary">
-            特徴を見る
+          <a href="#books" class="btn btn--outline">
+            おすすめ教材を見る
           </a>
         </div>
+        <ul class="hero__badges">
+          <li>✓ 完全無料</li>
+          <li>✓ Slack活用</li>
+          <li>✓ 国試合格者運営</li>
+        </ul>
+      </div>
+      <div class="hero__image scroll-fade-up delay-1">
+        <img
+          src="/assets/images/flagship-logo.png"
+          alt="FLAGSHIP - PT国試対策コミュニティ"
+          class="hero__logo-img"
+        />
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="section">
-    <div class="container container--narrow text-center">
-      <span class="section-label">CONCEPT</span>
-      <h2 class="section-title scroll-fade-up">共に学び、共に成長する。</h2>
-      <p class="scroll-fade-up delay-1">
-        1年生のうちから「学び方」を身につけることで、<br>
-        国試対策も、実習も、臨床も——<br>
-        自信を持って進める自分へ。<br>
-        学年を超えた仲間と支え合いながら、<br>
-        プロフェッショナルとしての土台を築いていきます。
-      </p>
-    </div>
-  </section>
-
-  <!-- Features (PC: Bento Grid / SP: Carousel) -->
-  <section class="section section--bg">
+  <!-- ========== BANNER AD TOP (728×90) ========== -->
+  <div class="banner-zone">
     <div class="container">
-      <span class="section-label">FEATURES</span>
-      <h2 class="section-title scroll-fade-up">学習を加速させる環境</h2>
+      <p class="banner-label">広告</p>
+      <div class="banner-ad banner-ad--leaderboard">
+        <!-- ここに広告タグを挿入してください -->
+        <div class="banner-placeholder">広告スペース (728×90)</div>
+      </div>
+    </div>
+  </div>
 
-      <!-- PC Layout -->
-      <div class="bento-grid pc-only">
-        {features.map(item => (
-          <div class={`bento-item col-span-${item.colSpan} row-span-${item.rowSpan} scroll-fade-up`}>
-            {item.image ? (
-              <div class="bento-visual">
-                <img src={item.image} alt={item.title} loading="lazy" onError="this.style.display='none'; this.parentElement.classList.add('img-placeholder')" />
-              </div>
-            ) : (
-              <div class="bento-bg" style={`background-color: ${item.color}`}></div>
-            )}
-            <div class="bento-content">
-              <h3 class="bento-title">{item.title}</h3>
-              <p class="bento-desc">{item.desc}</p>
-            </div>
-          </div>
+  <!-- ========== EXAM CATEGORIES ========== -->
+  <section id="categories" class="section">
+    <div class="container">
+      <span class="section-label">CATEGORIES</span>
+      <h2 class="section-title scroll-fade-up">国試対策カテゴリ</h2>
+      <div class="category-grid">
+        {examCategories.map(cat => (
+          <a href={cat.href} class="category-card scroll-fade-up">
+            <span class="category-icon">{cat.icon}</span>
+            <span class="category-name">{cat.name}</span>
+          </a>
         ))}
       </div>
-
-      <!-- SP Layout -->
-      <div class="carousel-stack sp-only">
-        {features.map(item => (
-          <div class="carousel-item scroll-fade-up">
-            <div class="carousel-visual img-placeholder">
-              {item.image && <img src={item.image} alt={item.title} loading="lazy" onError="this.style.display='none'" />}
-            </div>
-            <h3 class="bento-title mt-4">{item.title}</h3>
-            <p class="bento-desc">{item.desc}</p>
-          </div>
-        ))}
-        <!-- Swipe Hint -->
-        <div class="carousel-hint">Swipe &rarr;</div>
-      </div>
-
     </div>
   </section>
 
-  <!-- Stats -->
-  <section class="section">
+  <!-- ========== ABOUT ========== -->
+  <section id="about" class="section section--light">
+    <div class="container about-inner">
+      <div class="about-image scroll-fade-up">
+        <img src="/assets/images/flagship-logo.png" alt="FLAGSHIP" />
+      </div>
+      <div class="about-content scroll-fade-up delay-1">
+        <span class="section-label" style="text-align:left">ABOUT</span>
+        <h2 class="about-title">FLAGSHIPとは？</h2>
+        <p>
+          FLAGSHIPは、理学療法士国家試験対策を頑張るすべての学生のためのサイトです。
+        </p>
+        <p>
+          国試で高得点を取った運営者が実体験をもとに、おすすめ教材・効率的な学習法を発信。
+          さらに<strong>無料のSlackコミュニティ</strong>で、仲間と一緒に合格を目指せます。
+        </p>
+        <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="btn btn--primary">
+          無料コミュニティに参加する →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMMUNITY FEATURES ========== -->
+  <section id="features" class="section">
+    <div class="container">
+      <span class="section-label">COMMUNITY</span>
+      <h2 class="section-title scroll-fade-up">無料コミュニティの特徴</h2>
+
+      <!-- PC: Bento Grid -->
+      <div class="bento-grid pc-only">
+        {features.map(f => (
+          <div
+            class={`bento-item scroll-fade-up ${f.wide ? 'col-span-2' : 'col-span-1'} row-span-1`}
+            style={`background: ${f.color}; box-shadow: none; border: 1px solid rgba(0,0,0,0.06);`}
+          >
+            <div class="bento-content">
+              <span class="bento-icon">{f.icon}</span>
+              <h3 class="bento-title">{f.title}</h3>
+              <p class="bento-desc">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- SP: List -->
+      <div class="feature-list sp-only">
+        {features.map(f => (
+          <div class="feature-item scroll-fade-up" style={`background: ${f.color};`}>
+            <span class="feature-icon">{f.icon}</span>
+            <div>
+              <h3 class="feature-title">{f.title}</h3>
+              <p class="feature-desc">{f.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== STATS ========== -->
+  <section class="section section--accent">
     <div class="container">
       <div class="stats-grid">
         {stats.map(stat => (
@@ -181,15 +212,32 @@ const items = await getRecommendItems();
     </div>
   </section>
 
-  <!-- ASP Links -->
-  <section class="section section--bg">
+  <!-- ========== BANNER AD MID (300×250 ×2) ========== -->
+  <div class="banner-zone">
+    <div class="container">
+      <p class="banner-label">広告</p>
+      <div class="banner-mid-grid">
+        <div class="banner-ad banner-ad--rect">
+          <!-- 300×250 広告タグ -->
+          <div class="banner-placeholder">広告スペース (300×250)</div>
+        </div>
+        <div class="banner-ad banner-ad--rect">
+          <!-- 300×250 広告タグ -->
+          <div class="banner-placeholder">広告スペース (300×250)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== RECOMMENDED BOOKS (ASP) ========== -->
+  <section id="books" class="section section--light">
     <div class="container">
       <span class="section-label">RECOMMEND</span>
-      <h2 class="section-title scroll-fade-up">推奨教材</h2>
-      
+      <h2 class="section-title scroll-fade-up">おすすめ教材</h2>
+      <p class="section-sub scroll-fade-up">国試高得点合格者が実際に使った教材を厳選紹介。</p>
       <div class="asp-grid">
         {items.map(item => (
-          <AspLink 
+          <AspLink
             title={item.title}
             description={item.description}
             links={item.links}
@@ -200,125 +248,146 @@ const items = await getRecommendItems();
     </div>
   </section>
 
-  <!-- Blog Section will be added after MicroCMS setup -->
-
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container text-center">
-      <h2 class="cta-title scroll-fade-up">未来を変える準備は<br>できましたか？</h2>
-      <p class="cta-text scroll-fade-up delay-1">
-        月額500円。リスクはありません。<br>
-        あなたの挑戦を、全力でサポートします。
-      </p>
-      <a href="/join" class="btn btn--secondary btn--lg scroll-fade-up delay-2">
-        メンバーシップに参加する
-      </a>
+  <!-- ========== SLACK CTA ========== -->
+  <section class="slack-cta">
+    <div class="container">
+      <div class="slack-cta__inner scroll-fade-up">
+        <div class="slack-cta__image">
+          <img src="/assets/images/flagship-logo.png" alt="FLAGSHIP コミュニティ" />
+        </div>
+        <div class="slack-cta__content">
+          <h2 class="slack-cta__title">
+            無料Slackコミュニティで<br>
+            一緒に合格を目指そう
+          </h2>
+          <ul class="slack-cta__list">
+            <li>✓ 入会費・月会費：<strong>完全無料</strong></li>
+            <li>✓ 国試合格者への質問し放題</li>
+            <li>✓ 学習資料・まとめノートの無料DL</li>
+            <li>✓ 月2回オンライン勉強会</li>
+          </ul>
+          <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="btn btn--primary btn--lg">
+            Slackに無料参加する →
+          </a>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- ========== BANNER AD BOTTOM (728×90) ========== -->
+  <div class="banner-zone banner-zone--bottom">
+    <div class="container">
+      <p class="banner-label">広告</p>
+      <div class="banner-ad banner-ad--leaderboard">
+        <!-- ここに広告タグを挿入してください -->
+        <div class="banner-placeholder">広告スペース (728×90)</div>
+      </div>
+    </div>
+  </div>
 
 </BaseLayout>
 
 <style>
-  /* Hero */
+  /* ========== HERO ========== */
   .hero {
-    height: 90vh;
-    min-height: 600px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-  }
-  
-  .hero__bg-slider, .hero__slide {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-  }
-  
-  .hero__slide {
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transition: opacity 2s ease;
-  }
-  
-  .hero__slide.active { opacity: 1; }
-  
-  .hero__overlay {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.2) 100%);
-    z-index: 1;
-  }
-  
-  .hero__container {
-    position: relative;
-    z-index: 2;
-  }
-  
-  .hero__content { max-width: 600px; }
-  
-  .hero__tag {
-    display: inline-block;
-    padding: 6px 12px;
-    background: var(--text);
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 700;
-    margin-bottom: 24px;
-    border-radius: 4px;
-  }
-  
-  .hero__title {
-    font-size: 3rem;
-    line-height: 1.2;
-    margin-bottom: 24px;
-  }
-  
-  .hero__lead {
-    font-size: 1.1rem;
-    margin-bottom: 40px;
-  }
-  
-  .hero__actions {
-    display: flex;
-    gap: 16px;
-  }
-  
-  /* Stats */
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-  }
-  
-  .stat-value {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    font-family: 'Inter', sans-serif;
-  }
-  
-  .stat-unit { font-size: 1rem; color: var(--text); margin-left: 4px; }
-  .stat-label { font-size: 0.9rem; color: var(--text-light); }
-  
-  @media(min-width: 768px) {
-    .stats-grid { grid-template-columns: repeat(4, 1fr); }
-    .hero__title { font-size: 4.5rem; }
+    padding: 120px 0 80px;
+    background: #fff;
   }
 
-  /* CTA */
-  .cta-section {
+  .hero__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hero__container {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero {
+      padding: 140px 0 100px;
+    }
+  }
+
+  .hero__tag {
+    display: inline-block;
+    padding: 6px 14px;
     background: var(--primary);
     color: white;
-    padding: 120px 0;
+    font-size: 0.78rem;
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
   }
-  
-  .cta-title { color: white; margin-bottom: 24px; }
-  .cta-text { color: rgba(255,255,255,0.9); margin-bottom: 40px; }
-  
-  /* Opening & Others */
+
+  .hero__title {
+    font-size: 2.6rem;
+    line-height: 1.25;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+
+  @media (min-width: 768px) {
+    .hero__title { font-size: 3.6rem; }
+  }
+
+  .text-primary { color: var(--primary); }
+
+  .hero__lead {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 36px;
+    line-height: 1.9;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .btn--lg { padding: 16px 36px; font-size: 1rem; }
+
+  .btn--outline {
+    background: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius-full);
+    padding: 14px 32px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn--outline:hover { background: var(--primary); color: white; }
+
+  .hero__badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .hero__image {
+    display: flex;
+    justify-content: center;
+  }
+
+  .hero__logo-img {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.08));
+  }
+
+  /* ========== OPENING ========== */
   .opening-overlay {
     position: fixed;
     top: 0; left: 0;
@@ -328,146 +397,352 @@ const items = await getRecommendItems();
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: fadeOut 0.5s ease 1.5s forwards;
+    animation: fadeOut 0.4s ease 1.6s forwards;
     pointer-events: none;
   }
-  
-  .opening-logo { font-size: 2rem; font-weight: 700; color: var(--primary); opacity: 0; animation: fadeInOut 1.5s ease forwards; text-align: center; }
-  .logo-sub { display: block; font-size: 0.8rem; color: var(--text-light); font-weight: 400; margin-top: 8px; }
-  
+
+  .opening-logo {
+    opacity: 0;
+    animation: fadeInOut 1.6s ease forwards;
+    text-align: center;
+  }
+
+  .opening-img {
+    width: 200px;
+    height: auto;
+  }
+
+  .opening-text-fallback {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+  }
+
   @keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(10px); }
-    20% { opacity: 1; transform: translateY(0); }
-    80% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-10px); }
+    0%   { opacity: 0; transform: scale(0.95); }
+    20%  { opacity: 1; transform: scale(1); }
+    80%  { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(1.02); }
   }
   @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
 
-  .text-primary { color: var(--primary); }
-  .mt-4 { margin-top: 1rem; }
-  .section--bg { background: var(--bg-panel); }
-  
-  /* SP Carousel */
-  .carousel-visual {
-    height: 180px;
-    background: #EEE;
-    border-radius: var(--radius-md);
-    margin-bottom: 16px;
-    overflow: hidden;
+  /* ========== BANNER AD ========== */
+  .banner-zone {
+    padding: 16px 0;
+    background: #f9f9f9;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
   }
-  
-  .carousel-visual img { width: 100%; height: 100%; object-fit: cover; }
-  
-  .asp-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-    max-width: 900px;
+
+  .banner-zone--bottom { margin-top: 0; }
+
+  .banner-label {
+    font-size: 0.7rem;
+    color: #aaa;
+    margin-bottom: 4px;
+    text-align: center;
+  }
+
+  .banner-ad {
+    display: flex;
+    justify-content: center;
+  }
+
+  .banner-ad--leaderboard {
+    max-width: 728px;
+    width: 100%;
     margin: 0 auto;
   }
-  
-  @media (min-width: 768px) {
-    .asp-grid { grid-template-columns: 1fr 1fr; }
-  }
-  
-  .bento-bg {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0;
-    opacity: 0.5;
+
+  .banner-mid-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
   }
 
-  /* Blog Card */
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 32px;
+  .banner-ad--rect {
+    width: 300px;
   }
 
-  .blog-card {
-    text-decoration: none;
-    color: var(--text);
-    background: var(--bg-white);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .blog-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-  }
-
-  .blog-card__image {
+  .banner-placeholder {
     width: 100%;
-    aspect-ratio: 16/9;
-    background: var(--bg-panel);
-    overflow: hidden;
-    position: relative;
-  }
-
-  .blog-card__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-  }
-
-  .blog-card:hover .blog-card__image img {
-    transform: scale(1.05);
-  }
-
-  .blog-card__placeholder {
-    width: 100%;
-    height: 100%;
+    background: #e8e8e8;
+    border: 2px dashed #ccc;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: #999;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+  }
+
+  .banner-ad--leaderboard .banner-placeholder {
+    height: 90px;
+  }
+
+  .banner-ad--rect .banner-placeholder {
+    height: 250px;
+  }
+
+  /* ========== CATEGORIES ========== */
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (min-width: 600px) {
+    .category-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (min-width: 900px) {
+    .category-grid { grid-template-columns: repeat(6, 1fr); }
+  }
+
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 24px 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-decoration: none;
+    color: var(--text);
     font-weight: 700;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    text-align: center;
   }
 
-  .blog-card__content {
-    padding: 24px;
+  .category-card:hover {
+    border-color: var(--primary);
+    background: #FFF8F5;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
-  .blog-card__date {
+  .category-icon { font-size: 1.8rem; }
+  .category-name { line-height: 1.4; }
+
+  /* ========== ABOUT ========== */
+  .section--light { background: #FAFAFA; }
+
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .about-inner { grid-template-columns: 1fr 1fr; }
+  }
+
+  .about-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
     display: block;
-    font-size: 0.8rem;
+    margin: 0 auto;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+
+  .about-content p {
+    margin-bottom: 16px;
+  }
+
+  /* ========== BENTO GRID ICON ========== */
+  .bento-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  /* ========== SP FEATURE LIST ========== */
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .feature-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+  .feature-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+  .feature-desc {
+    font-size: 0.85rem;
     color: var(--text-light);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ========== STATS ========== */
+  .section--accent {
+    background: var(--primary);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+
+  @media (min-width: 768px) {
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .stat-item { text-align: center; }
+
+  .stat-value {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
     margin-bottom: 8px;
   }
 
-  .blog-card__title {
+  .stat-unit {
     font-size: 1.1rem;
-    font-weight: 700;
-    line-height: 1.5;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    font-weight: 600;
+    color: rgba(255,255,255,0.85);
+    margin-left: 2px;
   }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 600;
+  }
+
+  /* ========== ASP GRID ========== */
+  .section-sub {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 40px;
+  }
+
+  .asp-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 640px) {
+    .asp-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (min-width: 900px) {
+    .asp-grid { grid-template-columns: 1fr 1fr 1fr; }
+  }
+
+  /* ========== SLACK CTA ========== */
+  .slack-cta {
+    background: linear-gradient(135deg, #1A1A2E 0%, #2C3E50 100%);
+    padding: 80px 0;
+  }
+
+  .slack-cta__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .slack-cta__inner { grid-template-columns: 1fr 1fr; }
+  }
+
+  .slack-cta__image img {
+    width: 100%;
+    max-width: 380px;
+    display: block;
+    margin: 0 auto;
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.3));
+  }
+
+  .slack-cta__title {
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 24px;
+    line-height: 1.4;
+  }
+
+  .slack-cta__list {
+    list-style: none;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .slack-cta__list li {
+    color: rgba(255,255,255,0.85);
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .slack-cta__list strong { color: #FFB347; }
+
+  .btn--white {
+    background: white;
+    color: var(--primary);
+    font-weight: 800;
+    border-radius: var(--radius-full);
+    padding: 16px 40px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 16px rgba(255,255,255,0.2);
+  }
+
+  .btn--white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(255,255,255,0.3);
+  }
+
+  /* ========== MISC ========== */
+  .delay-1 { transition-delay: 0.1s; }
+  .mt-4 { margin-top: 1rem; }
 </style>
 
 <script>
-  // Simple Slider
-  const slides = document.querySelectorAll('.hero__slide');
-  let current = 0;
-  if(slides.length > 0) {
-    setInterval(() => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
-    }, 5000);
-  }
+  // Body loaded
+  document.body.classList.add('loaded');
 
   // Scroll Observer
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
-      if(entry.isIntersecting) entry.target.classList.add('visible');
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1 });
-  
+
   document.querySelectorAll('.scroll-fade-up').forEach(el => observer.observe(el));
 </script>
