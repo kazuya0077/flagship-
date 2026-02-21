@@ -1,374 +1,209 @@
 ---
-import { navLinks, siteConfig } from '../config/site';
+import { siteConfig } from '../config/site';
 
 const currentPath = Astro.url.pathname;
 
-const navWithEn = [
-  { label: "ホーム", en: "HOME", href: "/" },
-  { label: "おすすめ教材", en: "BOOKS", href: "/#books" },
-  { label: "学習資産", en: "RESOURCES", href: "/resources" },
-  { label: "コミュニティ", en: "COMMUNITY", href: "/join" },
-  { label: "FAQ", en: "FAQ", href: "/faq" },
-  { label: "運営者紹介", en: "ABOUT", href: "/about" },
+const nav = [
+  { label: 'ABOUT',     href: '/#about' },
+  { label: 'SERVICE',   href: '/#service' },
+  { label: 'COMMUNITY', href: '/#community' },
+  { label: 'JOIN',      href: '/#join' },
 ];
 ---
 
-<!-- ======= SIDEBAR (PC) ======= -->
-<aside class="sidebar" id="sidebar">
-  <div class="sidebar__inner">
-    <!-- Logo -->
-    <a href="/" class="sidebar__logo">
-      <img src="/assets/images/flagship-logo.svg" alt="FLAGSHIP" class="sidebar__logo-img" />
-      <span class="sidebar__logo-name">FLAGSHIP</span>
-    </a>
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">FLAGSHIP</a>
 
-    <!-- Nav -->
-    <nav class="sidebar__nav">
-      <ul class="sidebar__nav-list">
-        {navWithEn.map(link => (
-          <li class="sidebar__nav-item">
-            <a
-              href={link.href}
-              class={`sidebar__nav-link ${currentPath === link.href ? 'is-active' : ''}`}
-            >
-              <span class="sidebar__nav-ja">{link.label}</span>
-              <small class="sidebar__nav-en">{link.en}</small>
-            </a>
-          </li>
-        ))}
-      </ul>
+    <nav class="nav__links" aria-label="メインナビゲーション">
+      {nav.map(link => (
+        <a href={link.href} class="nav__link">{link.label}</a>
+      ))}
     </nav>
 
-    <!-- CTA -->
-    <div class="sidebar__bottom">
-      <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="sidebar__cta">
-        無料で参加する
-      </a>
-      <a href={`https://twitter.com/${siteConfig.twitterHandle.replace('@','')}`} target="_blank" rel="noopener" class="sidebar__twitter">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        <span>@flagship_pt</span>
-      </a>
-    </div>
-  </div>
-</aside>
+    <a href="/#join" class="btn btn--outline nav__cta">JOIN FREE</a>
 
-<!-- ======= TOP BAR (SP) ======= -->
-<header class="topbar" id="topbar">
-  <a href="/" class="topbar__logo">FLAGSHIP</a>
-  <button class="topbar__hamburger" id="hamburger" aria-label="メニューを開く">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
+    <button class="nav__burger" id="navBurger" aria-label="メニューを開く" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
 </header>
 
-<!-- ======= MOBILE NAV OVERLAY ======= -->
-<div class="mobile-overlay" id="mobileOverlay">
-  <button class="mobile-overlay__close" id="mobileClose">✕</button>
-  <nav>
-    <ul class="mobile-overlay__list">
-      {navWithEn.map(link => (
-        <li>
-          <a href={link.href} class="mobile-overlay__link">
-            <span>{link.label}</span>
-            <small>{link.en}</small>
-          </a>
-        </li>
-      ))}
-    </ul>
-    <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="mobile-overlay__cta">
-      無料でSlackに参加する →
+<!-- Mobile overlay -->
+<div class="nav__overlay" id="navOverlay" aria-hidden="true">
+  <nav class="nav__mobile">
+    {nav.map(link => (
+      <a href={link.href} class="nav__mobile-link">{link.label}</a>
+    ))}
+    <a href="/#join" class="btn btn--primary" style="margin-top:2rem;align-self:center;">
+      JOIN FREE →
     </a>
   </nav>
 </div>
 
 <style>
-/* ===== SIDEBAR ===== */
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 260px;
-  height: 100vh;
-  background: #FFFFFD;
-  border-right: 1px solid #F2F2F2;
-  z-index: 200;
-  display: none;
-  overflow-y: auto;
-}
+  /* ── NAVBAR ────────────────────────────── */
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-h);
+    z-index: 200;
+    background: rgba(5,5,5,0.88);
+    border-bottom: 1px solid rgba(0,240,255,0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: background 0.3s;
+  }
 
-@media (min-width: 1024px) {
-  .sidebar { display: flex; flex-direction: column; }
-}
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    gap: 2.5rem;
+  }
 
-.sidebar__inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 44px 32px 36px;
-}
+  /* Logo */
+  .nav__logo {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-right: auto;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav__logo:hover { color: var(--accent); }
 
-.sidebar__logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
-  text-decoration: none;
-  margin-bottom: 48px;
-}
+  /* Links */
+  .nav__links {
+    display: flex;
+    gap: 2.5rem;
+  }
 
-.sidebar__logo-img {
-  width: 64px;
-  height: auto;
-}
+  .nav__link {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: var(--text-dim);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s;
+  }
+  .nav__link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--accent);
+    transition: width 0.3s var(--ease);
+  }
+  .nav__link:hover { color: var(--accent); }
+  .nav__link:hover::after { width: 100%; }
 
-.sidebar__logo-name {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #1A1A1A;
-  letter-spacing: 0.12em;
-  font-family: 'Montserrat', sans-serif;
-}
+  /* CTA */
+  .nav__cta {
+    font-size: 0.65rem;
+    padding: 9px 22px;
+    flex-shrink: 0;
+  }
 
-.sidebar__nav { flex: 1; }
+  /* Burger */
+  .nav__burger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    width: 36px;
+  }
+  .nav__burger span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--text);
+    transition: all 0.3s var(--ease);
+    transform-origin: center;
+  }
+  .nav__burger.is-open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav__burger.is-open span:nth-child(2) { opacity: 0; }
+  .nav__burger.is-open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
 
-.sidebar__nav-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
+  /* ── MOBILE OVERLAY ─────────────────────── */
+  .nav__overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    top: var(--nav-h);
+    background: rgba(5,5,5,0.97);
+    z-index: 199;
+    overflow-y: auto;
+  }
+  .nav__overlay.is-open { display: flex; }
 
-.sidebar__nav-link {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  text-decoration: none;
-  transition: background 0.2s ease;
-  position: relative;
-}
+  .nav__mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 3rem 24px;
+    gap: 1.2rem;
+    width: 100%;
+  }
 
-.sidebar__nav-link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%) scaleY(0);
-  width: 3px;
-  height: 60%;
-  background: #F06846;
-  border-radius: 0 2px 2px 0;
-  transition: transform 0.2s ease;
-}
+  .nav__mobile-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 1rem;
+    width: 100%;
+  }
+  .nav__mobile-link:hover { color: var(--accent); }
 
-.sidebar__nav-link:hover::before,
-.sidebar__nav-link.is-active::before {
-  transform: translateY(-50%) scaleY(1);
-}
-
-.sidebar__nav-link:hover,
-.sidebar__nav-link.is-active {
-  background: rgba(240,104,70,0.06);
-}
-
-.sidebar__nav-ja {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: #313131;
-  letter-spacing: 0.05em;
-}
-
-.sidebar__nav-en {
-  font-size: 0.68rem;
-  color: #AEAEAE;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.12em;
-  font-weight: 500;
-}
-
-.sidebar__nav-link.is-active .sidebar__nav-ja { color: #F06846; }
-
-.sidebar__bottom {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  margin-top: 32px;
-  padding-top: 24px;
-  border-top: 1px solid #F2F2F2;
-}
-
-.sidebar__cta {
-  display: block;
-  text-align: center;
-  padding: 12px 20px;
-  background: #F06846;
-  color: white;
-  font-size: 0.82rem;
-  font-weight: 700;
-  border-radius: 8px;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: background 0.2s ease;
-}
-
-.sidebar__cta:hover { background: #D44D2E; }
-
-.sidebar__twitter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  color: #AEAEAE;
-  font-size: 0.75rem;
-  font-family: 'Montserrat', sans-serif;
-  transition: color 0.2s;
-  justify-content: center;
-}
-
-.sidebar__twitter:hover { color: #313131; }
-
-/* ===== TOPBAR (SP) ===== */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #FFFFFD;
-  border-bottom: 1px solid #F2F2F2;
-  padding: 0 20px;
-  z-index: 200;
-}
-
-@media (min-width: 1024px) {
-  .topbar { display: none; }
-}
-
-.topbar__logo {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: #1A1A1A;
-  text-decoration: none;
-  letter-spacing: 0.12em;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.topbar__hamburger {
-  width: 28px;
-  height: 20px;
-  position: relative;
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.topbar__hamburger span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: #313131;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-/* ===== MOBILE OVERLAY ===== */
-.mobile-overlay {
-  position: fixed;
-  inset: 0;
-  background: #FFFFFD;
-  z-index: 300;
-  padding: 80px 40px 40px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  overflow-y: auto;
-}
-
-.mobile-overlay.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mobile-overlay__close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  cursor: pointer;
-  color: #313131;
-  width: 40px;
-  height: 40px;
-}
-
-.mobile-overlay__list {
-  list-style: none;
-  margin-bottom: 40px;
-}
-
-.mobile-overlay__link {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 18px 0;
-  border-bottom: 1px solid #F2F2F2;
-  text-decoration: none;
-}
-
-.mobile-overlay__link span {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #313131;
-}
-
-.mobile-overlay__link small {
-  font-size: 0.7rem;
-  color: #AEAEAE;
-  font-family: 'Montserrat', sans-serif;
-  letter-spacing: 0.15em;
-}
-
-.mobile-overlay__cta {
-  display: block;
-  text-align: center;
-  padding: 16px;
-  background: #F06846;
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  border-radius: 10px;
-  text-decoration: none;
-  margin-top: 8px;
-}
+  @media (max-width: 900px) {
+    .nav__links, .nav__cta { display: none; }
+    .nav__burger { display: flex; }
+    .nav__inner { padding: 0 24px; }
+  }
 </style>
 
 <script>
-  const hamburger = document.getElementById('hamburger');
-  const overlay = document.getElementById('mobileOverlay');
-  const closeBtn = document.getElementById('mobileClose');
+  const burger  = document.getElementById('navBurger');
+  const overlay = document.getElementById('navOverlay');
 
-  hamburger?.addEventListener('click', () => {
-    overlay?.classList.add('is-open');
-    document.body.style.overflow = 'hidden';
+  burger?.addEventListener('click', () => {
+    const open = overlay?.classList.toggle('is-open');
+    burger.classList.toggle('is-open');
+    burger.setAttribute('aria-expanded', String(open));
+    overlay?.setAttribute('aria-hidden', String(!open));
+    document.body.style.overflow = open ? 'hidden' : '';
   });
 
-  const closeMenu = () => {
-    overlay?.classList.remove('is-open');
-    document.body.style.overflow = '';
-  };
-
-  closeBtn?.addEventListener('click', closeMenu);
-
+  // close on link click
   overlay?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', closeMenu);
+    a.addEventListener('click', () => {
+      overlay.classList.remove('is-open');
+      burger?.classList.remove('is-open');
+      burger?.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
   });
 </script>

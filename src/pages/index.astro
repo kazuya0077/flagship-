@@ -1,833 +1,749 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AspLink from '../components/AspLink.astro';
-import { siteConfig } from '../config/site';
-import { getRecommendItems } from '../library/microcms';
-
-const items = await getRecommendItems();
-
-const services = [
-  {
-    title: "無料Slackコミュニティ",
-    en: "COMMUNITY",
-    desc: "国試合格者に24時間質問できる。同じ目標を持つ学生と一緒に合格を目指せるコミュニティ。",
-    image: "/assets/images/feature-slack.jpg",
-    href: siteConfig.links.slackJoin,
-    external: true,
-  },
-  {
-    title: "学習資産を無料DL",
-    en: "RESOURCES",
-    desc: "合格者が作ったまとめノート・分析シートを完全無料でダウンロード。効率的な国試対策が可能。",
-    image: "/assets/images/feature-resources.jpg",
-    href: "/resources",
-    external: false,
-  },
-  {
-    title: "おすすめ教材を厳選紹介",
-    en: "BOOKS",
-    desc: "国試高得点を取った運営者が実際に使った教材だけを厳選。失敗しない教材選びをサポート。",
-    image: "/assets/images/feature-community.jpg",
-    href: "#books",
-    external: false,
-  },
-];
-
-const stats = [
-  { value: "238", unit: "点", label: "講師国試得点" },
-  { value: "50", unit: "+", label: "学習資料数" },
-  { value: "24", unit: "h", label: "質問回答時間" },
-  { value: "98", unit: "%", label: "継続率" },
-];
-
-const points = [
-  { num: "01", title: "完全無料", desc: "入会費・月会費一切なし。Slackに参加するだけで全コンテンツが使えます。" },
-  { num: "02", title: "質問し放題", desc: "24時間365日、国試高得点合格者が丁寧に回答します。" },
-  { num: "03", title: "資料DL無料", desc: "合格者のまとめノート・分析シートをすべて無料でダウンロード可能。" },
-  { num: "04", title: "月2回勉強会", desc: "国試対策の疑問をリアルタイムで解消できるオンライン勉強会を開催。" },
-  { num: "05", title: "仲間と繋がる", desc: "同じ目標を持つPT学生と励まし合い、一緒に合格を目指せます。" },
-  { num: "06", title: "合格者運営", desc: "高得点合格者の実体験をもとにした、信頼できる情報だけを発信。" },
-];
 ---
 
-<BaseLayout
-  title="FLAGSHIP | PT国試対策・無料学習コミュニティ"
-  description="理学療法士国家試験対策の情報サイト。おすすめ教材・学習法・無料Slackコミュニティを提供。合格者運営。"
->
+<BaseLayout>
 
-<!-- ========== HERO ========== -->
-<section class="hero">
-  <!-- background image -->
-  <div class="hero__bg">
-    <img src="/assets/images/hero-1.jpg" alt="" class="hero__bg-img" />
-    <div class="hero__bg-overlay"></div>
-  </div>
+  <!-- ══════════════════════════════════════════
+       HERO — FLAGSHIP SVG Path Tracing
+  ══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero__noise" aria-hidden="true"></div>
 
-  <!-- text block at bottom (nijinowa style) -->
-  <div class="hero__body">
-    <p class="hero__label">PT国試対策 × 無料Slackコミュニティ</p>
-    <h1 class="hero__title">
-      自走する力を、<br>ここから。
-    </h1>
-    <p class="hero__desc">
-      理学療法士国家試験対策の情報を、無料で。<br>
-      おすすめ教材・効率的な学習法と、<strong>無料Slackコミュニティ</strong>を提供。
-    </p>
-    <div class="hero__actions">
-      <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="hero__btn hero__btn--fill">
-        無料でコミュニティに参加する
-      </a>
-      <a href="#books" class="hero__btn hero__btn--line">
-        おすすめ教材を見る
-      </a>
-    </div>
-  </div>
+    <div class="hero__content">
+      <p class="hero__kicker">// PT COMMUNITY PLATFORM</p>
 
-  <!-- scroll hint -->
-  <div class="hero__scroll-hint">
-    <span class="hero__scroll-line"></span>
-    <span class="hero__scroll-text">SCROLL</span>
-  </div>
-</section>
-
-<!-- ========== BANNER TOP ========== -->
-<div class="banner-zone">
-  <div class="container">
-    <p class="banner-label">広告</p>
-    <div class="banner-inner banner-inner--lg">
-      <!-- 728×90 広告タグをここに挿入 -->
-      <div class="banner-placeholder" style="height:90px">広告スペース (728×90)</div>
-    </div>
-  </div>
-</div>
-
-<!-- ========== SERVICES ========== -->
-<section id="services" class="section section--white">
-  <div class="container">
-    <p class="sec-label fade-up">WHAT WE OFFER</p>
-    <h2 class="sec-title fade-up d1">FLAGSHIPで<span style="color:var(--primary)">できること</span></h2>
-    <p class="sec-sub fade-up d2">国試合格に必要なすべてが、無料で揃っています。</p>
-
-    <div class="service-grid">
-      {services.map((s, i) => (
-        <a
-          href={s.href}
-          target={s.external ? '_blank' : undefined}
-          rel={s.external ? 'noopener' : undefined}
-          class={`service-card fade-up d${i+1}`}
-        >
-          <div class="service-card__img-wrap">
-            <img src={s.image} alt={s.title} loading="lazy" class="service-card__img" />
-          </div>
-          <div class="service-card__body">
-            <small class="service-card__en">{s.en}</small>
-            <h3 class="service-card__title">{s.title}</h3>
-            <p class="service-card__desc">{s.desc}</p>
-            <span class="service-card__more">詳しく見る <span aria-hidden>→</span></span>
-          </div>
-        </a>
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ========== ABOUT ========== -->
-<section id="about" class="section section--cream">
-  <div class="container">
-    <div class="about-inner">
-      <div class="about__img-col fade-up">
-        <div class="about__img-wrap">
-          <img src="/assets/images/hero-1.jpg" alt="FLAGSHIP" class="about__img" loading="lazy" />
-          <div class="about__img-badge">
-            <img src="/assets/images/flagship-logo.svg" alt="" width="48" height="48" />
-            <span>FLAGSHIP</span>
-          </div>
-        </div>
+      <!-- SVG path tracing animation -->
+      <div class="hero__svg-wrap" aria-label="FLAGSHIP">
+        <svg class="hero__svg" viewBox="0 0 900 120" preserveAspectRatio="xMidYMid meet">
+          <text
+            class="flagship-trace"
+            x="50%"
+            y="88%"
+            text-anchor="middle"
+            font-family="Inter, sans-serif"
+            font-weight="900"
+            font-size="108"
+            fill="transparent"
+            stroke="#00F0FF"
+            stroke-width="1"
+            letter-spacing="-4"
+          >FLAGSHIP</text>
+        </svg>
       </div>
-      <div class="about__text-col fade-up d2">
-        <p class="sec-label" style="text-align:left">ABOUT</p>
-        <h2 class="about__title">PTを目指す学生の<br><span style="color:var(--primary)">旗艦</span>として</h2>
-        <p>FLAGSHIPは、理学療法士国家試験対策を頑張るすべての学生のためのサイトです。</p>
-        <p>国試で高得点を取った運営者が実体験をもとに、おすすめ教材・効率的な学習法を発信。<strong>完全無料のSlackコミュニティ</strong>で、仲間と一緒に合格を目指せます。</p>
-        <div class="about__actions">
-          <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="btn btn--primary">無料コミュニティに参加する</a>
-          <a href="/about" class="btn btn--outline">運営者について</a>
-        </div>
+
+      <p class="hero__sub">
+        理学療法学生の不安・孤独をなくし、<span class="pc-br"><br></span>
+        学習・臨床・キャリアをつなげるコミュニティ
+      </p>
+
+      <div class="hero__actions">
+        <a href="/#join"  class="btn btn--primary">JOIN FREE →</a>
+        <a href="/#about" class="btn btn--outline">ABOUT US</a>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ========== POINTS ========== -->
-<section id="features" class="section section--white">
-  <div class="container">
-    <p class="sec-label fade-up">COMMUNITY</p>
-    <h2 class="sec-title fade-up d1">コミュニティの<span style="color:var(--primary)">6つの特徴</span></h2>
-    <div class="points-grid">
-      {points.map((p, i) => (
-        <div class={`point-card fade-up d${(i%3)+1}`}>
-          <span class="point-num">{p.num}</span>
-          <h3 class="point-title">{p.title}</h3>
-          <p class="point-desc">{p.desc}</p>
-        </div>
-      ))}
+    <!-- scroll indicator -->
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-label">SCROLL</span>
+      <div class="hero__scroll-bar"></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ========== STATS ========== -->
-<section class="stats-section">
-  <div class="container">
-    <div class="stats-grid">
-      {stats.map((s, i) => (
-        <div class={`stat-item fade-up d${i+1}`}>
-          <div class="stat-val">{s.value}<span class="stat-unit">{s.unit}</span></div>
-          <div class="stat-lbl">{s.label}</div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
 
-<!-- ========== BANNER MID ========== -->
-<div class="banner-zone banner-zone--cream">
-  <div class="container">
-    <p class="banner-label">広告</p>
-    <div class="banner-mid">
-      <div class="banner-inner banner-inner--sq">
-        <div class="banner-placeholder" style="height:250px">広告 (300×250)</div>
-      </div>
-      <div class="banner-inner banner-inner--sq">
-        <div class="banner-placeholder" style="height:250px">広告 (300×250)</div>
-      </div>
-    </div>
-  </div>
-</div>
+  <!-- ══════════════════════════════════════════
+       01 — ABOUT / MVV
+  ══════════════════════════════════════════ -->
+  <section id="about">
+    <div class="container">
 
-<!-- ========== BOOKS ========== -->
-<section id="books" class="section section--white">
-  <div class="container">
-    <p class="sec-label fade-up">RECOMMEND</p>
-    <h2 class="sec-title fade-up d1">おすすめ<span style="color:var(--primary)">教材</span></h2>
-    <p class="sec-sub fade-up d2">国試高得点合格者が実際に使った教材を厳選紹介。</p>
-    <div class="books-grid">
-      {items.map(item => (
-        <AspLink
-          title={item.title}
-          description={item.description}
-          links={item.links}
-          image={item.image}
-        />
-      ))}
-    </div>
-  </div>
-</section>
-
-<!-- ========== GALLERY ========== -->
-<div class="gallery-strip">
-  <div class="gallery-track">
-    <img src="/assets/images/hero-1.jpg" alt="" loading="lazy" />
-    <img src="/assets/images/feature-slack.jpg" alt="" loading="lazy" />
-    <img src="/assets/images/feature-resources.jpg" alt="" loading="lazy" />
-    <img src="/assets/images/feature-community.jpg" alt="" loading="lazy" />
-    <!-- duplicate for seamless loop -->
-    <img src="/assets/images/hero-1.jpg" alt="" loading="lazy" aria-hidden="true" />
-    <img src="/assets/images/feature-slack.jpg" alt="" loading="lazy" aria-hidden="true" />
-    <img src="/assets/images/feature-resources.jpg" alt="" loading="lazy" aria-hidden="true" />
-    <img src="/assets/images/feature-community.jpg" alt="" loading="lazy" aria-hidden="true" />
-  </div>
-</div>
-
-<!-- ========== CTA ========== -->
-<section class="cta-section">
-  <div class="container">
-    <div class="cta-inner fade-up">
-      <p class="cta-label">JOIN US</p>
-      <h2 class="cta-title">
-        無料Slackコミュニティで<br>
-        一緒に合格を目指そう
+      <p class="sec-label reveal">// 01 &nbsp; ABOUT</p>
+      <h2 class="sec-title reveal d1">
+        なぜFLAGSHIPは<br>存在するのか
       </h2>
-      <ul class="cta-list">
-        <li><span class="cta-check">✓</span> 入会費・月会費：<strong>完全無料</strong></li>
-        <li><span class="cta-check">✓</span> 国試合格者への質問し放題</li>
-        <li><span class="cta-check">✓</span> 学習資料・まとめノートの無料DL</li>
-        <li><span class="cta-check">✓</span> 月2回オンライン勉強会参加</li>
-      </ul>
-      <a href={siteConfig.links.slackJoin} target="_blank" rel="noopener" class="cta-btn">
-        Slackに無料参加する →
-      </a>
-    </div>
-  </div>
-</section>
+      <p class="sec-desc reveal d2">
+        理学療法士を目指す学生が、真に自分の頭で考え、選択し、成長できる環境は
+        これまでほとんど存在しなかった。FLAGSHIPはその空白を埋めるために生まれた。
+      </p>
 
-<!-- ========== BANNER BOTTOM ========== -->
-<div class="banner-zone">
-  <div class="container">
-    <p class="banner-label">広告</p>
-    <div class="banner-inner banner-inner--lg">
-      <div class="banner-placeholder" style="height:90px">広告スペース (728×90)</div>
+      <div class="mvv-grid">
+
+        <!-- MISSION -->
+        <article class="mvv-card glass target-card reveal d1">
+          <div class="mvv-card__head">
+            <span class="mvv-card__num">01</span>
+            <span class="mvv-card__badge">MISSION</span>
+          </div>
+          <h3 class="mvv-card__title">Mission</h3>
+          <div class="mvv-card__line"></div>
+          <p class="mvv-card__text">
+            理学療法学生の<strong>不安・孤独をなくし</strong>、
+            学習・臨床・キャリアをつなげて理解できる環境を提供し人材を育成する
+          </p>
+        </article>
+
+        <!-- VISION -->
+        <article class="mvv-card glass target-card reveal d2">
+          <div class="mvv-card__head">
+            <span class="mvv-card__num">02</span>
+            <span class="mvv-card__badge">VISION</span>
+          </div>
+          <h3 class="mvv-card__title">Vision</h3>
+          <div class="mvv-card__line"></div>
+          <p class="mvv-card__text">
+            <strong>自分で考え、選び、成長できる理学療法士</strong>が当たり前の世界・業界
+          </p>
+          <ul class="mvv-card__bullets">
+            <li>国試後に燃え尽きない PT を増やす</li>
+            <li>「とりあえず急性期」の慣例を変える</li>
+            <li>SNS情報に振り回されない自分軸を育てる</li>
+          </ul>
+        </article>
+
+        <!-- VALUES -->
+        <article class="mvv-card glass target-card reveal d3">
+          <div class="mvv-card__head">
+            <span class="mvv-card__num">03</span>
+            <span class="mvv-card__badge">VALUES</span>
+          </div>
+          <h3 class="mvv-card__title">Values</h3>
+          <div class="mvv-card__line"></div>
+          <ul class="mvv-card__values">
+            <li><span class="v-dash">—</span>正解より、思考・試行を大切にする</li>
+            <li><span class="v-dash">—</span>比較ではなく、成長に目を向ける</li>
+            <li><span class="v-dash">—</span>社会で使える自己理解を目指す</li>
+            <li><span class="v-dash">—</span>挑戦を応援する</li>
+          </ul>
+        </article>
+
+      </div><!-- /mvv-grid -->
+
     </div>
-  </div>
-</div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       02 — SERVICE
+  ══════════════════════════════════════════ -->
+  <section id="service" class="sec-alt">
+    <div class="container">
+
+      <p class="sec-label reveal">// 02 &nbsp; SERVICE</p>
+      <h2 class="sec-title reveal d1">2つの学習トラック</h2>
+      <p class="sec-desc reveal d2">
+        入学直後から卒業後まで。あなたのフェーズに合わせた
+        学習とキャリア形成を、コミュニティが伴走します。
+      </p>
+
+      <div class="service-grid">
+
+        <!-- Track 01 -->
+        <article class="service-card glass target-card reveal d1">
+          <div class="service-card__num">01</div>
+          <h3 class="service-card__title">国試・学業サポート</h3>
+          <p class="service-card__en">LICENSING EXAM SUPPORT</p>
+          <p class="service-card__desc">
+            効率的な国試対策と日常の学習を、コミュニティの力で乗り越える。
+            一人で抱えず、仲間と一緒に前へ進む。
+          </p>
+          <ul class="service-card__list">
+            <li>国試勉強の進め方・戦略設計</li>
+            <li>国試対策ミニ講義コンテンツ</li>
+            <li>領域別「ここだけは押さえる」要点整理</li>
+            <li>授業・実習の質問OKチャンネル</li>
+          </ul>
+        </article>
+
+        <!-- Track 02 -->
+        <article class="service-card glass target-card reveal d2">
+          <div class="service-card__num">02</div>
+          <h3 class="service-card__title">キャリア・価値観形成</h3>
+          <p class="service-card__en">CAREER DEVELOPMENT</p>
+          <p class="service-card__desc">
+            入学直後のギャップから、将来の不安まで。
+            言語化し、仲間と整理し、自分の軸を育てる場所。
+          </p>
+          <ul class="service-card__list">
+            <li>月1テーマ型座談会（音声 / Zoom）</li>
+            <li>「失敗談・遠回り談」先輩からのリアル</li>
+            <li>キャリアの選択肢マップ</li>
+            <li>卒業後1〜5年目のリアル解説</li>
+          </ul>
+        </article>
+
+      </div><!-- /service-grid -->
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       03 — COMMUNITY FEATURES
+  ══════════════════════════════════════════ -->
+  <section id="community">
+    <div class="container">
+
+      <p class="sec-label reveal">// 03 &nbsp; COMMUNITY</p>
+      <h2 class="sec-title reveal d1">
+        コミュニティで<br>得られるもの
+      </h2>
+
+      <div class="features-grid">
+
+        <article class="feature-card glass target-card reveal d1">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">学習メソッド</h3>
+          <p>正解を暗記するのではなく、<strong>考える力を育てる</strong>学習アプローチを身につける。</p>
+        </article>
+
+        <article class="feature-card glass target-card reveal d2">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">相互サポート</h3>
+          <p>不安を言語化し、先輩・仲間からのフィードバックで<strong>思考を整理</strong>する場。</p>
+        </article>
+
+        <article class="feature-card glass target-card reveal d3">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">キャリア設計</h3>
+          <p>「とりあえず急性期」ではなく、<strong>自分が選んだ道</strong>を歩める判断力を養う。</p>
+        </article>
+
+        <article class="feature-card glass target-card reveal d4">
+          <div class="feature-card__icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="feature-card__title">先輩ネットワーク</h3>
+          <p>卒業後1〜5年目のリアルを知り、<strong>未来から逆算</strong>して学生生活を設計する。</p>
+        </article>
+
+      </div><!-- /features-grid -->
+
+      <!-- Purpose quote -->
+      <blockquote class="purpose-quote reveal">
+        <p class="purpose-quote__text">
+          "学生生活と国家試験のその先を見据え、<br class="pc-br">
+          理学療法士の学問を修めた人間として<br class="pc-br">
+          自分の軸を持って働ける人を増やす。"
+        </p>
+        <cite class="purpose-quote__cite">— FLAGSHIP PURPOSE</cite>
+      </blockquote>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════
+       04 — CTA / JOIN
+  ══════════════════════════════════════════ -->
+  <section id="join" class="sec-cta">
+    <div class="container">
+      <div class="cta-box glass">
+        <div class="cta-box__bg-text" aria-hidden="true">FLAGSHIP</div>
+
+        <div class="cta-box__inner">
+          <p class="sec-label reveal">// JOIN US</p>
+          <h2 class="cta-box__title reveal d1">
+            さあ、<br>自分の軸を作れ。
+          </h2>
+          <p class="cta-box__desc reveal d2">
+            入学直後でも、国試直前でも、卒業後でも。<br class="pc-br">
+            どのフェーズにいるあなたにも、FLAGSHIPは開かれています。
+          </p>
+
+          <div class="cta-box__actions reveal d3">
+            <a
+              href="https://join.slack.com/placeholder"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--primary cta-box__btn"
+            >
+              無料でコミュニティに参加する →
+            </a>
+          </div>
+
+          <ul class="cta-box__notes reveal d4">
+            <li>// 参加は完全無料</li>
+            <li>// 学生・入学直後からOK</li>
+            <li>// いつでも退会可能</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 
 </BaseLayout>
 
 <style>
-/* ===== HERO ===== */
+/* ════════════════════════════════════════
+   HERO
+════════════════════════════════════════ */
 .hero {
   position: relative;
   height: 100svh;
-  min-height: 600px;
+  min-height: 620px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
 .hero__bg {
   position: absolute;
   inset: 0;
+  background-image: url('https://static.vecteezy.com/system/resources/previews/021/039/790/non_2x/abstract-technology-futuristic-glowing-neon-blue-and-pink-light-lines-with-speed-motion-movingon-dark-blue-background-vector.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.28;
 }
 
-.hero__bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 25%;
-}
-
-.hero__bg-overlay {
+.hero__noise {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to top,
-    rgba(20, 20, 20, 0.82) 0%,
-    rgba(20, 20, 20, 0.4) 50%,
-    rgba(20, 20, 20, 0.15) 100%
+    to bottom,
+    rgba(5,5,5,0.3) 0%,
+    rgba(5,5,5,0.1) 40%,
+    rgba(5,5,5,0.6) 80%,
+    rgba(5,5,5,1)   100%
   );
 }
 
-.hero__body {
+.hero__content {
   position: relative;
-  z-index: 1;
-  padding: 0 60px 72px;
-  max-width: 780px;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  width: 100%;
+  max-width: 960px;
 }
 
-@media (max-width: 768px) {
-  .hero__body { padding: 0 24px 60px; }
+/* kicker */
+.hero__kicker {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  color: var(--accent);
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fadeIn 0.8s var(--ease) 0.2s forwards;
 }
 
-.hero__label {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  color: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.3);
-  padding: 5px 14px;
-  border-radius: 2px;
-  margin-bottom: 24px;
+/* SVG text */
+.hero__svg-wrap {
+  width: 100%;
+  max-width: 840px;
+  margin: 0 auto 2.5rem;
 }
 
-.hero__title {
-  font-size: 3rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  line-height: 1.2;
-  letter-spacing: 0.05em;
-  margin-bottom: 20px;
+.hero__svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
-@media (min-width: 768px) {
-  .hero__title { font-size: 4.2rem; }
+/* Phase 1: draw outline (0.6s → 2.1s)
+   Phase 2: fill white  (2.1s → 2.6s)
+   Phase 3: logo slides up (2.8s → 3.4s) via parent */
+.flagship-trace {
+  stroke-dasharray: 6000;
+  stroke-dashoffset: 6000;
+  animation:
+    drawOutline 1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards,
+    fillWhite   0.5s ease 2.1s forwards,
+    fadeStroke  0.5s ease 2.1s forwards;
 }
 
-.hero__desc {
-  font-size: 0.95rem;
-  color: rgba(255,255,255,0.8);
+@keyframes drawOutline {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fillWhite {
+  to { fill: #ffffff; }
+}
+@keyframes fadeStroke {
+  to { stroke: transparent; }
+}
+
+/* Phase 3: SVG wrap slides up and fades */
+.hero__svg-wrap {
+  animation: logoSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2.8s both;
+}
+
+@keyframes logoSlideUp {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-40px); }
+}
+
+/* Phase 3: sub + actions fade in after logo slides out */
+.hero__sub {
+  font-size: clamp(0.88rem, 2vw, 1.05rem);
+  color: #A0A0A0;
   line-height: 1.9;
-  margin-bottom: 32px;
+  margin-bottom: 2.8rem;
+  opacity: 0;
+  animation: fadeUp 1.0s cubic-bezier(0.16, 1, 0.3, 1) 3.3s forwards;
 }
-
-.hero__desc strong { color: #FFD580; }
 
 .hero__actions {
   display: flex;
+  gap: 1rem;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
+  opacity: 0;
+  animation: fadeUp 1.0s cubic-bezier(0.16, 1, 0.3, 1) 3.45s forwards;
 }
 
-.hero__btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 14px 32px;
-  font-size: 0.88rem;
-  font-weight: 700;
-  text-decoration: none;
-  letter-spacing: 0.04em;
-  transition: all 0.25s ease;
-  border-radius: 4px;
-}
-
-.hero__btn--fill {
-  background: #F06846;
-  color: white;
-}
-
-.hero__btn--fill:hover { background: #D44D2E; transform: translateY(-1px); }
-
-.hero__btn--line {
-  background: transparent;
-  border: 1.5px solid rgba(255,255,255,0.5);
-  color: white;
-}
-
-.hero__btn--line:hover { border-color: white; background: rgba(255,255,255,0.08); }
-
-.hero__scroll-hint {
+/* scroll hint */
+.hero__scroll {
   position: absolute;
-  right: 40px;
-  bottom: 40px;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  z-index: 1;
+  opacity: 0;
+  animation: fadeIn 1s ease 3.8s forwards;
 }
-
-.hero__scroll-line {
-  display: block;
+.hero__scroll-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  color: var(--text-dim);
+}
+.hero__scroll-bar {
   width: 1px;
-  height: 60px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.6));
-  animation: scrollLine 2s ease infinite;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--accent), transparent);
+  animation: scrollPulse 2s ease-in-out 4s infinite;
 }
 
-.hero__scroll-text {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: rgba(255,255,255,0.5);
-  writing-mode: vertical-rl;
+@keyframes scrollPulse {
+  0%, 100% { opacity: 1; transform: scaleY(1); }
+  50%       { opacity: 0.4; transform: scaleY(0.6); }
+}
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes scrollLine {
-  0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
-  50% { opacity: 1; transform: scaleY(1); }
-}
-
-/* ===== SERVICES ===== */
-.service-grid {
+/* ════════════════════════════════════════
+   MVV GRID
+════════════════════════════════════════ */
+.mvv-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-}
-
-@media (min-width: 768px) {
-  .service-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.service-card {
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-  background: #fff;
-  border: 1px solid var(--border);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-  cursor: pointer;
-}
-
-.service-card:hover {
-  box-shadow: var(--shadow-hover);
-  transform: translateY(-4px);
-  z-index: 1;
-}
-
-.service-card__img-wrap {
-  overflow: hidden;
-  aspect-ratio: 4/3;
-}
-
-.service-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-  display: block;
-}
-
-.service-card:hover .service-card__img { transform: scale(1.04); }
-
-.service-card__body {
-  padding: 28px 24px 32px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.service-card__en {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: var(--primary);
-  margin-bottom: 10px;
-}
-
-.service-card__title {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #313131;
-  margin-bottom: 12px;
-  letter-spacing: 0.04em;
-}
-
-.service-card__desc {
-  font-size: 0.85rem;
-  color: var(--text-light);
-  line-height: 1.75;
-  flex: 1;
-  margin: 0;
-}
-
-.service-card__more {
-  margin-top: 20px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* ===== ABOUT ===== */
-.about-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-@media (min-width: 768px) {
-  .about-inner { grid-template-columns: 1fr 1fr; }
-}
-
-.about__img-wrap {
-  position: relative;
-}
-
-.about__img {
-  width: 100%;
-  aspect-ratio: 4/3;
-  object-fit: cover;
-  display: block;
-}
-
-.about__img-badge {
-  position: absolute;
-  bottom: -20px;
-  right: -20px;
-  background: #FFFFFD;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-card);
-  padding: 14px 18px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 0.9rem;
-  color: #313131;
-  letter-spacing: 0.1em;
-  font-family: 'Montserrat', sans-serif;
-}
-
-.about__title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  line-height: 1.4;
-  letter-spacing: 0.05em;
-  margin-bottom: 20px;
-}
-
-.about__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 28px;
-}
-
-/* ===== POINTS ===== */
-.points-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  background: rgba(0,240,255,0.08);
 }
 
-@media (min-width: 600px) {
-  .points-grid { grid-template-columns: repeat(2, 1fr); }
+.mvv-card {
+  padding: 3rem 2.5rem;
+  background: var(--bg);
+  transition: background 0.3s;
 }
+.mvv-card:hover { background: rgba(0,240,255,0.03); }
 
-@media (min-width: 900px) {
-  .points-grid { grid-template-columns: repeat(3, 1fr); }
-}
-
-.point-card {
-  background: #fff;
-  padding: 36px 32px;
-  transition: background 0.2s ease;
-}
-
-.point-card:hover { background: #FFFDF9; }
-
-.point-num {
-  display: block;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--primary);
-  opacity: 0.35;
-  line-height: 1;
-  margin-bottom: 14px;
-  letter-spacing: -0.02em;
-}
-
-.point-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #313131;
-  margin-bottom: 10px;
-  letter-spacing: 0.04em;
-}
-
-.point-desc {
-  font-size: 0.83rem;
-  color: var(--text-light);
-  line-height: 1.75;
-  margin: 0;
-}
-
-/* ===== STATS ===== */
-.stats-section {
-  background: #2C3E50;
-  padding: 72px 0;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 48px;
-}
-
-@media (min-width: 768px) {
-  .stats-grid { grid-template-columns: repeat(4, 1fr); }
-}
-
-.stat-item { text-align: center; }
-
-.stat-val {
-  font-size: 3.2rem;
-  font-weight: 800;
-  color: white;
-  font-family: 'Montserrat', sans-serif;
-  line-height: 1;
-  margin-bottom: 10px;
-}
-
-.stat-unit {
-  font-size: 1.2rem;
-  color: rgba(255,255,255,0.7);
-  margin-left: 2px;
-}
-
-.stat-lbl {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.55);
-  font-weight: 600;
-  letter-spacing: 0.1em;
-}
-
-/* ===== GALLERY ===== */
-.gallery-strip {
-  overflow: hidden;
-  line-height: 0;
-  background: #111;
-}
-
-.gallery-track {
+.mvv-card__head {
   display: flex;
-  animation: galleryScroll 28s linear infinite;
-  width: max-content;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
-
-.gallery-track img {
-  width: 280px;
-  height: 186px;
-  object-fit: cover;
-  opacity: 0.72;
-  transition: opacity 0.3s ease;
-  display: block;
-  flex-shrink: 0;
-  margin-right: 3px;
+.mvv-card__num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 2.2rem;
+  color: rgba(0,240,255,0.12);
+  line-height: 1;
 }
-
-.gallery-track img:hover { opacity: 1; }
-
-@keyframes galleryScroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-/* ===== CTA SECTION ===== */
-.cta-section {
-  background: #FAF5EB;
-  padding: 100px 0;
-  border-top: 1px solid var(--border);
-}
-
-.cta-inner {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.cta-label {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
-  color: var(--primary);
-  margin-bottom: 16px;
-}
-
-.cta-title {
-  font-size: 1.9rem;
+.mvv-card__badge {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.58rem;
   font-weight: 700;
-  color: #313131;
-  line-height: 1.4;
-  letter-spacing: 0.05em;
-  margin-bottom: 36px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  padding: 3px 9px;
 }
-
-@media (min-width: 768px) {
-  .cta-title { font-size: 2.3rem; }
+.mvv-card__title {
+  font-size: 1.3rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
 }
+.mvv-card__line {
+  width: 28px;
+  height: 1px;
+  background: var(--accent);
+  margin-bottom: 1.2rem;
+}
+.mvv-card__text {
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  line-height: 1.85;
+}
+.mvv-card__text strong { color: var(--text); }
 
-.cta-list {
+.mvv-card__bullets {
+  list-style: none;
+  margin-top: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.mvv-card__bullets li {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  padding-left: 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 0.6rem;
+}
+.mvv-card__bullets li:first-child { border-top: none; padding-top: 0; }
+
+.mvv-card__values {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  margin-bottom: 44px;
-  text-align: left;
-  display: inline-flex;
+  gap: 0.75rem;
+}
+.mvv-card__values li {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+.v-dash { color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+/* ════════════════════════════════════════
+   SEC-ALT
+════════════════════════════════════════ */
+.sec-alt {
+  background: rgba(0,240,255,0.015);
+  border-top: 1px solid rgba(0,240,255,0.1);
+  border-bottom: 1px solid rgba(0,240,255,0.1);
 }
 
-.cta-list li {
-  font-size: 0.92rem;
-  color: var(--text-light);
-}
-
-.cta-list strong { color: #313131; font-weight: 700; }
-
-.cta-check {
-  color: var(--primary);
-  font-weight: 700;
-  margin-right: 6px;
-}
-
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 16px 48px;
-  background: #F06846;
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: all 0.25s ease;
-  box-shadow: 6px 6px 9px rgba(240,104,70,0.2);
-}
-
-.cta-btn:hover {
-  background: #D44D2E;
-  transform: translateY(-2px);
-  box-shadow: 8px 12px 20px rgba(240,104,70,0.25);
-}
-
-/* ===== BOOKS ===== */
-.books-grid {
+/* ════════════════════════════════════════
+   SERVICE GRID
+════════════════════════════════════════ */
+.service-grid {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(0,240,255,0.08);
 }
 
-@media (min-width: 640px) {
-  .books-grid { grid-template-columns: repeat(2, 1fr); }
+.service-card {
+  padding: 3.5rem 3rem;
+  background: var(--bg);
+  transition: background 0.3s;
+}
+.service-card:hover { background: rgba(0,240,255,0.025); }
+
+.service-card__num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 4rem;
+  color: rgba(0,240,255,0.07);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.service-card__title {
+  font-size: 1.55rem;
+  color: #fff;
+  margin-bottom: 0.35rem;
+}
+.service-card__en {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+.service-card__desc {
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  line-height: 1.85;
+  padding-bottom: 1.8rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.service-card__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.service-card__list li {
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  padding-left: 1.2rem;
+  position: relative;
+}
+.service-card__list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem;
 }
 
-@media (min-width: 900px) {
-  .books-grid { grid-template-columns: repeat(3, 1fr); }
+/* ════════════════════════════════════════
+   FEATURES GRID
+════════════════════════════════════════ */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: rgba(0,240,255,0.08);
+  margin-bottom: 6rem;
 }
 
-/* ===== BANNER ===== */
-.banner-zone {
-  padding: 14px 0;
-  background: #f5f5f3;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
+.feature-card {
+  padding: 3rem 2.5rem;
+  background: var(--bg);
+  transition: background 0.3s;
+}
+.feature-card:hover { background: rgba(0,240,255,0.025); }
+
+.feature-card__icon {
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+.feature-card__title {
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 0.8rem;
+}
+.feature-card p {
+  color: var(--text-mid);
+  font-size: 0.88rem;
+  line-height: 1.85;
+}
+.feature-card p strong { color: var(--text); }
+
+/* PURPOSE QUOTE */
+.purpose-quote {
+  border-left: 2px solid var(--accent);
+  padding: 2rem 2.5rem;
+  background: rgba(0,240,255,0.03);
+}
+.purpose-quote__text {
+  font-family: 'Inter', 'Noto Sans JP', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
+  font-weight: 700;
+  color: rgba(224,224,224,0.8);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+.purpose-quote__cite {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  color: var(--accent);
+  font-style: normal;
 }
 
-.banner-zone--cream { background: var(--bg-cream); }
+/* ════════════════════════════════════════
+   CTA
+════════════════════════════════════════ */
+.sec-cta {
+  border-top: 1px solid rgba(0,240,255,0.1);
+}
 
-.banner-label {
-  font-size: 0.68rem;
-  color: #AEAEAE;
+.cta-box {
+  border: 1px solid rgba(0,240,255,0.18);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-box__bg-text {
+  position: absolute;
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(5rem, 14vw, 12rem);
+  color: rgba(0,240,255,0.025);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.04em;
+}
+
+.cta-box__inner {
+  position: relative;
+  z-index: 1;
+  padding: 6rem 5rem;
   text-align: center;
-  margin-bottom: 6px;
 }
 
-.banner-inner { display: flex; justify-content: center; }
+.cta-box__title {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  color: #fff;
+  margin-bottom: 1.5rem;
+}
 
-.banner-inner--lg { max-width: 728px; width: 100%; margin: 0 auto; }
+.cta-box__desc {
+  color: var(--text-mid);
+  font-size: 1rem;
+  line-height: 1.9;
+  margin-bottom: 3rem;
+}
 
-.banner-inner--sq { width: 300px; }
+.cta-box__actions { margin-bottom: 2.5rem; }
 
-.banner-mid {
+.cta-box__btn { padding: 16px 44px; font-size: 0.78rem; }
+
+.cta-box__notes {
+  list-style: none;
   display: flex;
+  gap: 2rem;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: 16px;
-  justify-content: center;
+}
+.cta-box__notes li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  color: rgba(0,240,255,0.5);
 }
 
-.banner-placeholder {
-  width: 100%;
-  background: #e8e8e8;
-  border: 2px dashed #ccc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #aaa;
-  font-size: 0.72rem;
-  font-weight: 600;
+/* ════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .mvv-grid      { grid-template-columns: 1fr; }
+  .service-grid  { grid-template-columns: 1fr; }
+  .features-grid { grid-template-columns: 1fr; }
+  .cta-box__inner { padding: 4rem 2rem; }
+}
+
+@media (max-width: 600px) {
+  .mvv-card    { padding: 2.5rem 1.5rem; }
+  .service-card { padding: 2.5rem 1.5rem; }
+  .feature-card { padding: 2rem 1.5rem; }
+  .hero__svg-wrap { max-width: 100%; }
 }
 </style>
-
-<script>
-  document.body.classList.add('loaded');
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-
-  document.querySelectorAll('.fade-up, .scroll-fade-up').forEach(el => observer.observe(el));
-</script>

@@ -1,139 +1,129 @@
 ---
-import { footerLinks, siteConfig } from '../config/site';
-
+import { siteConfig } from '../config/site';
 const year = new Date().getFullYear();
 ---
 
 <footer class="footer">
   <div class="container">
     <div class="footer__grid">
-      <!-- Brand -->
+
       <div class="footer__brand">
-        <span class="footer__logo">{siteConfig.name}</span>
-        <p class="footer__tagline">{siteConfig.tagline}</p>
-        <div class="footer__socials">
-          <!-- X (Twitter) Icon -->
-          <a href={`https://twitter.com/${siteConfig.twitterHandle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" class="social-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          </a>
-        </div>
+        <span class="footer__logo">FLAGSHIP</span>
+        <p class="footer__tagline">
+          理学療法学生のための<br>
+          国試・キャリア支援コミュニティ
+        </p>
+        <a
+          href="/#join"
+          class="btn btn--outline footer__btn"
+        >JOIN FREE →</a>
       </div>
 
-      <!-- Links -->
-      <div class="footer__links">
-        <h4 class="footer__head">Contents</h4>
+      <nav class="footer__nav" aria-label="フッターナビゲーション">
+        <h4 class="footer__nav-title">LINKS</h4>
         <ul>
-          {footerLinks.main.map(link => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
+          <li><a href="/#about">About / MVV</a></li>
+          <li><a href="/#service">Service</a></li>
+          <li><a href="/#community">Community</a></li>
+          <li><a href="/#join">Join Us</a></li>
+          <li><a href="/privacy">Privacy Policy</a></li>
         </ul>
-      </div>
+      </nav>
 
-      <!-- Legal -->
-      <div class="footer__links">
-        <h4 class="footer__head">Legal</h4>
-        <ul>
-          {footerLinks.legal.map(link => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-          <li><a href="/privacy">プライバシーポリシー</a></li>
-          <li><a href="https://4eyputymsc.microcms.io/apis/items" target="_blank" rel="noopener noreferrer" class="admin-link">管理者ログイン</a></li>
-        </ul>
-      </div>
     </div>
 
     <div class="footer__bottom">
-      <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
+      <p class="footer__copy">© {year} FLAGSHIP. All rights reserved.</p>
+      <p class="footer__built">Built for PT students who think.</p>
     </div>
   </div>
 </footer>
 
 <style>
   .footer {
-    background: var(--bg-white);
+    border-top: 1px solid rgba(0,240,255,0.12);
     padding: 80px 0 40px;
-    border-top: 1px solid var(--border);
-  }
-  
-  .footer__grid {
-    display: grid;
-    gap: 40px;
-    margin-bottom: 60px;
-  }
-  
-  @media (min-width: 768px) {
-    .footer__grid {
-      grid-template-columns: 2fr 1fr 1fr;
-    }
-  }
-  
-  .footer__logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text);
-    display: block;
-    margin-bottom: 16px;
-  }
-  
-  .footer__tagline {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-bottom: 24px;
-  }
-  
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--bg-panel);
-    color: var(--text);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-  
-  .social-link:hover {
-    background: var(--text);
-    color: white;
-  }
-  
-  .footer__head {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--text);
-  }
-  
-  .footer__links ul {
-    list-style: none;
-  }
-  
-  .footer__links li {
-    margin-bottom: 12px;
-  }
-  
-  .footer__links a {
-    color: var(--text-light);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-  
-  .footer__links a:hover {
-    color: var(--primary);
-  }
-  
-  .footer__bottom {
-    text-align: center;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-    font-size: 0.8rem;
-    color: var(--text-muted);
+    position: relative;
+    z-index: 1;
   }
 
-  .admin-link {
-    font-size: 0.75rem !important;
-    opacity: 0.5;
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer__logo {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .footer__tagline {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+
+  .footer__btn {
+    font-size: 0.65rem;
+    padding: 10px 24px;
+  }
+
+  .footer__nav-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .footer__nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .footer__nav a {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer__nav a:hover { color: var(--accent); }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer__copy {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .footer__built {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.68rem;
+    color: rgba(0,240,255,0.4);
+    font-style: italic;
+  }
+
+  @media (max-width: 700px) {
+    .footer__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer__bottom { flex-direction: column; align-items: flex-start; }
   }
 </style>
