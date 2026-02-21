@@ -55,14 +55,14 @@ const fullTitle = title === "TOP" ? "PT国試コミュニティ | 理学療法�
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page-transition"></div>
   <Header />
-  
-  <main>
-    <slot />
-  </main>
-  
-  <Footer />
+
+  <div class="layout-wrapper">
+    <main class="layout-main">
+      <slot />
+    </main>
+    <Footer />
+  </div>
   
   <script>
     // スムーズスクロール

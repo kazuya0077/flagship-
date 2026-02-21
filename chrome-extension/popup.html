@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FLAGSHIP 学習ツール</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <span class="header-logo">FLAGSHIP</span>
+    <span class="header-sub">PT国試対策ツール</span>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn is-active" data-tab="timer">タイマー</button>
+    <button class="tab-btn" data-tab="tip">今日のTips</button>
+    <button class="tab-btn" data-tab="links">リンク</button>
+  </div>
+
+  <!-- Tab: Timer -->
+  <div class="tab-content is-active" id="tab-timer">
+    <div class="timer-wrap">
+      <div class="timer-mode">
+        <button class="mode-btn is-active" data-min="25">集中 25分</button>
+        <button class="mode-btn" data-min="5">休憩 5分</button>
+        <button class="mode-btn" data-min="50">長期 50分</button>
+      </div>
+
+      <div class="timer-display" id="timerDisplay">25:00</div>
+
+      <div class="timer-label" id="timerLabel">集中モード</div>
+
+      <div class="timer-controls">
+        <button class="ctrl-btn ctrl-btn--main" id="startStopBtn">▶ スタート</button>
+        <button class="ctrl-btn" id="resetBtn">↺ リセット</button>
+      </div>
+
+      <div class="timer-progress-wrap">
+        <div class="timer-progress-bar" id="progressBar"></div>
+      </div>
+
+      <p class="timer-tip">ポモドーロ法で集中力を持続しよう 🎯</p>
+    </div>
+  </div>
+
+  <!-- Tab: Tips -->
+  <div class="tab-content" id="tab-tip">
+    <div class="tip-wrap">
+      <div class="tip-date" id="tipDate"></div>
+      <div class="tip-card">
+        <div class="tip-category" id="tipCategory"></div>
+        <p class="tip-text" id="tipText"></p>
+      </div>
+      <button class="tip-next-btn" id="tipNextBtn">次のTipsへ →</button>
+      <p class="tip-hint">毎日学習 Tips で合格力アップ！</p>
+    </div>
+  </div>
+
+  <!-- Tab: Links -->
+  <div class="tab-content" id="tab-links">
+    <div class="links-wrap">
+      <p class="links-head">クイックアクセス</p>
+      <a href="https://flagship-2i0.pages.dev" target="_blank" class="link-item">
+        <span class="link-icon">🏠</span>
+        <div>
+          <span class="link-title">FLAGSHIP トップ</span>
+          <span class="link-desc">サイトトップページ</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://flagship-2i0.pages.dev/resources" target="_blank" class="link-item">
+        <span class="link-icon">📁</span>
+        <div>
+          <span class="link-title">学習資産</span>
+          <span class="link-desc">まとめノート・分析シート</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://flagship-2i0.pages.dev/#books" target="_blank" class="link-item">
+        <span class="link-icon">📚</span>
+        <div>
+          <span class="link-title">おすすめ教材</span>
+          <span class="link-desc">国試対策厳選教材</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://join.slack.com/placeholder" target="_blank" class="link-item link-item--primary">
+        <span class="link-icon">💬</span>
+        <div>
+          <span class="link-title">Slackコミュニティ</span>
+          <span class="link-desc">無料で質問し放題</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+      <a href="https://flagship-2i0.pages.dev/faq" target="_blank" class="link-item">
+        <span class="link-icon">❓</span>
+        <div>
+          <span class="link-title">よくある質問</span>
+          <span class="link-desc">FAQ</span>
+        </div>
+        <span class="link-arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
