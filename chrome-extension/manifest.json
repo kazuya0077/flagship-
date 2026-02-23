@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "FLAGSHIP – PT国試学習ツール",
+  "version": "1.0.0",
+  "description": "理学療法士国家試験対策。学習タイマー・おすすめ教材・Slackコミュニティへのクイックアクセス。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    },
+    "default_title": "FLAGSHIP 学習ツール"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "alarms", "notifications"],
+  "host_permissions": []
+}

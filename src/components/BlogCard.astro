@@ -1,0 +1,52 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  category?: string;
+  heroImage?: string;
+  slug: string;
+  tags?: string[];
+}
+
+const { title, description, pubDate, category, heroImage, slug, tags } = Astro.props;
+
+const dateStr = pubDate.toLocaleDateString('ja-JP', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a href={`/blog/${slug}`} class="blog-card reveal" style="display: block; text-decoration: none; color: inherit;">
+  <!-- Thumbnail -->
+  {heroImage ? (
+    <img src={heroImage} alt={title} loading="lazy" class="blog-card__img" />
+  ) : (
+    <div class="blog-card__img--placeholder">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--text-dim)" stroke-width="1.5">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+      </svg>
+    </div>
+  )}
+
+  <!-- Body -->
+  <div class="blog-card__body">
+    {category && <span class="blog-card__cat">{category}</span>}
+    <h3 class="blog-card__title">{title}</h3>
+    <p class="blog-card__desc">{description}</p>
+
+    {tags && tags.length > 0 && (
+      <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 0.75rem;">
+        {tags.slice(0, 3).map(tag => (
+          <span class="tag">#{tag}</span>
+        ))}
+      </div>
+    )}
+
+    <time class="blog-card__date" datetime={pubDate.toISOString()}>{dateStr}</time>
+  </div>
+</a>

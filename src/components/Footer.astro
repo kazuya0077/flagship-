@@ -1,139 +1,110 @@
 ---
-import { footerLinks, siteConfig } from '../config/site';
-
 const year = new Date().getFullYear();
+
+const links = [
+  { href: '/',          label: 'ホーム' },
+  { href: '/blog',      label: 'ブログ' },
+  { href: '/resources', label: '学習素材' },
+  { href: '/about',     label: 'Aboutus' },
+  { href: '/faq',       label: 'FAQ' },
+  { href: '/privacy',   label: 'プライバシーポリシー' },
+  { href: '/terms',     label: '利用規約' },
+];
 ---
 
-<footer class="footer">
+<footer style="background: var(--bg-dark); color: #a0aec0; padding: 64px 0 32px;">
   <div class="container">
-    <div class="footer__grid">
+
+    <!-- Top row -->
+    <div style="display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: space-between; margin-bottom: 3rem;">
+
       <!-- Brand -->
-      <div class="footer__brand">
-        <span class="footer__logo">{siteConfig.name}</span>
-        <p class="footer__tagline">{siteConfig.tagline}</p>
-        <div class="footer__socials">
-          <!-- X (Twitter) Icon -->
-          <a href={`https://twitter.com/${siteConfig.twitterHandle.replace('@', '')}`} target="_blank" rel="noopener noreferrer" class="social-link">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <div style="flex: 1; min-width: 220px;">
+        <a href="/" style="font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.4rem; letter-spacing: 0.1em; color: #fff; text-decoration: none;">
+          FLAG<span style="color: var(--accent);">SHIP</span>
+        </a>
+        <p style="margin-top: 1rem; font-size: 0.875rem; line-height: 1.8; color: #8a9ab5; max-width: 280px;">
+          理学療法士を目指す学生のための<br>
+          学習・キャリアコミュニティ。
+        </p>
+        <a href="/#join" class="btn btn--outline" style="margin-top: 1.5rem; font-size: 0.78rem; padding: 0.6rem 1.5rem; border-color: var(--accent); color: var(--accent);">
+          無料で参加する
+        </a>
+      </div>
+
+      <!-- Links -->
+      <nav style="flex: 1; min-width: 180px;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; margin-bottom: 1rem;">
+          サイトマップ
+        </p>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+          {links.map(l => (
+            <li>
+              <a href={l.href} style="font-size: 0.875rem; color: #8a9ab5; transition: color 0.2s;"
+                 onmouseover="this.style.color='#fff'"
+                 onmouseout="this.style.color='#8a9ab5'">{l.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Contact -->
+      <div style="flex: 1; min-width: 180px;">
+        <p style="font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; margin-bottom: 1rem;">
+          コンタクト
+        </p>
+        <a href="mailto:info@flagship-pt.com" style="font-size: 0.875rem; color: var(--accent); display: block; margin-bottom: 1rem;">
+          info@flagship-pt.com
+        </a>
+        <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+          <!-- Twitter/X icon -->
+          <a href="#" aria-label="X (Twitter)" style="color: #8a9ab5; transition: color 0.2s;"
+             onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8a9ab5'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.742l7.727-8.835L1.254 2.25H8.08l4.713 5.908zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+          <!-- Instagram icon -->
+          <a href="#" aria-label="Instagram" style="color: #8a9ab5; transition: color 0.2s;"
+             onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8a9ab5'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <circle cx="12" cy="12" r="4"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+            </svg>
+          </a>
+          <!-- Note icon (blog) -->
+          <a href="#" aria-label="Note" style="color: #8a9ab5; transition: color 0.2s;"
+             onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#8a9ab5'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
           </a>
         </div>
       </div>
 
-      <!-- Links -->
-      <div class="footer__links">
-        <h4 class="footer__head">Contents</h4>
-        <ul>
-          {footerLinks.main.map(link => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Legal -->
-      <div class="footer__links">
-        <h4 class="footer__head">Legal</h4>
-        <ul>
-          {footerLinks.legal.map(link => (
-            <li><a href={link.href}>{link.label}</a></li>
-          ))}
-          <li><a href="/privacy">プライバシーポリシー</a></li>
-          <li><a href="https://4eyputymsc.microcms.io/apis/items" target="_blank" rel="noopener noreferrer" class="admin-link">管理者ログイン</a></li>
-        </ul>
-      </div>
     </div>
 
-    <div class="footer__bottom">
-      <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
+    <!-- Ad disclosure -->
+    <div style="border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; margin-bottom: 1.5rem;">
+      <p style="font-size: 0.75rem; color: #5a6a80; line-height: 1.6;">
+        ※ 本サイトには広告・アフィリエイトリンクを含む場合があります。リンク経由での購入により、サイト運営の収益となることがあります。
+      </p>
     </div>
+
+    <!-- Copyright -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between;">
+      <p style="font-size: 0.75rem; color: #5a6a80;">
+        &copy; {year} FLAGSHIP All rights reserved.
+      </p>
+      <p style="font-size: 0.72rem; color: #3d4d60;">
+        Built for PT students in Japan 🇯🇵
+      </p>
+    </div>
+
   </div>
 </footer>
-
-<style>
-  .footer {
-    background: var(--bg-white);
-    padding: 80px 0 40px;
-    border-top: 1px solid var(--border);
-  }
-  
-  .footer__grid {
-    display: grid;
-    gap: 40px;
-    margin-bottom: 60px;
-  }
-  
-  @media (min-width: 768px) {
-    .footer__grid {
-      grid-template-columns: 2fr 1fr 1fr;
-    }
-  }
-  
-  .footer__logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--text);
-    display: block;
-    margin-bottom: 16px;
-  }
-  
-  .footer__tagline {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-bottom: 24px;
-  }
-  
-  .social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: var(--bg-panel);
-    color: var(--text);
-    border-radius: 50%;
-    transition: all 0.3s ease;
-  }
-  
-  .social-link:hover {
-    background: var(--text);
-    color: white;
-  }
-  
-  .footer__head {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 24px;
-    color: var(--text);
-  }
-  
-  .footer__links ul {
-    list-style: none;
-  }
-  
-  .footer__links li {
-    margin-bottom: 12px;
-  }
-  
-  .footer__links a {
-    color: var(--text-light);
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.2s;
-  }
-  
-  .footer__links a:hover {
-    color: var(--primary);
-  }
-  
-  .footer__bottom {
-    text-align: center;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-
-  .admin-link {
-    font-size: 0.75rem !important;
-    opacity: 0.5;
-  }
-</style>

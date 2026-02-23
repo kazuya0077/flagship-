@@ -1,0 +1,112 @@
+---
+/**
+ * AdBanner — 広告バナー枠コンポーネント
+ *
+ * 使い方:
+ *   <AdBanner slot="leaderboard" code="YOUR_ADSENSE_CODE" />
+ *   <AdBanner slot="rectangle" />
+ *
+ * size:
+ *   "leaderboard"  — 728×90 (PC横長)
+ *   "rectangle"    — 300×250 (中型)
+ *   "wide"         — 970×90 (大型PC)
+ *   "responsive"   — レスポンシブ (推奨)
+ */
+
+interface Props {
+  size?: 'leaderboard' | 'rectangle' | 'wide' | 'responsive';
+  adCode?: string;        // Google AdSense / any ad HTML
+  label?: string;         // 表示ラベル (default: "広告")
+}
+
+const { size = 'responsive', adCode, label = '広告' } = Astro.props;
+
+const dimensions: Record<string, { w: string; h: string }> = {
+  leaderboard: { w: '728px', h: '90px' },
+  rectangle:   { w: '300px', h: '250px' },
+  wide:        { w: '970px', h: '90px' },
+  responsive:  { w: '100%',  h: 'auto' },
+};
+
+const dim = dimensions[size];
+---
+
+<div class="ad-banner-wrap" data-size={size}>
+  <p class="ad-banner-label">{label}</p>
+  {adCode ? (
+    <!-- Render provided ad code (AdSense, etc.) -->
+    <div class="ad-banner-slot" set:html={adCode} />
+  ) : (
+    <!-- Placeholder shown until ad code is configured -->
+    <div class="ad-banner-placeholder" style={`width:${dim.w}; min-height:${size === 'rectangle' ? '250px' : '90px'};`}>
+      <span class="ad-banner-placeholder__text">
+        広告スペース<br>
+        <small>{size === 'rectangle' ? '300×250' : size === 'leaderboard' ? '728×90' : 'レスポンシブ'}</small>
+      </span>
+      <span class="ad-banner-placeholder__hint">
+        AdSense / 直接広告のコードをここに設定
+      </span>
+    </div>
+  )}
+</div>
+
+<style>
+.ad-banner-wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 1.5rem 0;
+}
+
+.ad-banner-label {
+  font-size: 0.65rem;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.ad-banner-slot {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.ad-banner-placeholder {
+  background: var(--bg-alt);
+  border: 1.5px dashed var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 100%;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.ad-banner-placeholder__text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+.ad-banner-placeholder__text small {
+  font-size: 0.7rem;
+  font-weight: 400;
+}
+
+.ad-banner-placeholder__hint {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+
+/* Rectangle layout */
+[data-size="rectangle"] .ad-banner-wrap {
+  align-items: flex-start;
+}
+</style>

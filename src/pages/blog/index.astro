@@ -1,0 +1,126 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// カテゴリ一覧
+const categories = ['すべて', ...new Set(allPosts.map(p => p.data.category))];
+---
+
+<BaseLayout
+  title="ブログ"
+  description="FLAGSHIPブログ — PT国試対策、キャリア、コミュニティ情報を発信"
+>
+
+  <!-- ── ページヘッダー ── -->
+  <section style="background: var(--bg-alt); padding: 64px 0 48px; border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <span class="section-label">Blog</span>
+      <h1 style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.75rem;">
+        FLAGSHIP ブログ
+      </h1>
+      <p style="color: var(--text-mid); max-width: 540px;">
+        国試対策・キャリア設計・コミュニティに関する最新情報をお届けします。
+      </p>
+    </div>
+  </section>
+
+  <!-- ── 広告バナー ── -->
+  <div class="container" style="padding-top: 1.5rem; padding-bottom: 0.5rem;">
+    <AdBanner size="responsive" />
+  </div>
+
+  <!-- ── 記事一覧 ── -->
+  <section class="section">
+    <div class="container">
+
+      <!-- カテゴリフィルター -->
+      <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;">
+        {categories.map(cat => (
+          <button
+            class="cat-filter"
+            data-cat={cat}
+            style={cat === 'すべて' ? 'background:var(--accent);color:#fff;' : ''}
+          >{cat}</button>
+        ))}
+      </div>
+
+      <!-- 記事グリッド -->
+      <div class="grid-3" id="blog-grid">
+        {allPosts.map(post => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            category={post.data.category}
+            heroImage={post.data.heroImage}
+            slug={post.slug}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+
+      {allPosts.length === 0 && (
+        <div style="text-align: center; padding: 4rem 0; color: var(--text-dim);">
+          <p>記事はまだありません。</p>
+        </div>
+      )}
+
+    </div>
+  </section>
+
+  <!-- ── 記事下広告 ── -->
+  <div class="container" style="padding-bottom: 3rem;">
+    <AdBanner size="leaderboard" />
+  </div>
+
+</BaseLayout>
+
+<style>
+.cat-filter {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.4rem 1rem;
+  border: 1.5px solid var(--border);
+  background: transparent;
+  color: var(--text-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.cat-filter:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+</style>
+
+<script>
+  const buttons = document.querySelectorAll('.cat-filter');
+  const cards   = document.querySelectorAll('#blog-grid > a');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-cat');
+
+      // Active style
+      buttons.forEach(b => {
+        (b as HTMLElement).style.background = '';
+        (b as HTMLElement).style.color = '';
+      });
+      (btn as HTMLElement).style.background = 'var(--accent)';
+      (btn as HTMLElement).style.color = '#fff';
+
+      // Filter cards
+      cards.forEach(card => {
+        const cardCat = card.querySelector('.blog-card__cat')?.textContent?.trim();
+        (card as HTMLElement).style.display =
+          (cat === 'すべて' || cat === cardCat) ? 'block' : 'none';
+      });
+    });
+  });
+</script>

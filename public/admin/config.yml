@@ -1,0 +1,155 @@
+# ================================================================
+# FLAGSHIP — Decap CMS 設定ファイル
+# 管理者UI: https://flagship-2i0.pages.dev/admin/
+# ================================================================
+
+backend:
+  name: github
+  repo: kazuya0077/flagship-
+  branch: main
+  # ★ GitHub OAuth App の Client ID を設定してください
+  # 設定方法: FLAGSHIP CMS セットアップガイドを参照
+  # app_id: YOUR_GITHUB_OAUTH_CLIENT_ID
+
+# 開発時のテスト用バックエンド（本番では上記 github を使用）
+# backend:
+#   name: test-repo
+
+# メディア（画像）のアップロード先
+media_folder: "public/images/blog"
+public_folder: "/images/blog"
+
+# 日本語UI
+locale: ja
+
+# ================================================================
+# コレクション定義
+# ================================================================
+collections:
+
+  # ── ブログ記事 ───────────────────────────────────────────────
+  - name: "blog"
+    label: "ブログ記事"
+    label_singular: "記事"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    preview_path: "/blog/{{slug}}"
+    fields:
+
+      - label: "タイトル"
+        name: "title"
+        widget: "string"
+        hint: "記事のタイトルを入力してください"
+
+      - label: "概要（SEO説明文）"
+        name: "description"
+        widget: "text"
+        hint: "検索結果やOGPに表示される説明文（100〜150文字推奨）"
+
+      - label: "公開日"
+        name: "pubDate"
+        widget: "datetime"
+        format: "YYYY-MM-DD"
+        date_format: "YYYY年MM月DD日"
+        time_format: false
+        default: ""
+
+      - label: "サムネイル画像"
+        name: "heroImage"
+        widget: "image"
+        required: false
+        hint: "OGP・記事一覧に表示されます（推奨: 1200×630px）"
+
+      - label: "カテゴリ"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "国試対策",         value: "国試対策" }
+          - { label: "キャリア",          value: "キャリア" }
+          - { label: "コミュニティ",      value: "コミュニティ" }
+          - { label: "PT基礎知識",        value: "PT基礎知識" }
+          - { label: "お知らせ",          value: "お知らせ" }
+        default: "お知らせ"
+
+      - label: "タグ"
+        name: "tags"
+        widget: "list"
+        required: false
+        hint: "カンマ区切りでタグを入力（例: 国試, 学習法, 合格体験記）"
+
+      - label: "著者名"
+        name: "author"
+        widget: "string"
+        required: false
+        default: "FLAGSHIP編集部"
+
+      - label: "下書き"
+        name: "draft"
+        widget: "boolean"
+        default: false
+        hint: "ONにすると公開されません"
+
+      - label: "本文"
+        name: "body"
+        widget: "markdown"
+        hint: "Markdown形式で本文を作成できます"
+
+  # ── ASP商品（おすすめ教材）─────────────────────────────────
+  - name: "asp"
+    label: "おすすめ教材・ASP商品"
+    label_singular: "商品"
+    folder: "src/content/asp"
+    create: true
+    slug: "{{slug}}"
+    fields:
+
+      - label: "商品名"
+        name: "title"
+        widget: "string"
+
+      - label: "説明"
+        name: "description"
+        widget: "text"
+
+      - label: "価格"
+        name: "price"
+        widget: "string"
+        required: false
+        hint: "例: ¥3,960（税込）、無料"
+
+      - label: "バッジ"
+        name: "badge"
+        widget: "string"
+        required: false
+        hint: "例: おすすめ、定番、期間限定"
+
+      - label: "商品画像"
+        name: "image"
+        widget: "image"
+        required: false
+
+      - label: "Amazonリンク"
+        name: "amazonUrl"
+        widget: "string"
+        required: false
+
+      - label: "楽天リンク"
+        name: "rakutenUrl"
+        widget: "string"
+        required: false
+
+      - label: "公式サイトリンク"
+        name: "officialUrl"
+        widget: "string"
+        required: false
+
+      - label: "表示順"
+        name: "order"
+        widget: "number"
+        default: 0
+
+      - label: "非表示"
+        name: "hidden"
+        widget: "boolean"
+        default: false

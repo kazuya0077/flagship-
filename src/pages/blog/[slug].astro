@@ -1,0 +1,158 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdBanner from '../../components/AdBanner.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props:  { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const dateStr = post.data.pubDate.toLocaleDateString('ja-JP', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+
+// 関連記事（同カテゴリ 最大3件、自分を除く）
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const related  = allPosts
+  .filter(p => p.slug !== post.slug && p.data.category === post.data.category)
+  .sort(() => Math.random() - 0.5)
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogImage={post.data.heroImage}
+>
+
+  <!-- ── ヒーロー ── -->
+  <div style={post.data.heroImage
+    ? `background: url('${post.data.heroImage}') center/cover no-repeat; min-height: 320px; position: relative;`
+    : `background: var(--bg-alt); border-bottom: 1px solid var(--border); padding: 56px 0 40px;`
+  }>
+    {post.data.heroImage && (
+      <div style="position: absolute; inset:0; background: rgba(10,22,40,0.65);"></div>
+    )}
+    <div class="container" style="position: relative; padding-top: 56px; padding-bottom: 48px;">
+      <span class="section-label">{post.data.category}</span>
+      <h1 style={`font-size: clamp(1.5rem, 3.5vw, 2.25rem); max-width: 720px; ${post.data.heroImage ? 'color:#fff;' : ''}`}>
+        {post.data.title}
+      </h1>
+      <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+        <time style={`font-size: 0.8rem; ${post.data.heroImage ? 'color:rgba(255,255,255,0.7);' : 'color:var(--text-dim);'}`}>
+          {dateStr}
+        </time>
+        {post.data.author && (
+          <span style={`font-size: 0.8rem; ${post.data.heroImage ? 'color:rgba(255,255,255,0.7);' : 'color:var(--text-dim);'}`}>
+            by {post.data.author}
+          </span>
+        )}
+        {post.data.tags?.map(tag => (
+          <span class="tag">#{tag}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ── コンテンツ ── -->
+  <section class="section">
+    <div class="container" style="max-width: 900px;">
+      <div style="display: grid; grid-template-columns: 1fr 280px; gap: 3rem; align-items: start;">
+
+        <!-- 本文 -->
+        <article>
+          <div class="prose">
+            <Content />
+          </div>
+
+          <!-- Share buttons -->
+          <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <p style="font-size: 0.8rem; color: var(--text-mid); margin-bottom: 1rem; font-weight: 600;">この記事をシェア</p>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(Astro.url.href)}`}
+                 target="_blank" rel="noopener"
+                 class="btn btn--dark" style="font-size: 0.75rem; padding: 0.5rem 1.25rem;">
+                X でシェア
+              </a>
+              <a href={`https://line.me/R/msg/text/?${encodeURIComponent(post.data.title + '\n' + Astro.url.href)}`}
+                 target="_blank" rel="noopener"
+                 class="btn" style="background:#06C755; color:#fff; font-size:0.75rem; padding:0.5rem 1.25rem;">
+                LINEで送る
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- サイドバー -->
+        <aside style="position: sticky; top: calc(var(--nav-h) + 1.5rem);">
+          <!-- 広告枠 (Rectangle) -->
+          <AdBanner size="rectangle" />
+
+          <!-- CTA -->
+          <div style="background: var(--bg-dark); padding: 1.75rem; margin-top: 1.5rem; text-align: center;">
+            <p style="font-family:'Inter',sans-serif; font-weight:900; font-size:1rem; color:#fff; letter-spacing:0.05em; margin-bottom:0.5rem;">
+              FLAGSHIP
+            </p>
+            <p style="font-size:0.8rem; color:#8a9ab5; margin-bottom:1.25rem; line-height:1.6;">
+              PT学生のための<br>無料コミュニティ
+            </p>
+            <a href="/#join" class="btn btn--primary" style="width:100%; justify-content:center; font-size:0.8rem;">
+              無料で参加
+            </a>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 関連記事 ── -->
+  {related.length > 0 && (
+    <section class="section section--alt">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Related</span>
+          <h2 class="section-title">関連記事</h2>
+        </div>
+        <div class="grid-3">
+          {related.map(p => (
+            <BlogCard
+              title={p.data.title}
+              description={p.data.description}
+              pubDate={p.data.pubDate}
+              category={p.data.category}
+              heroImage={p.data.heroImage}
+              slug={p.slug}
+              tags={p.data.tags}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ── 記事下バナー ── -->
+  <div class="container" style="padding: 2rem 0 3rem;">
+    <AdBanner size="responsive" />
+  </div>
+
+</BaseLayout>
+
+<style>
+@media (max-width: 768px) {
+  div[style*="grid-template-columns: 1fr 280px"] {
+    grid-template-columns: 1fr !important;
+  }
+  aside {
+    position: static !important;
+  }
+}
+</style>
