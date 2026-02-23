@@ -1,10 +1,10 @@
 ---
 const nav = [
-  { href: '/',          label: 'Home' },
-  { href: '/blog',      label: 'Blog' },
+  { href: '/',          label: 'トップ' },
+  { href: '/blog',      label: 'ブログ' },
   { href: '/resources', label: '学習素材' },
-  { href: '/about',     label: 'About' },
-  { href: '/faq',       label: 'FAQ' },
+  { href: '/about',     label: '理念' },
+  { href: '/faq',       label: 'よくある質問' },
 ];
 ---
 
@@ -12,48 +12,43 @@ const nav = [
   <div class="nav__inner">
     <a href="/" class="nav__logo">FLAG<span>SHIP</span></a>
 
-    <nav class="nav__links" aria-label="グローバルナビ">
+    <nav class="nav__links" aria-label="メインナビゲーション">
       {nav.map(link => (
         <a href={link.href} class="nav__link">{link.label}</a>
       ))}
     </nav>
 
-    <a href="/#join" class="btn btn--primary nav__cta">無料で参加</a>
+    <a href="/#参加" class="btn btn--primary nav__cta">無料登録</a>
 
     <button class="nav__burger" id="navBurger" aria-label="メニューを開く" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
+      <span></span><span></span><span></span>
     </button>
   </div>
 
-  <!-- Mobile overlay -->
-  <nav class="nav__mobile" id="navMobile" aria-label="モバイルナビ">
+  <nav class="nav__mobile" id="navMobile">
     {nav.map(link => (
       <a href={link.href} class="nav__link">{link.label}</a>
     ))}
-    <a href="/#join" class="btn btn--primary" style="margin-top: 0.75rem; justify-content: center;">
-      無料で参加
-    </a>
+    <a href="/#参加" class="btn btn--primary" style="margin-top: 1rem;">無料登録</a>
   </nav>
 </header>
 
 <script>
-  const burger  = document.getElementById('navBurger');
-  const mobile  = document.getElementById('navMobile');
-  const navEl   = document.getElementById('nav');
+  const burger = document.getElementById('navBurger');
+  const mobile = document.getElementById('navMobile');
+  const navEl  = document.getElementById('nav');
 
   burger?.addEventListener('click', () => {
     const open = mobile?.classList.toggle('open');
     burger.setAttribute('aria-expanded', String(open));
   });
 
-  mobile?.querySelectorAll('a').forEach(a => {
+  mobile?.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => {
       mobile.classList.remove('open');
       burger?.setAttribute('aria-expanded', 'false');
-    });
-  });
+    })
+  );
 
   const onScroll = () => navEl?.classList.toggle('scrolled', window.scrollY > 10);
   window.addEventListener('scroll', onScroll, { passive: true });

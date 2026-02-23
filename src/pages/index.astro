@@ -9,279 +9,338 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-// ── ASP商品データ ──────────────────────────────
-// ※ リンクを実際のアフィリエイトURLに差し替えてください
-const aspProducts = [
+// ── 合格者に選ばれた教材（ステルスで自然に溶け込む形で掲載）
+// ※ リンクはアフィリエイトURLに差し替えてください
+const recommendedItems = [
   {
     title: '標準理学療法学 専門分野 運動療法学（全改訂第5版）',
-    description: '国試頻出の運動療法学テキスト。解剖・生理から実践まで網羅した定番の一冊。',
-    price: '¥5,940（税込）',
-    badge: 'おすすめ',
-    links: {
-      amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_AMAZON_TAG',
-      rakuten: 'https://item.rakuten.co.jp/xxx',
-    },
-  },
-  {
-    title: 'イヤーノート PT・OT（2025年度版）',
-    description: 'PT・OT国試の頻出事項を1冊に凝縮。直前の総まとめに最適なポケットサイズ参考書。',
-    price: '¥3,960（税込）',
+    description: '国試頻出の運動療法学テキスト。解剖・生理から実践まで網羅。毎年の合格者が口を揃えておすすめする一冊。',
+    price: '¥5,940',
     badge: '定番',
     links: {
-      amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_AMAZON_TAG',
+      amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_TAG',
       rakuten: 'https://item.rakuten.co.jp/xxx',
     },
   },
   {
     title: 'クエスチョン・バンク PT国試問題解説（最新版）',
-    description: '過去10年分の国試問題を体系的に解説。解説の質が高く、毎年受験生に支持される定番問題集。',
-    price: '¥6,820（税込）',
+    description: '過去10年分を体系的に解説。解説の精度が高く、毎年受験生に支持される定番問題集。',
+    price: '¥6,820',
+    badge: 'おすすめ',
     links: {
-      amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_AMAZON_TAG',
+      amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_TAG',
       rakuten: 'https://item.rakuten.co.jp/xxx',
     },
   },
   {
-    title: 'PT転職ナビ（PT専門求人サービス）',
-    description: 'PT・OT専門の転職・就活支援サービス。非公開求人多数、無料キャリア相談あり。',
+    title: 'イヤーノート PT・OT（2025年度版）',
+    description: '頻出事項を1冊に凝縮。直前期の総まとめとして最適なポケットサイズ参考書。',
+    price: '¥3,960',
+    links: {
+      amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_TAG',
+      rakuten: 'https://item.rakuten.co.jp/xxx',
+    },
+  },
+  {
+    title: '就職・転職支援（PT専門サービス）',
+    description: 'PT・OT専門の求人サービス。非公開求人多数、無料キャリア相談あり。卒業後のキャリア設計に。',
     price: '完全無料',
     badge: 'キャリア',
-    links: {
-      official: 'https://example.com/pt-tenshoku',
-    },
+    links: { official: 'https://example.com/pt-career' },
   },
 ];
 ---
 
 <BaseLayout
   title="FLAGSHIP — 理学療法士を目指す学生のコミュニティ"
-  description="FLAGSHIPは理学療法士を目指す学生のための学習・キャリアコミュニティ。国試対策から就活まで、仲間と一緒に成長しよう。"
+  description="FLAGSHIPは、データと論理に基づく国試対策とキャリア設計を支援するPT学生コミュニティです。"
 >
 
-<!-- ══════════════════════════════════════════════════════
-     SECTION 1 — HERO
-     ・画像は /public/images/hero.jpg に配置してください
-     ・右カラムの <img> src を差し替えるだけでOKです
-══════════════════════════════════════════════════════ -->
-<section class="hero-section">
-  <div class="hero-inner container">
+<!-- ══════════════════════════════════════════
+     ローディングアニメーション（SVG Path Tracing）
+══════════════════════════════════════════ -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__grid" aria-hidden="true"></div>
+  <svg class="loader__svg" viewBox="0 0 1000 180" xmlns="http://www.w3.org/2000/svg">
+    <text
+      class="loader__text"
+      x="50%" y="50%"
+      text-anchor="middle"
+      dominant-baseline="middle"
+    >FLAGSHIP</text>
+  </svg>
+</div>
 
-    <!-- Left: テキスト -->
-    <div class="hero-text">
-      <span class="section-label" style="margin-bottom: 1.25rem;">PT Student Community</span>
-      <h1 class="hero-h1">
-        自分の軸で、<br>
-        PTになれ。
-      </h1>
-      <p class="hero-desc">
-        理学療法士を目指すすべての学生へ。<br>
-        国試対策・キャリア設計・先輩との繋がり——<br>
-        FLAGSHIPが、あなたの成長を支える。
-      </p>
-      <div class="hero-actions">
-        <a href="#join" class="btn btn--primary btn--lg">無料でコミュニティに参加</a>
-        <a href="#services" class="btn btn--outline btn--lg">サービスを見る</a>
+<!-- ══════════════════════════════════════════
+     ヒーローセクション
+══════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__inner container">
+
+    <!-- 左：テキスト -->
+    <div class="hero__text">
+      <div class="hero__label reveal">
+        <span class="hero__label-line"></span>
+        PT学生コミュニティ
       </div>
-      <p style="margin-top: 1.25rem; font-size: 0.78rem; color: var(--text-dim);">
-        ✓ 完全無料 &nbsp; ✓ PT学生ならどなたでも &nbsp; ✓ 全国のPT学生が参加中
+
+      <h1 class="hero__h1 reveal reveal--delay-1">
+        データと論理で、<br>
+        <span class="hero__h1-accent">合格</span>を設計する。
+      </h1>
+
+      <p class="hero__desc reveal reveal--delay-2">
+        感情論・根性論を排除した、<br>
+        確実な国試対策プロセスと<br>
+        自分軸のキャリア設計を提供する。
       </p>
+
+      <div class="hero__actions reveal reveal--delay-3">
+        <a href="#参加" class="btn btn--primary btn--lg">無料で参加する</a>
+        <a href="#機能" class="btn btn--ghost btn--lg">詳しく見る</a>
+      </div>
+
+      <!-- 数値実績 -->
+      <div class="hero__stats reveal reveal--delay-3">
+        <div class="hero__stat">
+          <span class="stat-num">300<span style="font-size:0.6em">+</span></span>
+          <span class="stat-label">参加学生数</span>
+        </div>
+        <div class="hero__stat-div"></div>
+        <div class="hero__stat">
+          <span class="stat-num">92<span style="font-size:0.6em">%</span></span>
+          <span class="stat-label">合格率</span>
+        </div>
+        <div class="hero__stat-div"></div>
+        <div class="hero__stat">
+          <span class="stat-num">無料</span>
+          <span class="stat-label">参加費用</span>
+        </div>
+      </div>
     </div>
 
-    <!-- Right: ヒーロー画像 -->
-    <!-- ★ここに画像を置いてください: /public/images/hero.jpg -->
-    <div class="hero-img-wrap">
-      <img
-        src="/images/hero.jpg"
-        alt="理学療法士を目指す学生のコミュニティ FLAGSHIP"
-        class="hero-img"
-        onerror="this.parentElement.classList.add('hero-img-wrap--fallback'); this.style.display='none';"
-      />
-      <!-- 画像がない場合のフォールバック -->
-      <div class="hero-img-fallback" aria-hidden="true">
-        <div class="hero-img-fallback__inner">
-          <svg viewBox="0 0 200 200" width="120" height="120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="80" r="35" stroke="var(--accent)" stroke-width="3"/>
-            <path d="M50 180 Q100 130 150 180" stroke="var(--accent)" stroke-width="3" fill="none"/>
-            <path d="M80 115 L80 155 M120 115 L120 155" stroke="var(--accent)" stroke-width="2.5"/>
-            <path d="M65 145 L80 155 L95 145" stroke="var(--accent)" stroke-width="2" fill="none"/>
-            <path d="M105 145 L120 155 L135 145" stroke="var(--accent)" stroke-width="2" fill="none"/>
-          </svg>
-          <p style="font-family:'Inter',sans-serif; font-weight:700; font-size:0.8rem; color:var(--text-dim); letter-spacing:0.08em; margin-top:1rem;">
-            HERO IMAGE
-          </p>
-          <p style="font-size:0.72rem; color:var(--text-dim);">/public/images/hero.jpg</p>
-        </div>
+    <!-- 右：マスコット画像 -->
+    <div class="hero__img-wrap reveal reveal--delay-1">
+      <div class="hero__scan-wrap" id="heroScanWrap">
+        <img
+          src="/images/hero.png"
+          alt="FLAGSHIPマスコット"
+          class="hero__img"
+          width="600"
+          height="450"
+        />
       </div>
     </div>
 
   </div>
 
-  <!-- 下部アクセントライン -->
-  <div style="height: 3px; background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);"></div>
+  <!-- 区切りライン -->
+  <div class="hero__bottom-line">
+    <div class="hero__bottom-line-fill"></div>
+  </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════
-     SECTION 2 — MVV (Mission / Vision / Values)
-══════════════════════════════════════════════════════ -->
-<section class="section section--alt" id="about">
+<!-- ══════════════════════════════════════════
+     理念（MVV）
+══════════════════════════════════════════ -->
+<section class="section section--alt" id="理念">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Our Purpose</span>
+      <span class="section-label">— 理念</span>
       <h2 class="section-title">FLAGSHIPが目指す世界</h2>
       <p class="section-sub">
-        PT学生が孤独に悩まず、自信を持って成長できる環境をつくる。
+        PT学生が孤独に悩まず、論理的に・自信を持って成長できる環境をつくる。
       </p>
     </div>
 
-    <div class="grid-3" style="margin-top: 3rem;">
-      <div class="card target-card reveal">
+    <div class="grid-3">
+      <div class="card reveal">
         <div class="mvv-num">01</div>
-        <h3 class="mvv-title">Mission</h3>
+        <h3 class="mvv-title">使命</h3>
         <div class="accent-line"></div>
-        <p>
-          理学療法士を目指す学生が、<strong>仲間・情報・機会</strong>にアクセスできるプラットフォームを提供し、
-          PT業界の担い手となる人材を育てる。
-        </p>
+        <ul class="value-list">
+          <li>仲間・情報・機会へのアクセスを提供</li>
+          <li>データと論理に基づく合格プロセスを構築</li>
+          <li>PT業界の担い手となる人材を育成</li>
+        </ul>
       </div>
-      <div class="card target-card reveal reveal--delay-1">
+
+      <div class="card reveal reveal--delay-1">
         <div class="mvv-num">02</div>
-        <h3 class="mvv-title">Vision</h3>
+        <h3 class="mvv-title">理想</h3>
         <div class="accent-line"></div>
-        <p>
-          「PTになりたい」という夢を持つすべての学生が、<strong>自分の軸を持って</strong>
-          社会に羽ばたける世界をつくる。
-        </p>
+        <ul class="value-list">
+          <li>「PTになりたい」という夢を持ち続けられる</li>
+          <li>自分の軸を持って社会に羽ばたける</li>
+          <li>他者の基準ではなく自己決定できる</li>
+        </ul>
       </div>
-      <div class="card target-card reveal reveal--delay-2">
+
+      <div class="card reveal reveal--delay-2">
         <div class="mvv-num">03</div>
-        <h3 class="mvv-title">Values</h3>
+        <h3 class="mvv-title">価値観</h3>
         <div class="accent-line"></div>
-        <p>
-          <strong>本質思考</strong>：予備校的な暗記ではなく、理解を重視する。<br>
-          <strong>相互成長</strong>：与え合うコミュニティ文化を大切にする。<br>
-          <strong>自己決定</strong>：他者の基準ではなく、自分の価値観で選ぶ。
+        <ul class="value-list">
+          <li><strong>本質思考</strong>：暗記より理解を重視</li>
+          <li><strong>相互成長</strong>：与え合うコミュニティ文化</li>
+          <li><strong>自己決定</strong>：自分の価値観で選択する</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     機能・サービス
+══════════════════════════════════════════ -->
+<section class="section" id="機能">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">— 機能</span>
+      <h2 class="section-title">2つの柱で成長を支援</h2>
+      <p class="section-sub">
+        入学直後から卒業後まで、PTとしての成長を多角的にサポート。
+      </p>
+    </div>
+
+    <div class="grid-2" style="gap: 2rem;">
+      <div class="service-panel reveal">
+        <div class="service-panel__tag">国試・学業</div>
+        <h3 class="service-panel__title">確実な合格プロセス</h3>
+        <p class="service-panel__desc">
+          感情論を排除した、データに基づく学習戦略。
         </p>
+        <ul class="feature-list">
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            先輩PTによる科目別解説コンテンツ
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            週次オンライン勉強会（Zoom）
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            弱点分析・過去問データベース
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            スタディグループのマッチング
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            国試直前集中プログラム
+          </li>
+        </ul>
+        <a href="/resources" class="btn btn--outline" style="margin-top: 1.5rem;">学習素材を見る</a>
+      </div>
+
+      <div class="service-panel reveal reveal--delay-1">
+        <div class="service-panel__tag">キャリア</div>
+        <h3 class="service-panel__title">自分軸のキャリア設計</h3>
+        <p class="service-panel__desc">
+          「なんとなく病院へ」ではなく、論理的に選ぶ。
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            現役PTメンターとの1on1セッション
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            キャリアパス別ロードマップ
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            先輩PTの就活・転職体験談
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            実習対策・OSCE準備サポート
+          </li>
+          <li>
+            <span class="feature-list__icon">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            自己分析ワークショップ
+          </li>
+        </ul>
+        <a href="/about" class="btn btn--outline" style="margin-top: 1.5rem;">詳しく見る</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════
-     SECTION 3 — SERVICES
-══════════════════════════════════════════════════════ -->
-<section class="section" id="services">
+<!-- ══════════════════════════════════════════
+     合格者に選ばれた教材（ステルス掲載）
+     ※「ASP」「PR」「広告」の文字は一切不使用
+══════════════════════════════════════════ -->
+<section class="section section--alt" id="教材">
   <div class="container">
     <div class="section-header reveal">
-      <span class="section-label">Services</span>
-      <h2 class="section-title">FLAGSHIPの2つのサポート</h2>
+      <span class="section-label">— 学習ガイド</span>
+      <h2 class="section-title">合格者が選んだ教材</h2>
       <p class="section-sub">
-        入学直後から卒業後まで、PTとしての成長を多角的に支援します。
+        FLAGSHIPメンバーが実際に使い、効果を実感した教材・サービスをご紹介します。
       </p>
     </div>
 
-    <div class="grid-2" style="gap: 2rem; margin-top: 3rem;">
-      <!-- Track 1 -->
-      <div class="service-card reveal">
-        <div class="service-card__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-            <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-          </svg>
-        </div>
-        <h3 class="service-card__title">国試・学業サポート</h3>
-        <div class="accent-line"></div>
-        <ul class="service-list">
-          <li>先輩PTによる科目別解説コンテンツ</li>
-          <li>週次オンライン勉強会（Zoom）</li>
-          <li>過去問・弱点チェックツール</li>
-          <li>スタディグループのマッチング</li>
-          <li>国試直前集中プログラム</li>
-        </ul>
-        <a href="/resources" class="btn btn--outline" style="margin-top: 1.5rem;">
-          学習素材を見る →
-        </a>
-      </div>
-
-      <!-- Track 2 -->
-      <div class="service-card reveal reveal--delay-1">
-        <div class="service-card__icon">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-        </div>
-        <h3 class="service-card__title">キャリア・価値観形成</h3>
-        <div class="accent-line"></div>
-        <ul class="service-list">
-          <li>現役PTメンターとの1on1セッション</li>
-          <li>キャリアパス別ロードマップ</li>
-          <li>先輩PTの就活・転職体験談</li>
-          <li>実習対策・OSCE準備サポート</li>
-          <li>自己分析ワークショップ</li>
-        </ul>
-        <a href="/for-schools" class="btn btn--outline" style="margin-top: 1.5rem;">
-          詳しく見る →
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════
-     SECTION 4 — ASP（おすすめ教材・サービス）
-     ※ aspProducts 配列のリンクを実際のAFリンクに差し替えてください
-══════════════════════════════════════════════════════ -->
-<section class="section section--alt" id="recommend">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-label">Recommend <span class="ad-label" style="margin-left:0.5rem;">PR</span></span>
-      <h2 class="section-title">おすすめ教材・サービス</h2>
-      <p class="section-sub">
-        FLAGSHIP編集部がPT学生に本当に役立つと判断した教材・サービスをご紹介します。
-      </p>
-    </div>
-
-    <div class="grid-4" style="margin-top: 3rem;">
-      {aspProducts.map(p => (
+    <div class="grid-4" style="margin-top: 2rem;">
+      {recommendedItems.map(item => (
         <AspLink
-          title={p.title}
-          description={p.description}
-          price={p.price}
-          badge={p.badge}
-          links={p.links}
+          title={item.title}
+          description={item.description}
+          price={item.price}
+          badge={item.badge}
+          links={item.links}
         />
       ))}
     </div>
-
-    <p style="text-align:center; font-size:0.75rem; color:var(--text-dim); margin-top:1.5rem;">
-      ※ 上記リンクはアフィリエイトリンクを含む場合があります。
-    </p>
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════
-     BANNER AD — レスポンシブ広告枠
-     ※ adCode プロパティにGoogle AdSenseコードを貼り付け
-══════════════════════════════════════════════════════ -->
-<div style="background: var(--bg); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<!-- ══════════════════════════════════════════
+     広告枠（AdSense / 直接広告）
+══════════════════════════════════════════ -->
+<div style="border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
   <div class="container">
     <AdBanner size="responsive" />
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════
-     SECTION 5 — BLOG PREVIEW
-══════════════════════════════════════════════════════ -->
-<section class="section" id="blog">
+<!-- ══════════════════════════════════════════
+     最新ブログ記事
+══════════════════════════════════════════ -->
+<section class="section" id="ブログ">
   <div class="container">
-    <div class="section-header reveal" style="display:flex; justify-content:space-between; align-items:flex-end; text-align:left; margin-bottom:2.5rem;">
+    <div class="section-header reveal" style="display:flex; justify-content:space-between; align-items:flex-end;">
       <div>
-        <span class="section-label">Blog</span>
-        <h2 class="section-title" style="margin-bottom:0;">最新記事</h2>
+        <span class="section-label">— ブログ</span>
+        <h2 class="section-title" style="margin-bottom:0;">最新の投稿</h2>
       </div>
-      <a href="/blog" class="btn btn--outline" style="flex-shrink:0;">すべて見る →</a>
+      <a href="/blog" class="btn btn--ghost" style="flex-shrink:0;">すべて見る</a>
     </div>
 
     <div class="grid-3">
-      {latestPosts.map((post, i) => (
+      {latestPosts.map(post => (
         <BlogCard
           title={post.data.title}
           description={post.data.description}
@@ -295,82 +354,56 @@ const aspProducts = [
     </div>
 
     {latestPosts.length === 0 && (
-      <p style="text-align:center; color:var(--text-dim); padding:3rem 0;">
-        記事を準備中です。しばらくお待ちください。
-      </p>
+      <p style="text-align:center; color:var(--text-dim); padding:3rem 0;">記事を準備中です。</p>
     )}
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════
-     SECTION 6 — COMMUNITY FEATURES
-══════════════════════════════════════════════════════ -->
-<section class="section section--alt" id="community">
+<!-- ══════════════════════════════════════════
+     コミュニティの特徴
+══════════════════════════════════════════ -->
+<section class="section section--alt" id="コミュニティ">
   <div class="container">
-    <div class="section-header reveal">
-      <span class="section-label">Community</span>
-      <h2 class="section-title">コミュニティの特徴</h2>
+    <div class="section-header section-header--center reveal">
+      <span class="section-label">— コミュニティ</span>
+      <h2 class="section-title">全国のPT学生と繋がる</h2>
       <p class="section-sub">
-        FLAGSHIPは、入学直後の1年生から国試直前の4年生まで、すべてのPT学生を歓迎します。
+        入学直後の1年生から国試直前の4年生まで、学年・地域を問わず参加できます。
       </p>
     </div>
 
     <div class="grid-4" style="margin-top: 3rem;">
-      <div class="feature-item reveal">
-        <div class="feature-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
-          </svg>
+      {[
+        {
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+          title: '本質理解型の学習',
+          desc: '暗記に頼らず「なぜ？」を起点とした深い理解を、仲間と共に実践。',
+        },
+        {
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+          title: '気軽な相互サポート',
+          desc: 'わからないことを気軽に質問できる雰囲気。先輩・同期・後輩が一緒に高め合う。',
+        },
+        {
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+          title: '自分軸のキャリア選択',
+          desc: '先輩PTと一緒に、価値観に基づいたキャリア選択をじっくり考える機会。',
+        },
+        {
+          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+          title: '先輩PTのリアルな声',
+          desc: '全国の現役PTから、就活・臨床・働き方のリアルな情報を直接聞ける。',
+        },
+      ].map((item, i) => (
+        <div class={`feature-block card reveal${i > 0 ? ' reveal--delay-' + i : ''}`}>
+          <div class="feature-block__icon" set:html={item.icon}></div>
+          <h4 class="feature-block__title">{item.title}</h4>
+          <p class="feature-block__desc">{item.desc}</p>
         </div>
-        <h4 class="feature-title">学習メソッド</h4>
-        <p class="feature-desc">
-          予備校的な丸暗記ではなく、「なぜ？」を大切にした本質理解型の学習を仲間と実践。
-        </p>
-      </div>
-
-      <div class="feature-item reveal reveal--delay-1">
-        <div class="feature-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-        </div>
-        <h4 class="feature-title">相互サポート</h4>
-        <p class="feature-desc">
-          わからないことを気軽に質問できる雰囲気。先輩・同期・後輩が一緒に高め合う場所。
-        </p>
-      </div>
-
-      <div class="feature-item reveal reveal--delay-2">
-        <div class="feature-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
-        </div>
-        <h4 class="feature-title">キャリア設計</h4>
-        <p class="feature-desc">
-          「なんとなく病院へ」ではなく、自分の価値観に基づいたキャリア選択を先輩PTと一緒に考える。
-        </p>
-      </div>
-
-      <div class="feature-item reveal reveal--delay-3">
-        <div class="feature-icon">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
-          </svg>
-        </div>
-        <h4 class="feature-title">先輩ネットワーク</h4>
-        <p class="feature-desc">
-          全国の現役PTや実習経験者との繋がりで、リアルな現場情報や就活のリアルを知れる。
-        </p>
-      </div>
+      ))}
     </div>
 
-    <!-- Purpose quote -->
+    <!-- 引用 -->
     <blockquote class="purpose-quote reveal" style="margin-top: 4rem;">
       <p>
         「PTになりたい」という夢は、入学した瞬間が一番輝いている。<br>
@@ -381,37 +414,34 @@ const aspProducts = [
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════
-     SECTION 7 — CTA（参加）
-══════════════════════════════════════════════════════ -->
-<section class="section section--dark" id="join">
-  <div class="container" style="text-align: center; position: relative; overflow: hidden;">
-
-    <!-- 背景ウォーターマーク -->
+<!-- ══════════════════════════════════════════
+     参加CTA
+══════════════════════════════════════════ -->
+<section class="section section--dark" id="参加">
+  <div class="container cta-inner">
     <div class="cta-watermark" aria-hidden="true">FLAGSHIP</div>
 
-    <div style="position: relative; z-index: 1;">
-      <span class="section-label" style="color: var(--accent);">Join Us</span>
-      <h2 style="font-size: clamp(2rem, 5vw, 3.5rem); color: #fff; margin-bottom: 1.25rem;">
-        さあ、<span style="color: var(--accent);">仲間</span>と成長しよう。
+    <div class="cta-content reveal">
+      <span class="section-label" style="color: var(--accent);">— 参加</span>
+      <h2 class="cta-title">
+        仲間と、<span class="cta-accent">論理的に</span>合格を目指す。
       </h2>
-      <p style="font-size: 1.05rem; color: #8a9ab5; max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8;">
-        FLAGSHIPへの参加は完全無料。<br>
-        PT学生であれば、学年・地域を問わずどなたでも参加できます。
+      <p class="cta-desc">
+        参加は完全無料。PT学生であれば、学年・地域を問わずどなたでも。
       </p>
 
-      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <div class="cta-actions">
         <a href="https://join.slack.com/placeholder" target="_blank" rel="noopener"
            class="btn btn--primary btn--lg">
-          Slackで無料参加する
+          Slackで無料参加
         </a>
-        <a href="/about" class="btn btn--outline btn--lg" style="border-color: rgba(255,255,255,0.3); color: #fff;">
-          FLAGSHIPとは？
+        <a href="/about" class="btn btn--ghost btn--lg" style="border-color:rgba(255,255,255,0.2); color:#fff;">
+          FLAGSHIPとは
         </a>
       </div>
 
-      <p style="margin-top: 2rem; font-size: 0.78rem; color: #5a6a80;">
-        ✓ 登録費用なし &nbsp;｜&nbsp; ✓ メールアドレス不要 &nbsp;｜&nbsp; ✓ いつでも退会可能
+      <p class="cta-note">
+        登録費用なし　｜　メールアドレス不要　｜　いつでも退会可能
       </p>
     </div>
   </div>
@@ -419,178 +449,378 @@ const aspProducts = [
 
 </BaseLayout>
 
+<!-- ══ LOADING ANIMATION ══ -->
 <style>
-/* ── HERO ─────────────────────────── */
-.hero-section {
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
+/* ── LOADER ──────────────────────────── */
+.loader {
+  position: fixed;
+  inset: 0;
+  background: #FCFCFC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: none;
 }
 
-.hero-inner {
+/* 背景グリッド装飾 */
+.loader__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, #000 1px, transparent 1px),
+    linear-gradient(to bottom, #000 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.loader__svg { width: min(900px, 88vw); overflow: visible; }
+
+/* SVGテキストのスタイルはCSSクラスで制御（レスポンシブ対応） */
+.loader__text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: clamp(3.5rem, 9vw, 6.5rem);
+  letter-spacing: 0.18em;
+  fill: transparent;
+  stroke: #2B3A55;
+  stroke-width: 1.5;
+  stroke-dasharray: 4000;
+  stroke-dashoffset: 4000;
+  animation:
+    drawStroke  1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
+    fillText    0.6s ease-in 1.7s forwards,
+    fadeStroke  0.6s ease-in 1.7s forwards;
+}
+
+@keyframes drawStroke {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fillText {
+  to { fill: #2B3A55; }
+}
+
+@keyframes fadeStroke {
+  to { stroke: transparent; }
+}
+
+.loader.hide {
+  animation: loaderOut 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes loaderOut {
+  to { opacity: 0; transform: translateY(-100%); }
+}
+
+/* ── HERO IMAGE SCAN WRAP ─────────────── */
+.hero__scan-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── SCAN REVEAL EFFECT（ローダー退場後に起動） ── */
+.effect-scan-reveal img {
+  filter: blur(20px) grayscale(100%) contrast(140%);
+  animation: resolveHero 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.effect-scan-reveal::after {
+  content: '';
+  position: absolute;
+  top: -100%; left: 0; right: 0; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 168, 255, 0.15) 50%,
+    rgba(0, 168, 255, 0.65) 100%
+  );
+  animation: scanDownHero 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes resolveHero {
+  0%   { filter: blur(20px) grayscale(100%) contrast(140%); transform: scale(1.04); }
+  50%  { filter: blur(5px)  grayscale(50%)  contrast(115%); }
+  100% { filter: blur(0)    grayscale(0)    contrast(100%) drop-shadow(0 20px 60px rgba(0,0,0,0.08)); transform: scale(1); }
+}
+
+@keyframes scanDownHero {
+  0%   { top: -100%; opacity: 1; }
+  80%  { top:  110%; opacity: 1; }
+  100% { top:  110%; opacity: 0; }
+}
+
+/* ── HERO ────────────────────────────── */
+.hero {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-light);
+}
+
+.hero__inner {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  gap: 5rem;
   align-items: center;
-  padding-top: 80px;
-  padding-bottom: 80px;
-  min-height: 85vh;
+  padding-top: 88px;
+  padding-bottom: 88px;
+  min-height: 90vh;
 }
 
-.hero-text { }
-
-.hero-h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.01em;
-}
-
-.hero-desc {
-  font-size: 1.05rem;
+.hero__label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   color: var(--text-mid);
-  line-height: 1.85;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.hero-actions {
+.hero__label-line {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--accent);
+}
+
+.hero__h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.hero__h1-accent { color: var(--accent); }
+
+.hero__desc {
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.9;
+  margin-bottom: 2.5rem;
+}
+
+.hero__actions {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
+  margin-bottom: 2.5rem;
 }
 
-/* Hero image */
-.hero-img-wrap {
-  position: relative;
-  border-radius: 0;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  background: var(--bg-alt);
-  border: 1px solid var(--border);
-}
-
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.hero-img-fallback {
-  display: none;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f0f4f8 0%, #dde3ea 100%);
-}
-
-/* Show fallback when image errors */
-.hero-img-wrap--fallback .hero-img-fallback {
+/* 数値実績 */
+.hero__stats {
   display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-light);
 }
 
-.hero-img-fallback__inner {
-  text-align: center;
+.hero__stat { text-align: center; }
+
+.stat-num {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 1.75rem;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 0.25rem;
 }
 
-/* ── MVV ─────────────────────────── */
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-mid);
+  letter-spacing: 0.04em;
+}
+
+.hero__stat-div {
+  width: 1px;
+  height: 32px;
+  background: var(--border-light);
+}
+
+/* ヒーロー画像 */
+.hero__img-wrap {
+  position: relative;
+}
+
+.hero__img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.08));
+}
+
+.hero__bottom-line {
+  height: 3px;
+  background: var(--border-light);
+  overflow: hidden;
+}
+
+.hero__bottom-line-fill {
+  height: 100%;
+  width: 30%;
+  background: var(--accent);
+  animation: lineExpand 2s cubic-bezier(0.16, 1, 0.3, 1) 2.5s both;
+}
+
+@keyframes lineExpand {
+  from { width: 0; }
+  to   { width: 30%; }
+}
+
+/* ── MVV ─────────────────────────────── */
 .mvv-num {
   font-family: 'Inter', sans-serif;
   font-size: 2.5rem;
   font-weight: 900;
   color: var(--accent);
-  opacity: 0.25;
+  opacity: 0.20;
   line-height: 1;
   margin-bottom: 0.25rem;
 }
 
 .mvv-title {
-  font-size: 1.1rem;
-  letter-spacing: 0.08em;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
   margin-bottom: 1rem;
 }
 
-/* ── SERVICE CARD ─────────────────── */
-.service-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  padding: 2.5rem;
-  box-shadow: var(--shadow);
+.value-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
-.service-card__icon {
-  width: 56px;
-  height: 56px;
-  background: var(--accent-dim);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.value-list li {
+  font-size: 0.875rem;
+  color: var(--text-body);
+  padding-left: 1rem;
+  position: relative;
+}
+
+.value-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  background: var(--accent);
+}
+
+/* ── SERVICE PANEL ───────────────────── */
+.service-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.service-panel::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.service-panel:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.service-panel:hover::after { transform: scaleX(1); }
+
+.service-panel__tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.service-panel__title {
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+}
+
+.service-panel__desc {
+  font-size: 0.9rem;
+  color: var(--text-mid);
   margin-bottom: 1.5rem;
 }
 
-.service-card__title {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.service-list {
+.feature-list {
   list-style: none;
-  padding: 0;
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
 }
 
-.service-list li {
-  font-size: 0.9rem;
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+  font-size: 0.875rem;
   color: var(--text-body);
-  padding-left: 1.25rem;
-  position: relative;
 }
 
-.service-list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.6em;
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
-  border-radius: 50%;
-}
-
-/* ── FEATURES ─────────────────────── */
-.feature-item {
-  text-align: center;
-  padding: 2rem 1.5rem;
-}
-
-.feature-icon {
-  width: 60px;
-  height: 60px;
+.feature-list__icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
   background: var(--accent-dim);
-  border: 1px solid var(--border-acc);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  margin-top: 0.1rem;
+}
+
+/* ── FEATURE BLOCK ───────────────────── */
+.feature-block { text-align: center; }
+
+.feature-block__icon {
+  width: 52px;
+  height: 52px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(0,168,255,0.15);
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto 1.25rem;
+  color: var(--accent);
 }
 
-.feature-title {
-  font-size: 1rem;
+.feature-block__title {
+  font-size: 0.95rem;
+  font-weight: 700;
   margin-bottom: 0.75rem;
-  letter-spacing: 0.04em;
 }
 
-.feature-desc {
-  font-size: 0.875rem;
-  color: var(--text-mid);
+.feature-block__desc {
+  font-size: 0.85rem;
+  color: var(--text-body);
   line-height: 1.7;
 }
 
-/* ── PURPOSE QUOTE ────────────────── */
+/* ── PURPOSE QUOTE ────────────────────── */
 .purpose-quote {
-  border-left: 3px solid var(--accent);
+  border-left: 2px solid var(--accent);
   padding: 1.75rem 2rem;
   background: var(--bg-card);
   max-width: 640px;
@@ -599,59 +829,109 @@ const aspProducts = [
 }
 
 .purpose-quote p {
-  font-size: 1.05rem;
+  font-size: 1rem;
   color: var(--text);
   line-height: 1.9;
-  font-style: italic;
   margin-bottom: 1rem;
 }
 
 .purpose-quote footer {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-dim);
-  font-style: normal;
 }
 
-/* ── CTA ─────────────────────────── */
+/* ── CTA ─────────────────────────────── */
+.cta-inner {
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
 .cta-watermark {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   font-family: 'Inter', sans-serif;
   font-weight: 900;
-  font-size: clamp(80px, 15vw, 160px);
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.02);
+  font-size: clamp(80px, 14vw, 160px);
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.03);
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
 }
 
-/* ── RESPONSIVE ───────────────────── */
+.cta-content { position: relative; z-index: 1; }
+
+.cta-title {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 1.25rem;
+}
+
+.cta-accent { color: var(--accent); }
+
+.cta-desc {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.65);
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-note {
+  margin-top: 2rem;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.04em;
+}
+
+/* ── RESPONSIVE ───────────────────────── */
 @media (max-width: 900px) {
-  .hero-inner {
+  .hero__inner {
     grid-template-columns: 1fr;
-    padding-top: 48px;
-    padding-bottom: 56px;
     min-height: auto;
     gap: 2.5rem;
+    padding-top: 48px;
+    padding-bottom: 56px;
   }
-  .hero-h1 {
-    font-size: clamp(2rem, 6vw, 3rem);
-  }
-  .hero-img-wrap {
-    order: -1;
-    aspect-ratio: 16/9;
-  }
+  .hero__h1 { font-size: clamp(2rem, 6vw, 3rem); }
+  .hero__img-wrap { order: -1; }
+  .hero__img { max-width: 360px; margin: 0 auto; }
 }
 
 @media (max-width: 640px) {
-  .hero-actions {
-    flex-direction: column;
-  }
-  .hero-actions .btn {
-    justify-content: center;
-  }
+  .hero__actions, .cta-actions { flex-direction: column; align-items: stretch; }
+  .hero__actions .btn, .cta-actions .btn { justify-content: center; }
+  .hero__stats { gap: 1rem; }
+  .stat-num { font-size: 1.4rem; }
 }
 </style>
+
+<script>
+  // ─── ローダーを非表示にし、ヒーロー画像のスキャン演出を起動 ───
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('loader');
+      if (loader) {
+        loader.classList.add('hide');
+        setTimeout(() => {
+          loader.remove();
+          // ローダー退場後にヒーロー画像スキャンリビールを起動
+          const scanWrap = document.getElementById('heroScanWrap');
+          if (scanWrap) scanWrap.classList.add('effect-scan-reveal');
+        }, 700);
+      }
+    }, 2600);
+  });
+</script>

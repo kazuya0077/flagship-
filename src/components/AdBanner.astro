@@ -32,7 +32,6 @@ const dim = dimensions[size];
 ---
 
 <div class="ad-banner-wrap" data-size={size}>
-  <p class="ad-banner-label">{label}</p>
   {adCode ? (
     <!-- Render provided ad code (AdSense, etc.) -->
     <div class="ad-banner-slot" set:html={adCode} />
