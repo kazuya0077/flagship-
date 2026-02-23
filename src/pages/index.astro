@@ -9,12 +9,10 @@ const latestPosts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 3);
 
-// ── 合格者に選ばれた教材（ステルスで自然に溶け込む形で掲載）
-// ※ リンクはアフィリエイトURLに差し替えてください
 const recommendedItems = [
   {
     title: '標準理学療法学 専門分野 運動療法学（全改訂第5版）',
-    description: '国試頻出の運動療法学テキスト。解剖・生理から実践まで網羅。毎年の合格者が口を揃えておすすめする一冊。',
+    description: '国試頻出の運動療法学テキスト。解剖・生理から実践まで網羅。',
     price: '¥5,940',
     badge: '定番',
     links: {
@@ -24,7 +22,7 @@ const recommendedItems = [
   },
   {
     title: 'クエスチョン・バンク PT国試問題解説（最新版）',
-    description: '過去10年分を体系的に解説。解説の精度が高く、毎年受験生に支持される定番問題集。',
+    description: '過去10年分を体系的に解説。受験生に支持される定番問題集。',
     price: '¥6,820',
     badge: 'おすすめ',
     links: {
@@ -34,7 +32,7 @@ const recommendedItems = [
   },
   {
     title: 'イヤーノート PT・OT（2025年度版）',
-    description: '頻出事項を1冊に凝縮。直前期の総まとめとして最適なポケットサイズ参考書。',
+    description: '頻出事項を1冊に凝縮。直前期の総まとめに最適。',
     price: '¥3,960',
     links: {
       amazon:  'https://www.amazon.co.jp/dp/xxxxxxxx?tag=YOUR_TAG',
@@ -43,10 +41,35 @@ const recommendedItems = [
   },
   {
     title: '就職・転職支援（PT専門サービス）',
-    description: 'PT・OT専門の求人サービス。非公開求人多数、無料キャリア相談あり。卒業後のキャリア設計に。',
+    description: 'PT・OT専門の求人サービス。無料キャリア相談あり。',
     price: '完全無料',
     badge: 'キャリア',
     links: { official: 'https://example.com/pt-career' },
+  },
+];
+
+// 例題（学習用サンプル問題）
+const quizItems = [
+  {
+    category: '解剖学',
+    question: '骨格筋の収縮に直接関わるタンパク質の組み合わせはどれか。',
+    answer: 'アクチンとミオシン',
+    explanation: 'アクチン（細いフィラメント）とミオシン（太いフィラメント）のクロスブリッジ形成により筋収縮が起こる。トロポニン・トロポミオシンはCa²⁺による調節機構に関与する。',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>`,
+  },
+  {
+    category: '生理学',
+    question: '健常成人の安静時心拍数の正常範囲はどれか。',
+    answer: '60〜100 回/分',
+    explanation: '洞結節の自動能により、安静時の正常心拍数は60〜100 bpm。60未満を徐脈、100超を頻脈と呼ぶ。刺激伝導系（洞→房室→ヒス束→プルキンエ線維）の理解も国試頻出。',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+  },
+  {
+    category: '運動療法',
+    question: '最大筋力が最も大きい筋収縮様式はどれか。',
+    answer: '遠心性（エキセントリック）収縮',
+    explanation: '遠心性収縮は筋が伸張されながら張力を発揮する収縮形態。求心性・等尺性収縮より大きな力が得られ、筋肥大への刺激も最も強い。筋力増強プログラム設計の基礎知識。',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>`,
   },
 ];
 ---
@@ -61,23 +84,33 @@ const recommendedItems = [
 ══════════════════════════════════════════ -->
 <div class="loader" id="loader" aria-hidden="true">
   <div class="loader__grid" aria-hidden="true"></div>
-  <svg class="loader__svg" viewBox="0 0 1000 180" xmlns="http://www.w3.org/2000/svg">
-    <text
-      class="loader__text"
-      x="50%" y="50%"
-      text-anchor="middle"
-      dominant-baseline="middle"
-    >FLAGSHIP</text>
-  </svg>
+  <div class="loader__content">
+    <svg class="loader__svg" viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+      <text
+        class="loader__text"
+        x="50%" y="55%"
+        text-anchor="middle"
+        dominant-baseline="middle"
+        font-size="130"
+        font-family="Inter, sans-serif"
+        font-weight="900"
+        letter-spacing="20"
+      >FLAGSHIP</text>
+    </svg>
+    <p class="loader__sub">PT学生のための学習コミュニティ</p>
+  </div>
 </div>
 
 <!-- ══════════════════════════════════════════
-     ヒーローセクション
+     ヒーロー
 ══════════════════════════════════════════ -->
 <section class="hero" id="hero">
+  <!-- 背景装飾：ドットグリッド + アクセントグロー -->
+  <div class="hero__bg-grid" aria-hidden="true"></div>
+  <div class="hero__bg-glow" aria-hidden="true"></div>
+
   <div class="hero__inner container">
 
-    <!-- 左：テキスト -->
     <div class="hero__text">
       <div class="hero__label reveal">
         <span class="hero__label-line"></span>
@@ -97,51 +130,171 @@ const recommendedItems = [
 
       <div class="hero__actions reveal reveal--delay-3">
         <a href="#参加" class="btn btn--primary btn--lg">無料で参加する</a>
-        <a href="#機能" class="btn btn--ghost btn--lg">詳しく見る</a>
-      </div>
-
-      <!-- 数値実績 -->
-      <div class="hero__stats reveal reveal--delay-3">
-        <div class="hero__stat">
-          <span class="stat-num">300<span style="font-size:0.6em">+</span></span>
-          <span class="stat-label">参加学生数</span>
-        </div>
-        <div class="hero__stat-div"></div>
-        <div class="hero__stat">
-          <span class="stat-num">92<span style="font-size:0.6em">%</span></span>
-          <span class="stat-label">合格率</span>
-        </div>
-        <div class="hero__stat-div"></div>
-        <div class="hero__stat">
-          <span class="stat-num">無料</span>
-          <span class="stat-label">参加費用</span>
-        </div>
+        <a href="#国試" class="btn btn--ghost btn--lg">国試問題を解く</a>
       </div>
     </div>
 
-    <!-- 右：マスコット画像 -->
     <div class="hero__img-wrap reveal reveal--delay-1">
       <div class="hero__scan-wrap" id="heroScanWrap">
+        <div class="hero__img-frame" aria-hidden="true">
+          <span class="hero__img-frame-corner hero__img-frame-corner--tl"></span>
+          <span class="hero__img-frame-corner hero__img-frame-corner--tr"></span>
+          <span class="hero__img-frame-corner hero__img-frame-corner--bl"></span>
+          <span class="hero__img-frame-corner hero__img-frame-corner--br"></span>
+        </div>
         <img
           src="/images/hero.png"
           alt="FLAGSHIPマスコット"
           class="hero__img"
           width="600"
-          height="450"
+          height="600"
         />
       </div>
     </div>
 
   </div>
 
-  <!-- 区切りライン -->
   <div class="hero__bottom-line">
     <div class="hero__bottom-line-fill"></div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════
-     理念（MVV）
+     ブログ（最上位コンテンツ）
+══════════════════════════════════════════ -->
+<section class="section blog-feature" id="ブログ">
+  <div class="container">
+
+    <div class="blog-feature__header reveal">
+      <div>
+        <span class="section-label">— ブログ</span>
+        <h2 class="section-title">最新記事</h2>
+      </div>
+      <a href="/blog" class="btn btn--outline blog-feature__all-link">
+        すべての記事を読む
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    {latestPosts.length > 0 ? (
+      <div class="blog-feature__grid">
+        <!-- Featured first post -->
+        {latestPosts[0] && (
+          <a href={`/blog/${latestPosts[0].slug}`} class="blog-feature__lead reveal">
+            <div class="blog-feature__lead-img">
+              {latestPosts[0].data.heroImage
+                ? <img src={latestPosts[0].data.heroImage} alt={latestPosts[0].data.title} />
+                : <div class="blog-feature__lead-placeholder">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                  </div>
+              }
+              <span class="blog-feature__new-badge">NEW</span>
+            </div>
+            <div class="blog-feature__lead-body">
+              {latestPosts[0].data.category && (
+                <span class="blog-tag">{latestPosts[0].data.category}</span>
+              )}
+              <h3 class="blog-feature__lead-title">{latestPosts[0].data.title}</h3>
+              <p class="blog-feature__lead-desc">{latestPosts[0].data.description}</p>
+              <time class="blog-feature__lead-date">
+                {latestPosts[0].data.pubDate.toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </div>
+          </a>
+        )}
+
+        <!-- Sub posts -->
+        <div class="blog-feature__sub">
+          {latestPosts.slice(1).map((post, i) => (
+            <BlogCard
+              title={post.data.title}
+              description={post.data.description}
+              pubDate={post.data.pubDate}
+              category={post.data.category}
+              heroImage={post.data.heroImage}
+              slug={post.slug}
+              tags={post.data.tags}
+            />
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="blog-empty reveal">
+        <div class="blog-empty__icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <p class="blog-empty__title">記事を順次公開中</p>
+        <p class="blog-empty__sub">国試対策・キャリア・コミュニティに関する記事を準備しています。</p>
+        <a href="/blog" class="btn btn--outline" style="margin-top:1.5rem;">ブログトップへ</a>
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     PT国試 例題・解説
+══════════════════════════════════════════ -->
+<section class="section quiz-section" id="国試">
+  <div class="quiz-section__bg-grid" aria-hidden="true"></div>
+  <div class="container" style="position:relative; z-index:1;">
+
+    <div class="section-header reveal">
+      <span class="section-label" style="color:var(--accent);">— PT国試</span>
+      <h2 class="section-title" style="color:#fff;">国試例題・解説</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.55);">
+        理解を深める3問。正解と解説で、暗記ではなく「わかる」学習を。
+      </p>
+    </div>
+
+    <div class="quiz-category-tags reveal">
+      {['解剖学', '生理学', '運動療法', '内部障害', '神経障害', '整形外科'].map(tag => (
+        <span class="quiz-cat-tag">{tag}</span>
+      ))}
+    </div>
+
+    <div class="quiz-grid">
+      {quizItems.map((q, i) => (
+        <div class={`quiz-card reveal${i > 0 ? ' reveal--delay-' + i : ''}`}>
+          <div class="quiz-card__header">
+            <div class="quiz-card__icon" set:html={q.icon}></div>
+            <span class="quiz-card__cat">{q.category}</span>
+            <span class="quiz-card__badge">例題</span>
+          </div>
+          <p class="quiz-card__q">{q.question}</p>
+          <div class="quiz-card__answer">
+            <div class="quiz-card__answer-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              正解
+            </div>
+            <p class="quiz-card__answer-text">{q.answer}</p>
+          </div>
+          <details class="quiz-card__details">
+            <summary class="quiz-card__details-toggle">解説を読む</summary>
+            <p class="quiz-card__exp">{q.explanation}</p>
+          </details>
+        </div>
+      ))}
+    </div>
+
+    <div class="quiz-cta reveal">
+      <a href="/kokushi" class="btn btn--primary btn--lg quiz-cta__btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        問題データベースを見る
+      </a>
+      <p class="quiz-cta__note">解剖学・生理学・運動療法・内部障害 etc. 全科目対応予定</p>
+    </div>
+  </div>
+</section>
+
+<!-- 広告枠 -->
+<div class="ad-wrap">
+  <div class="container">
+    <AdBanner size="responsive" />
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     理念
 ══════════════════════════════════════════ -->
 <section class="section section--alt" id="理念">
   <div class="container">
@@ -154,146 +307,37 @@ const recommendedItems = [
     </div>
 
     <div class="grid-3">
-      <div class="card reveal">
-        <div class="mvv-num">01</div>
-        <h3 class="mvv-title">使命</h3>
-        <div class="accent-line"></div>
-        <ul class="value-list">
-          <li>仲間・情報・機会へのアクセスを提供</li>
-          <li>データと論理に基づく合格プロセスを構築</li>
-          <li>PT業界の担い手となる人材を育成</li>
-        </ul>
-      </div>
-
-      <div class="card reveal reveal--delay-1">
-        <div class="mvv-num">02</div>
-        <h3 class="mvv-title">理想</h3>
-        <div class="accent-line"></div>
-        <ul class="value-list">
-          <li>「PTになりたい」という夢を持ち続けられる</li>
-          <li>自分の軸を持って社会に羽ばたける</li>
-          <li>他者の基準ではなく自己決定できる</li>
-        </ul>
-      </div>
-
-      <div class="card reveal reveal--delay-2">
-        <div class="mvv-num">03</div>
-        <h3 class="mvv-title">価値観</h3>
-        <div class="accent-line"></div>
-        <ul class="value-list">
-          <li><strong>本質思考</strong>：暗記より理解を重視</li>
-          <li><strong>相互成長</strong>：与え合うコミュニティ文化</li>
-          <li><strong>自己決定</strong>：自分の価値観で選択する</li>
-        </ul>
-      </div>
+      {[
+        {
+          num: '01', title: '使命',
+          items: ['仲間・情報・機会へのアクセスを提供', 'データと論理に基づく合格プロセスを構築', 'PT業界の担い手となる人材を育成'],
+        },
+        {
+          num: '02', title: '理想',
+          items: ['「PTになりたい」という夢を持ち続けられる', '自分の軸を持って社会に羽ばたける', '他者の基準ではなく自己決定できる'],
+        },
+        {
+          num: '03', title: '価値観',
+          items: ['本質思考：暗記より理解を重視', '相互成長：与え合うコミュニティ文化', '自己決定：自分の価値観で選択する'],
+        },
+      ].map((mvv, i) => (
+        <div class={`card mvv-card reveal${i > 0 ? ' reveal--delay-' + i : ''}`}>
+          <div class="mvv-num">{mvv.num}</div>
+          <h3 class="mvv-title">{mvv.title}</h3>
+          <div class="accent-line"></div>
+          <ul class="value-list">
+            {mvv.items.map(item => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════
-     機能・サービス
+     合格者に選ばれた教材
 ══════════════════════════════════════════ -->
-<section class="section" id="機能">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-label">— 機能</span>
-      <h2 class="section-title">2つの柱で成長を支援</h2>
-      <p class="section-sub">
-        入学直後から卒業後まで、PTとしての成長を多角的にサポート。
-      </p>
-    </div>
-
-    <div class="grid-2" style="gap: 2rem;">
-      <div class="service-panel reveal">
-        <div class="service-panel__tag">国試・学業</div>
-        <h3 class="service-panel__title">確実な合格プロセス</h3>
-        <p class="service-panel__desc">
-          感情論を排除した、データに基づく学習戦略。
-        </p>
-        <ul class="feature-list">
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            先輩PTによる科目別解説コンテンツ
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            週次オンライン勉強会（Zoom）
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            弱点分析・過去問データベース
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            スタディグループのマッチング
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            国試直前集中プログラム
-          </li>
-        </ul>
-        <a href="/resources" class="btn btn--outline" style="margin-top: 1.5rem;">学習素材を見る</a>
-      </div>
-
-      <div class="service-panel reveal reveal--delay-1">
-        <div class="service-panel__tag">キャリア</div>
-        <h3 class="service-panel__title">自分軸のキャリア設計</h3>
-        <p class="service-panel__desc">
-          「なんとなく病院へ」ではなく、論理的に選ぶ。
-        </p>
-        <ul class="feature-list">
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            現役PTメンターとの1on1セッション
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            キャリアパス別ロードマップ
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            先輩PTの就活・転職体験談
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            実習対策・OSCE準備サポート
-          </li>
-          <li>
-            <span class="feature-list__icon">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            自己分析ワークショップ
-          </li>
-        </ul>
-        <a href="/about" class="btn btn--outline" style="margin-top: 1.5rem;">詳しく見る</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     合格者に選ばれた教材（ステルス掲載）
-     ※「ASP」「PR」「広告」の文字は一切不使用
-══════════════════════════════════════════ -->
-<section class="section section--alt" id="教材">
+<section class="section" id="教材">
   <div class="container">
     <div class="section-header reveal">
       <span class="section-label">— 学習ガイド</span>
@@ -317,102 +361,12 @@ const recommendedItems = [
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════
-     広告枠（AdSense / 直接広告）
-══════════════════════════════════════════ -->
-<div style="border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+<!-- 広告枠 -->
+<div class="ad-wrap">
   <div class="container">
     <AdBanner size="responsive" />
   </div>
 </div>
-
-<!-- ══════════════════════════════════════════
-     最新ブログ記事
-══════════════════════════════════════════ -->
-<section class="section" id="ブログ">
-  <div class="container">
-    <div class="section-header reveal" style="display:flex; justify-content:space-between; align-items:flex-end;">
-      <div>
-        <span class="section-label">— ブログ</span>
-        <h2 class="section-title" style="margin-bottom:0;">最新の投稿</h2>
-      </div>
-      <a href="/blog" class="btn btn--ghost" style="flex-shrink:0;">すべて見る</a>
-    </div>
-
-    <div class="grid-3">
-      {latestPosts.map(post => (
-        <BlogCard
-          title={post.data.title}
-          description={post.data.description}
-          pubDate={post.data.pubDate}
-          category={post.data.category}
-          heroImage={post.data.heroImage}
-          slug={post.slug}
-          tags={post.data.tags}
-        />
-      ))}
-    </div>
-
-    {latestPosts.length === 0 && (
-      <p style="text-align:center; color:var(--text-dim); padding:3rem 0;">記事を準備中です。</p>
-    )}
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     コミュニティの特徴
-══════════════════════════════════════════ -->
-<section class="section section--alt" id="コミュニティ">
-  <div class="container">
-    <div class="section-header section-header--center reveal">
-      <span class="section-label">— コミュニティ</span>
-      <h2 class="section-title">全国のPT学生と繋がる</h2>
-      <p class="section-sub">
-        入学直後の1年生から国試直前の4年生まで、学年・地域を問わず参加できます。
-      </p>
-    </div>
-
-    <div class="grid-4" style="margin-top: 3rem;">
-      {[
-        {
-          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
-          title: '本質理解型の学習',
-          desc: '暗記に頼らず「なぜ？」を起点とした深い理解を、仲間と共に実践。',
-        },
-        {
-          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
-          title: '気軽な相互サポート',
-          desc: 'わからないことを気軽に質問できる雰囲気。先輩・同期・後輩が一緒に高め合う。',
-        },
-        {
-          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
-          title: '自分軸のキャリア選択',
-          desc: '先輩PTと一緒に、価値観に基づいたキャリア選択をじっくり考える機会。',
-        },
-        {
-          icon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
-          title: '先輩PTのリアルな声',
-          desc: '全国の現役PTから、就活・臨床・働き方のリアルな情報を直接聞ける。',
-        },
-      ].map((item, i) => (
-        <div class={`feature-block card reveal${i > 0 ? ' reveal--delay-' + i : ''}`}>
-          <div class="feature-block__icon" set:html={item.icon}></div>
-          <h4 class="feature-block__title">{item.title}</h4>
-          <p class="feature-block__desc">{item.desc}</p>
-        </div>
-      ))}
-    </div>
-
-    <!-- 引用 -->
-    <blockquote class="purpose-quote reveal" style="margin-top: 4rem;">
-      <p>
-        「PTになりたい」という夢は、入学した瞬間が一番輝いている。<br>
-        FLAGSHIPは、その輝きを卒業まで持ち続けるための場所です。
-      </p>
-      <footer>— FLAGSHIP 運営チーム</footer>
-    </blockquote>
-  </div>
-</section>
 
 <!-- ══════════════════════════════════════════
      参加CTA
@@ -449,112 +403,79 @@ const recommendedItems = [
 
 </BaseLayout>
 
-<!-- ══ LOADING ANIMATION ══ -->
+<!-- ══ STYLES ══ -->
 <style>
 /* ── LOADER ──────────────────────────── */
 .loader {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: #FCFCFC;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-  pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; pointer-events: none;
 }
-
-/* 背景グリッド装飾 */
 .loader__grid {
-  position: absolute;
-  inset: 0;
-  opacity: 0.035;
-  pointer-events: none;
+  position: absolute; inset: 0;
+  opacity: 0.04; pointer-events: none;
   background-image:
-    linear-gradient(to right, #000 1px, transparent 1px),
-    linear-gradient(to bottom, #000 1px, transparent 1px);
-  background-size: 40px 40px;
+    linear-gradient(to right, #2B3A55 1px, transparent 1px),
+    linear-gradient(to bottom, #2B3A55 1px, transparent 1px);
+  background-size: 36px 36px;
 }
-
-.loader__svg { width: min(900px, 88vw); overflow: visible; }
-
-/* SVGテキストのスタイルはCSSクラスで制御（レスポンシブ対応） */
+.loader__content {
+  display: flex; flex-direction: column; align-items: center; gap: 1.25rem;
+  position: relative; z-index: 1;
+}
+.loader__svg {
+  width: min(860px, 92vw);
+  overflow: visible;
+  display: block;
+}
 .loader__text {
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-size: clamp(3.5rem, 9vw, 6.5rem);
-  letter-spacing: 0.18em;
   fill: transparent;
-  stroke: #2B3A55;
-  stroke-width: 1.5;
-  stroke-dasharray: 4000;
-  stroke-dashoffset: 4000;
+  stroke: #2B3A55; stroke-width: 2;
+  stroke-dasharray: 5500; stroke-dashoffset: 5500;
   animation:
-    drawStroke  1.5s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards,
-    fillText    0.6s ease-in 1.7s forwards,
-    fadeStroke  0.6s ease-in 1.7s forwards;
+    drawStroke  1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards,
+    fillText    0.5s ease-in 1.7s forwards,
+    fadeStroke  0.5s ease-in 1.7s forwards;
 }
-
-@keyframes drawStroke {
-  to { stroke-dashoffset: 0; }
+.loader__sub {
+  font-size: clamp(0.7rem, 3vw, 0.85rem);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--text-mid);
+  opacity: 0;
+  animation: fadeInSub 0.5s ease-out 1.8s forwards;
 }
-
-@keyframes fillText {
-  to { fill: #2B3A55; }
-}
-
-@keyframes fadeStroke {
-  to { stroke: transparent; }
-}
-
-.loader.hide {
-  animation: loaderOut 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes loaderOut {
-  to { opacity: 0; transform: translateY(-100%); }
-}
-
-/* ── HERO IMAGE SCAN WRAP ─────────────── */
-.hero__scan-wrap {
-  position: relative;
-  overflow: hidden;
-}
-
-/* ── SCAN REVEAL EFFECT（ローダー退場後に起動） ── */
-.effect-scan-reveal img {
-  filter: blur(20px) grayscale(100%) contrast(140%);
-  animation: resolveHero 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.effect-scan-reveal::after {
-  content: '';
-  position: absolute;
-  top: -100%; left: 0; right: 0; height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(0, 168, 255, 0.15) 50%,
-    rgba(0, 168, 255, 0.65) 100%
-  );
-  animation: scanDownHero 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes resolveHero {
-  0%   { filter: blur(20px) grayscale(100%) contrast(140%); transform: scale(1.04); }
-  50%  { filter: blur(5px)  grayscale(50%)  contrast(115%); }
-  100% { filter: blur(0)    grayscale(0)    contrast(100%) drop-shadow(0 20px 60px rgba(0,0,0,0.08)); transform: scale(1); }
-}
-
-@keyframes scanDownHero {
-  0%   { top: -100%; opacity: 1; }
-  80%  { top:  110%; opacity: 1; }
-  100% { top:  110%; opacity: 0; }
-}
+@keyframes drawStroke { to { stroke-dashoffset: 0; } }
+@keyframes fillText   { to { fill: #2B3A55; } }
+@keyframes fadeStroke { to { stroke: transparent; } }
+@keyframes fadeInSub  { to { opacity: 1; } }
+.loader.hide { animation: loaderOut 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+@keyframes loaderOut  { to { opacity: 0; transform: translateY(-6px); } }
 
 /* ── HERO ────────────────────────────── */
 .hero {
   background: var(--bg);
   border-bottom: 1px solid var(--border-light);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Dot grid background */
+.hero__bg-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle, rgba(43,58,85,0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Accent glow */
+.hero__bg-glow {
+  position: absolute;
+  top: -20%; right: -10%;
+  width: 60%; height: 80%;
+  background: radial-gradient(ellipse, rgba(0,168,255,0.07) 0%, transparent 65%);
+  pointer-events: none;
 }
 
 .hero__inner {
@@ -564,362 +485,444 @@ const recommendedItems = [
   align-items: center;
   padding-top: 88px;
   padding-bottom: 88px;
-  min-height: 90vh;
+  min-height: 88vh;
+  position: relative; z-index: 1;
 }
 
 .hero__label {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--text-mid);
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.16em; color: var(--text-mid);
   margin-bottom: 1.5rem;
 }
-
 .hero__label-line {
-  display: block;
-  width: 24px;
-  height: 1.5px;
+  display: block; width: 24px; height: 1.5px;
   background: var(--accent);
 }
-
 .hero__h1 {
   font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-  font-weight: 900;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  color: var(--text);
+  font-weight: 900; line-height: 1.2;
+  letter-spacing: -0.02em; color: var(--text);
   margin-bottom: 1.5rem;
 }
-
 .hero__h1-accent { color: var(--accent); }
-
 .hero__desc {
-  font-size: 1rem;
-  color: var(--text-body);
-  line-height: 1.9;
-  margin-bottom: 2.5rem;
+  font-size: 1rem; color: var(--text-body);
+  line-height: 1.9; margin-bottom: 2.5rem;
 }
-
 .hero__actions {
-  display: flex;
-  gap: 1rem;
+  display: flex; gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 2.5rem;
 }
 
-/* 数値実績 */
-.hero__stats {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border-light);
-}
+/* Hero image with tech-frame corners */
+.hero__img-wrap { position: relative; }
+.hero__scan-wrap { position: relative; overflow: hidden; }
 
-.hero__stat { text-align: center; }
-
-.stat-num {
-  display: block;
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
-  font-size: 1.75rem;
-  color: var(--text);
-  line-height: 1;
-  margin-bottom: 0.25rem;
+.hero__img-frame {
+  position: absolute; inset: -8px; z-index: 2; pointer-events: none;
 }
-
-.stat-label {
-  font-size: 0.72rem;
-  color: var(--text-mid);
-  letter-spacing: 0.04em;
+.hero__img-frame-corner {
+  position: absolute; width: 16px; height: 16px;
+  border-color: var(--accent); border-style: solid;
+  opacity: 0.6;
 }
-
-.hero__stat-div {
-  width: 1px;
-  height: 32px;
-  background: var(--border-light);
-}
-
-/* ヒーロー画像 */
-.hero__img-wrap {
-  position: relative;
-}
+.hero__img-frame-corner--tl { top: 0; left: 0; border-width: 1.5px 0 0 1.5px; }
+.hero__img-frame-corner--tr { top: 0; right: 0; border-width: 1.5px 1.5px 0 0; }
+.hero__img-frame-corner--bl { bottom: 0; left: 0; border-width: 0 0 1.5px 1.5px; }
+.hero__img-frame-corner--br { bottom: 0; right: 0; border-width: 0 1.5px 1.5px 0; }
 
 .hero__img {
-  width: 100%;
-  height: auto;
+  width: 100%; height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 20px 60px rgba(0,0,0,0.08));
+  filter: drop-shadow(0 24px 64px rgba(0,0,0,0.10));
+  display: block;
+}
+
+/* Scan reveal */
+.effect-scan-reveal img {
+  filter: blur(20px) grayscale(100%) contrast(140%);
+  animation: resolveHero 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.effect-scan-reveal::after {
+  content: ''; position: absolute;
+  top: -100%; left: 0; right: 0; height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(0,168,255,0.15) 50%, rgba(0,168,255,0.65) 100%);
+  animation: scanDownHero 1.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes resolveHero {
+  0%   { filter: blur(20px) grayscale(100%) contrast(140%); transform: scale(1.04); }
+  50%  { filter: blur(5px)  grayscale(50%)  contrast(115%); }
+  100% { filter: blur(0) grayscale(0) contrast(100%) drop-shadow(0 24px 64px rgba(0,0,0,0.10)); transform: scale(1); }
+}
+@keyframes scanDownHero {
+  0%   { top: -100%; opacity: 1; }
+  80%  { top:  110%; opacity: 1; }
+  100% { top:  110%; opacity: 0; }
 }
 
 .hero__bottom-line {
-  height: 3px;
-  background: var(--border-light);
-  overflow: hidden;
+  height: 3px; background: var(--border-light); overflow: hidden;
 }
-
 .hero__bottom-line-fill {
-  height: 100%;
-  width: 30%;
-  background: var(--accent);
+  height: 100%; width: 30%; background: var(--accent);
   animation: lineExpand 2s cubic-bezier(0.16, 1, 0.3, 1) 2.5s both;
 }
+@keyframes lineExpand { from { width: 0; } to { width: 30%; } }
 
-@keyframes lineExpand {
-  from { width: 0; }
-  to   { width: 30%; }
+/* ── BLOG FEATURED ─────────────────── */
+.blog-feature .section-title { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+
+.blog-feature__header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 2.5rem;
+  gap: 1rem; flex-wrap: wrap;
+}
+.blog-feature__all-link {
+  display: inline-flex; align-items: center;
+  gap: 0.5rem; white-space: nowrap;
+  font-size: 0.875rem;
+}
+
+.blog-feature__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+.blog-feature__lead {
+  display: flex; flex-direction: column;
+  text-decoration: none; color: inherit;
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  overflow: hidden;
+  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
+  box-shadow: var(--shadow);
+}
+.blog-feature__lead:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+.blog-feature__lead-img {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: var(--accent-dim);
+  overflow: hidden;
+}
+.blog-feature__lead-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease);
+}
+.blog-feature__lead:hover .blog-feature__lead-img img { transform: scale(1.04); }
+.blog-feature__lead-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent);
+}
+.blog-feature__new-badge {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--accent); color: #fff;
+  font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.1em; padding: 0.2rem 0.6rem;
+}
+.blog-feature__lead-body { padding: 1.75rem; }
+.blog-feature__lead-title {
+  font-size: 1.2rem; font-weight: 800;
+  line-height: 1.4; margin: 0.75rem 0 0.75rem;
+  color: var(--text);
+}
+.blog-feature__lead-desc {
+  font-size: 0.875rem; color: var(--text-body);
+  line-height: 1.7; margin-bottom: 1rem;
+  display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.blog-feature__lead-date {
+  font-size: 0.75rem; color: var(--text-dim);
+  font-family: 'Inter', sans-serif;
+}
+.blog-tag {
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.08em; color: var(--accent);
+  background: var(--accent-dim);
+  padding: 0.2rem 0.6rem; display: inline-block;
+}
+
+.blog-feature__sub {
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+
+.blog-empty {
+  text-align: center; padding: 5rem 0;
+  border: 1px dashed var(--border-light);
+  background: var(--bg-card);
+}
+.blog-empty__icon {
+  width: 64px; height: 64px;
+  background: var(--accent-dim); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.5rem; color: var(--accent);
+}
+.blog-empty__title {
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.5rem;
+}
+.blog-empty__sub { font-size: 0.875rem; color: var(--text-body); }
+
+/* ── PT国試 ──────────────────────────── */
+.quiz-section {
+  background: #0D1B2E;
+  position: relative; overflow: hidden;
+}
+.quiz-section__bg-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,168,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.quiz-section::before {
+  content: ''; position: absolute;
+  top: -40%; right: -20%; width: 50%; height: 100%;
+  background: radial-gradient(ellipse, rgba(0,168,255,0.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.quiz-category-tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+.quiz-cat-tag {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(0,168,255,0.25);
+  color: rgba(0,168,255,0.7);
+  cursor: default;
+  transition: border-color 0.2s, color 0.2s;
+}
+.quiz-cat-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+.quiz-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.quiz-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(0,168,255,0.12);
+  padding: 1.75rem;
+  position: relative;
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+}
+.quiz-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(0,168,255,0.35);
+  box-shadow: 0 0 24px rgba(0,168,255,0.08), 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.quiz-card__header {
+  display: flex; align-items: center; gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.quiz-card__icon {
+  width: 36px; height: 36px;
+  background: rgba(0,168,255,0.12);
+  border: 1px solid rgba(0,168,255,0.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); flex-shrink: 0;
+}
+.quiz-card__cat {
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.08em; color: var(--accent);
+  border: 1px solid rgba(0,168,255,0.3);
+  padding: 0.15rem 0.6rem; margin-left: auto;
+}
+.quiz-card__badge {
+  font-size: 0.62rem; font-weight: 700;
+  letter-spacing: 0.08em; color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.06); padding: 0.15rem 0.5rem;
+}
+
+.quiz-card__q {
+  font-size: 0.95rem; font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.65; margin-bottom: 1.25rem;
+}
+
+.quiz-card__answer {
+  background: rgba(0,168,255,0.08);
+  border-left: 2px solid var(--accent);
+  padding: 0.875rem 1rem; margin-bottom: 1rem;
+}
+.quiz-card__answer-label {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.1em; color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+.quiz-card__answer-text {
+  font-size: 1rem; font-weight: 800;
+  color: rgba(255,255,255,0.95);
+  font-family: 'Inter', sans-serif;
+}
+
+.quiz-card__details { margin-top: 0.5rem; }
+.quiz-card__details-toggle {
+  font-size: 0.78rem; color: rgba(255,255,255,0.4);
+  cursor: pointer; list-style: none;
+  display: flex; align-items: center; gap: 0.4rem;
+  transition: color 0.2s;
+}
+.quiz-card__details-toggle::-webkit-details-marker { display: none; }
+.quiz-card__details-toggle::before {
+  content: '+'; font-size: 1rem; font-weight: 300;
+  transition: transform 0.2s;
+}
+details[open] .quiz-card__details-toggle::before { content: '−'; }
+.quiz-card__details-toggle:hover { color: var(--accent); }
+.quiz-card__exp {
+  font-size: 0.83rem; color: rgba(255,255,255,0.55);
+  line-height: 1.8; margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.quiz-cta {
+  text-align: center; margin-top: 3.5rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0.75rem;
+}
+.quiz-cta__btn {
+  display: inline-flex; align-items: center; gap: 0.625rem;
+}
+.quiz-cta__note {
+  font-size: 0.78rem; color: rgba(255,255,255,0.3);
+  letter-spacing: 0.04em;
+}
+
+/* ── AD WRAP ─────────────────────────── */
+.ad-wrap {
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
 }
 
 /* ── MVV ─────────────────────────────── */
+.mvv-card { position: relative; }
 .mvv-num {
-  font-family: 'Inter', sans-serif;
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--accent);
-  opacity: 0.20;
-  line-height: 1;
-  margin-bottom: 0.25rem;
+  font-family: 'Inter', sans-serif; font-size: 2.5rem;
+  font-weight: 900; color: var(--accent);
+  opacity: 0.18; line-height: 1; margin-bottom: 0.25rem;
 }
-
 .mvv-title {
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
+  font-size: 1rem; font-weight: 700;
+  letter-spacing: 0.05em; margin-bottom: 1rem;
 }
-
 .value-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6rem;
+  list-style: none; display: flex;
+  flex-direction: column; gap: 0.6rem;
 }
-
 .value-list li {
-  font-size: 0.875rem;
-  color: var(--text-body);
-  padding-left: 1rem;
-  position: relative;
+  font-size: 0.875rem; color: var(--text-body);
+  padding-left: 1rem; position: relative;
 }
-
 .value-list li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 5px;
-  height: 5px;
+  content: ''; position: absolute;
+  left: 0; top: 0.55em;
+  width: 5px; height: 5px;
   background: var(--accent);
-}
-
-/* ── SERVICE PANEL ───────────────────── */
-.service-panel {
-  background: var(--bg-card);
-  border: 1px solid var(--border-light);
-  padding: 2.5rem;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-  transition: box-shadow 0.3s var(--ease), transform 0.3s var(--ease);
-}
-
-.service-panel::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%; height: 2px;
-  background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s var(--ease);
-}
-
-.service-panel:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
-.service-panel:hover::after { transform: scaleX(1); }
-
-.service-panel__tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--accent);
-  border: 1px solid var(--accent);
-  display: inline-block;
-  padding: 0.2rem 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.service-panel__title {
-  font-size: 1.3rem;
-  font-weight: 900;
-  margin-bottom: 0.75rem;
-}
-
-.service-panel__desc {
-  font-size: 0.9rem;
-  color: var(--text-mid);
-  margin-bottom: 1.5rem;
-}
-
-.feature-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.feature-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.625rem;
-  font-size: 0.875rem;
-  color: var(--text-body);
-}
-
-.feature-list__icon {
-  flex-shrink: 0;
-  width: 20px;
-  height: 20px;
-  background: var(--accent-dim);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  margin-top: 0.1rem;
-}
-
-/* ── FEATURE BLOCK ───────────────────── */
-.feature-block { text-align: center; }
-
-.feature-block__icon {
-  width: 52px;
-  height: 52px;
-  background: var(--accent-dim);
-  border: 1px solid rgba(0,168,255,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.25rem;
-  color: var(--accent);
-}
-
-.feature-block__title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.feature-block__desc {
-  font-size: 0.85rem;
-  color: var(--text-body);
-  line-height: 1.7;
-}
-
-/* ── PURPOSE QUOTE ────────────────────── */
-.purpose-quote {
-  border-left: 2px solid var(--accent);
-  padding: 1.75rem 2rem;
-  background: var(--bg-card);
-  max-width: 640px;
-  margin: 0 auto;
-  box-shadow: var(--shadow);
-}
-
-.purpose-quote p {
-  font-size: 1rem;
-  color: var(--text);
-  line-height: 1.9;
-  margin-bottom: 1rem;
-}
-
-.purpose-quote footer {
-  font-size: 0.78rem;
-  color: var(--text-dim);
 }
 
 /* ── CTA ─────────────────────────────── */
 .cta-inner {
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  text-align: center; position: relative;
+  overflow: hidden; padding: 80px 1rem;
 }
-
 .cta-watermark {
-  position: absolute;
-  top: 50%; left: 50%;
+  position: absolute; top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  font-family: 'Inter', sans-serif;
-  font-weight: 900;
+  font-family: 'Inter', sans-serif; font-weight: 900;
   font-size: clamp(80px, 14vw, 160px);
   letter-spacing: 0.06em;
-  color: rgba(255, 255, 255, 0.03);
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
+  color: rgba(255,255,255,0.03);
+  white-space: nowrap; pointer-events: none; user-select: none;
 }
-
 .cta-content { position: relative; z-index: 1; }
-
 .cta-title {
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  font-weight: 900;
-  color: #fff;
-  margin-bottom: 1.25rem;
+  font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900;
+  color: #fff; margin-bottom: 1.25rem;
 }
-
 .cta-accent { color: var(--accent); }
-
 .cta-desc {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.65);
-  max-width: 480px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.8;
+  font-size: 1rem; color: rgba(255,255,255,0.6);
+  max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.8;
 }
-
 .cta-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  display: flex; gap: 1rem;
+  justify-content: center; flex-wrap: wrap;
 }
-
 .cta-note {
-  margin-top: 2rem;
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.3);
-  letter-spacing: 0.04em;
+  margin-top: 2rem; font-size: 0.78rem;
+  color: rgba(255,255,255,0.3); letter-spacing: 0.04em;
 }
 
 /* ── RESPONSIVE ───────────────────────── */
-@media (max-width: 900px) {
+@media (max-width: 960px) {
   .hero__inner {
     grid-template-columns: 1fr;
-    min-height: auto;
-    gap: 2.5rem;
-    padding-top: 48px;
-    padding-bottom: 56px;
+    min-height: auto; gap: 2rem;
+    padding-top: 40px; padding-bottom: 48px;
   }
-  .hero__h1 { font-size: clamp(2rem, 6vw, 3rem); }
+  .hero__h1 { font-size: clamp(1.9rem, 7vw, 3rem); }
   .hero__img-wrap { order: -1; }
-  .hero__img { max-width: 360px; margin: 0 auto; }
+  .hero__img { max-width: 280px; margin: 0 auto; }
+
+  .blog-feature__grid { grid-template-columns: 1fr; }
+  .blog-feature__sub {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+  }
+  .quiz-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
-  .hero__actions, .cta-actions { flex-direction: column; align-items: stretch; }
-  .hero__actions .btn, .cta-actions .btn { justify-content: center; }
-  .hero__stats { gap: 1rem; }
-  .stat-num { font-size: 1.4rem; }
+  .hero__inner {
+    padding-top: 28px; padding-bottom: 40px;
+    gap: 1.5rem;
+  }
+  .hero__h1 {
+    font-size: clamp(1.75rem, 8.5vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+  .hero__desc {
+    font-size: 0.9rem; line-height: 1.85;
+    margin-bottom: 1.75rem;
+  }
+  .hero__actions {
+    flex-direction: column; align-items: stretch; gap: 0.75rem;
+  }
+  .hero__actions .btn { justify-content: center; width: 100%; }
+  .hero__img { max-width: 220px; }
+
+  .cta-actions { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+  .cta-actions .btn { justify-content: center; }
+
+  .blog-feature__sub { grid-template-columns: 1fr; }
+  .quiz-grid { grid-template-columns: 1fr; }
+
+  .quiz-card { padding: 1.25rem; }
+  .quiz-card__q { font-size: 0.9rem; }
+
+  .cta-title { font-size: clamp(1.5rem, 6vw, 2.2rem); }
+
+  /* larger touch targets */
+  .btn--lg { padding: 1rem 2rem; font-size: 0.9rem; }
 }
 </style>
 
 <script>
-  // ─── ローダーを非表示にし、ヒーロー画像のスキャン演出を起動 ───
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
@@ -927,7 +930,6 @@ const recommendedItems = [
         loader.classList.add('hide');
         setTimeout(() => {
           loader.remove();
-          // ローダー退場後にヒーロー画像スキャンリビールを起動
           const scanWrap = document.getElementById('heroScanWrap');
           if (scanWrap) scanWrap.classList.add('effect-scan-reveal');
         }, 700);

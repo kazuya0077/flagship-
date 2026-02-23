@@ -50,9 +50,16 @@ body {
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 400;
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.9;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* スマホで読みやすい本文フォントサイズ */
+@media (max-width: 640px) {
+  body { font-size: 0.9375rem; line-height: 1.9; }
 }
 
 a { text-decoration: none; color: inherit; }
@@ -103,7 +110,7 @@ h1, h2, h3, h4 {
 .container {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 clamp(1rem, 4vw, 1.5rem);
 }
 
 .section { padding: 96px 0; }
