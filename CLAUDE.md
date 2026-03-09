@@ -61,6 +61,71 @@ v2互換レイヤー → global.css末尾に追記済み（--primary→--accent,
   □ kokushi: 第60回以降追加
 ```
 
+## Figma / デザインシステムルール（create-design-system-rules 準拠）
+
+### Figma実装フロー（Figmaデザインを渡されたとき）
+1. `get_design_context` でノード構造を取得
+2. `get_screenshot` でビジュアル参照を取得
+3. Figma出力（React+Tailwind想定）をこのプロジェクトの規約に翻訳
+4. Tailwindクラスは使わず、下記CSSカスタムプロパティに置換
+5. `/src/styles/global.css` 既存クラス（`.btn`, `.card`, `.section` 等）を最大限再利用
+6. Figmaスクリーンショットと1:1一致を確認してから完了宣言
+
+### CSSカスタムプロパティ（v3 デザイントークン）
+
+```
+カラー
+  --bg: #FCFCFC         メイン背景
+  --bg-alt: #F7F8FA     セクション背景（section--alt）
+  --bg-card: #FFFFFF    カード背景
+  --bg-dark: #2B3A55    ネイビー（ヒーロー・CTAダーク背景）
+  --accent: #00A8FF     ブランドブルー（CTA・リンク・ハイライト）
+  --accent-dark: #007ACC  ホバー時accent
+  --accent-dim: rgba(0,168,255,0.08)  アクセント薄色
+
+テキスト
+  --text: #2B3A55       見出し
+  --text-body: #666666  本文
+  --text-mid: #999999   補助テキスト
+  --text-dim: #BBBBBB   非活性テキスト
+
+ボーダー・影
+  --border: rgba(0,0,0,0.05)
+  --border-light: #F3F4F6
+  --shadow: 0 10px 40px -10px rgba(0,0,0,0.05)
+  --shadow-md / --shadow-lg / --shadow-acc
+
+タイポグラフィ
+  見出し: Noto Sans JP / font-weight 700-900
+  数値・英字ロゴ: Inter / font-weight 900
+  本文: Noto Sans JP / 1rem / line-height 1.9
+
+その他
+  --radius: 0px  (シャープなコーナー = テックドリブン感)
+  --nav-h: 64px  (固定ナビゲーション高さ)
+  --max-w: 1180px  (最大幅)
+```
+
+### 重要ルール
+- **カラーは必ず変数で** — hex直書き禁止（`#00A8FF` → `var(--accent)`）
+- **`--radius: 0px`** — borderRadiusを追加しない（ブランドポリシー）
+- **v2変数は追加しない** — global.css末尾の互換レイヤーに既存。新規は必ずv3変数
+- **新コンポーネントは `/src/components/` に** — ページ内 `<style>` はページ固有スタイルのみ
+- **`siteConfig.email` を使う** — `CONTACT_EMAIL` プロパティは存在しない
+
+### 既存グローバルクラス（再利用優先）
+```
+.container / .container--narrow   レイアウト
+.section / .section--alt / .section--dark  セクション
+.grid-2 / .grid-3 / .grid-4  レスポンシブグリッド
+.card  ホバーアニメーション付きカード
+.btn / .btn--primary / .btn--outline / .btn--ghost / .btn--dark / .btn--lg  ボタン
+.section-label / .section-title / .section-sub  セクションヘッダー文字
+.accent-line  2pxアクセントライン
+.reveal / .reveal--delay-1〜3  スクロールフェードイン（IntersectionObserver）
+.blog-card / .blog-tag  ブログカード
+```
+
 ## 主要ファイルマップ
 ```
 src/
