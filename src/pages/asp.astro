@@ -1,0 +1,331 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// ASP広告掲載情報
+const adSpots = [
+  {
+    id: 'hero',
+    name: 'ヒーロー最上部バナー',
+    size: '728×90 / 320×50',
+    position: 'トップページ最上部・ファーストビュー内',
+    cpm: '要相談',
+    monthly_pv: '準備中',
+    note: '最も視認性が高い掲載枠',
+  },
+  {
+    id: 'sidebar',
+    name: 'コンテンツ内インライン広告',
+    size: '336×280 / 300×250',
+    position: 'ブログ記事・国試問題ページ内',
+    cpm: '要相談',
+    monthly_pv: '準備中',
+    note: '読者エンゲージメントが最も高いタイミング',
+  },
+  {
+    id: 'footer',
+    name: 'フッター前バナー',
+    size: '728×90 / 320×100',
+    position: '全ページ フッター直前',
+    cpm: '要相談',
+    monthly_pv: '準備中',
+    note: '全ページ共通表示',
+  },
+  {
+    id: 'kokushi',
+    name: '国試ページ専用枠',
+    size: '336×280',
+    position: '国試過去問ページ内・問題間',
+    cpm: '要相談',
+    monthly_pv: '準備中',
+    note: 'PT学生ターゲット・高度な専門性',
+  },
+];
+
+const targetData = [
+  { label: '主要ターゲット', value: '理学療法士養成校在籍学生（大学・専門学校）' },
+  { label: '年齢層', value: '18〜25歳（学部生・専攻科）' },
+  { label: '関心事', value: '国試対策・臨床実習・就職活動・医療機器・参考書' },
+  { label: '利用デバイス', value: 'スマートフォン中心（70%以上）' },
+  { label: 'コンテンツ', value: '国試過去問データベース・学習ブログ・コミュニティ情報' },
+];
+
+// おすすめ広告商品カテゴリ（ASPに向いている分野）
+const adCategories = [
+  { icon: '📚', label: '参考書・問題集', desc: 'PT国試対策書籍・解剖学・生理学テキスト' },
+  { icon: '🩺', label: '医療用品', desc: '聴診器・血圧計・反射ハンマー等の実習用品' },
+  { icon: '💻', label: 'オンライン学習', desc: 'Udemy・医療系Eラーニング・動画サービス' },
+  { icon: '🎓', label: '就職・キャリア', desc: 'PT/OT専門の転職サイト・求人サービス' },
+  { icon: '🛋️', label: '生活用品', desc: 'デスク・学習グッズ・アイテム類（Amazon提携等）' },
+  { icon: '📱', label: 'アプリ・ソフト', desc: 'Anki・解剖学習アプリ・暗記アプリ' },
+];
+---
+
+<BaseLayout
+  title="広告掲載・ASPパートナー — FLAGSHIP"
+  description="FLAGSHIPへの広告掲載・ASPアフィリエイト連携のご案内。PT学生向けメディアで効果的にリーチできます。"
+  noIndex={true}
+>
+
+<!-- ── HERO ── -->
+<section class="asp-hero">
+  <div class="asp-hero__bg" aria-hidden="true"></div>
+  <div class="container asp-hero__inner">
+    <div class="asp-hero__badge reveal">広告・ASPパートナー</div>
+    <h1 class="asp-hero__title reveal reveal--delay-1">
+      PT学生に<br>
+      <span class="asp-hero__accent">直接リーチ</span>する広告枠
+    </h1>
+    <p class="asp-hero__desc reveal reveal--delay-2">
+      FLAGSHIPは理学療法士（PT）を目指す学生が集まる専門コミュニティです。<br>
+      参考書・医療用品・キャリアサービスなど、学生に刺さる広告を配信できます。
+    </p>
+    <a href="#contact" class="btn btn--primary btn--lg reveal reveal--delay-3">掲載のお問い合わせ</a>
+  </div>
+</section>
+
+<!-- ── ターゲット ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">— オーディエンス</span>
+      <h2 class="section-title">読者ターゲット</h2>
+    </div>
+    <div class="target-grid reveal">
+      <div class="target-table">
+        {targetData.map(item => (
+          <div class="target-row">
+            <div class="target-row__label">{item.label}</div>
+            <div class="target-row__val">{item.value}</div>
+          </div>
+        ))}
+      </div>
+      <div class="target-cats">
+        <h3 class="target-cats__title">おすすめ広告カテゴリ</h3>
+        <div class="cat-list">
+          {adCategories.map(cat => (
+            <div class="cat-item">
+              <span class="cat-item__icon">{cat.icon}</span>
+              <div>
+                <div class="cat-item__label">{cat.label}</div>
+                <div class="cat-item__desc">{cat.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 広告枠 ── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">— 掲載枠</span>
+      <h2 class="section-title">広告プレースメント</h2>
+      <p class="section-sub">各枠の詳細・料金はお問い合わせください。Amazonアソシエイト・A8.net等ASP経由でも対応します。</p>
+    </div>
+    <div class="spots-grid reveal">
+      {adSpots.map((spot, i) => (
+        <div class="spot-card">
+          <div class="spot-card__num">0{i+1}</div>
+          <h3 class="spot-card__name">{spot.name}</h3>
+          <div class="spot-card__meta">
+            <div class="spot-meta">
+              <span class="spot-meta__label">サイズ</span>
+              <span class="spot-meta__val">{spot.size}</span>
+            </div>
+            <div class="spot-meta">
+              <span class="spot-meta__label">掲載位置</span>
+              <span class="spot-meta__val">{spot.position}</span>
+            </div>
+          </div>
+          <p class="spot-card__note">{spot.note}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ── ASP登録枠 ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">— アフィリエイト掲載例</span>
+      <h2 class="section-title">現在掲載中・準備中のASP広告</h2>
+      <p class="section-sub">アフィリエイトポリシーに基づき、読者にとって有益な商品・サービスのみを掲載します。</p>
+    </div>
+    <!-- ここにASP広告バナーを配置 -->
+    <div class="asp-slots reveal">
+      <div class="asp-slot">
+        <div class="asp-slot__placeholder">
+          <span class="asp-slot__label">ASP広告枠 A (728×90)</span>
+          <span class="asp-slot__sub">Google AdSense / Amazonアソシエイト</span>
+        </div>
+      </div>
+      <div class="asp-slot-grid">
+        <div class="asp-slot">
+          <div class="asp-slot__placeholder asp-slot__placeholder--sq">
+            <span class="asp-slot__label">広告枠 B<br>336×280</span>
+          </div>
+        </div>
+        <div class="asp-slot">
+          <div class="asp-slot__placeholder asp-slot__placeholder--sq">
+            <span class="asp-slot__label">広告枠 C<br>336×280</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="asp-disclosure-note">
+      ※ 本サイトは広告収入によって運営されています。
+      <a href="/policy/affiliate-disclosure">アフィリエイトポリシーはこちら</a>
+    </p>
+  </div>
+</section>
+
+<!-- ── お問い合わせ ── -->
+<section class="section section--alt" id="contact">
+  <div class="container">
+    <div class="contact-card reveal">
+      <div class="contact-card__body">
+        <h2 class="contact-card__title">掲載のお問い合わせ</h2>
+        <p class="contact-card__desc">
+          広告掲載・ASP連携のご相談はメールまたはSNSにてお気軽にどうぞ。
+          初回のご相談は無料です。
+        </p>
+        <div class="contact-methods">
+          <a href="mailto:info@flagship-pt.com" class="btn btn--primary">
+            メールでお問い合わせ
+          </a>
+          <a href="https://x.com/flagship_pt" target="_blank" rel="noopener" class="btn btn--outline">
+            X(Twitter)でDM
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>
+
+<style>
+.asp-hero {
+  background: var(--bg-dark); position: relative; overflow: hidden;
+  padding: calc(var(--nav-h) + 64px) 0 72px;
+}
+.asp-hero__bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(0,168,255,0.08) 0%, transparent 55%);
+}
+.asp-hero__inner { position: relative; z-index: 1; }
+.asp-hero__badge {
+  display: inline-block; font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.14em; color: var(--accent);
+  border: 1px solid rgba(0,168,255,0.3);
+  padding: 0.3rem 0.875rem; margin-bottom: 1.5rem;
+}
+.asp-hero__title {
+  font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900;
+  color: #fff; line-height: 1.2; margin-bottom: 1.25rem;
+}
+.asp-hero__accent { color: var(--accent); }
+.asp-hero__desc {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: rgba(255,255,255,0.5); line-height: 1.9;
+  margin-bottom: 2rem; max-width: 520px;
+}
+
+.target-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+.target-table { border: 1px solid var(--border-light); overflow: hidden; }
+.target-row {
+  display: grid; grid-template-columns: 160px 1fr;
+  border-bottom: 1px solid var(--border-light);
+}
+.target-row:last-child { border-bottom: none; }
+.target-row__label {
+  background: var(--bg-alt); padding: 0.875rem 1rem;
+  font-size: 0.8rem; font-weight: 700; color: var(--text);
+}
+.target-row__val {
+  padding: 0.875rem 1rem; font-size: 0.875rem; color: var(--text-body);
+}
+.target-cats__title {
+  font-size: 1rem; font-weight: 700; color: var(--text);
+  margin-bottom: 1.25rem;
+}
+.cat-list { display: flex; flex-direction: column; gap: 0.875rem; }
+.cat-item {
+  display: flex; align-items: flex-start; gap: 1rem;
+  padding: 0.875rem; background: var(--bg-card);
+  border: 1px solid var(--border-light);
+}
+.cat-item__icon { font-size: 1.25rem; flex-shrink: 0; }
+.cat-item__label { font-size: 0.875rem; font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+.cat-item__desc { font-size: 0.78rem; color: var(--text-body); }
+
+.spots-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+}
+.spot-card {
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  padding: 2rem; box-shadow: var(--shadow);
+}
+.spot-card__num {
+  font-family: 'Inter', sans-serif; font-size: 2.5rem;
+  font-weight: 900; color: var(--accent); opacity: 0.15;
+  line-height: 1; margin-bottom: 0.5rem;
+}
+.spot-card__name { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+.spot-card__meta { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+.spot-meta { display: flex; gap: 0.625rem; align-items: flex-start; }
+.spot-meta__label {
+  font-size: 0.72rem; font-weight: 700; color: var(--accent);
+  white-space: nowrap; min-width: 72px;
+}
+.spot-meta__val { font-size: 0.82rem; color: var(--text-body); line-height: 1.6; }
+.spot-card__note { font-size: 0.8rem; color: var(--text-mid); }
+
+.asp-slots { display: flex; flex-direction: column; gap: 1.25rem; }
+.asp-slot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+.asp-slot__placeholder {
+  background: var(--bg-alt); border: 2px dashed var(--border-light);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 90px; text-align: center; padding: 1.5rem;
+  gap: 0.25rem;
+}
+.asp-slot__placeholder--sq { min-height: 200px; }
+.asp-slot__label { font-size: 0.82rem; font-weight: 700; color: var(--text-mid); }
+.asp-slot__sub { font-size: 0.72rem; color: var(--text-dim); }
+.asp-disclosure-note {
+  margin-top: 1rem; font-size: 0.78rem; color: var(--text-dim);
+}
+.asp-disclosure-note a { color: var(--accent); }
+
+.contact-card {
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  padding: 3rem; box-shadow: var(--shadow); text-align: center; max-width: 560px; margin: 0 auto;
+}
+.contact-card__title { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+.contact-card__desc { font-size: 0.9rem; color: var(--text-body); line-height: 1.85; margin-bottom: 2rem; }
+.contact-methods { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+
+@media (max-width: 768px) {
+  .target-grid { grid-template-columns: 1fr; }
+  .spots-grid { grid-template-columns: 1fr; }
+  .asp-slot-grid { grid-template-columns: 1fr; }
+  .contact-methods { flex-direction: column; }
+}
+@media (max-width: 640px) {
+  .target-row { grid-template-columns: 1fr; }
+  .contact-card { padding: 2rem 1.25rem; }
+}
+</style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>

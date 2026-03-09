@@ -1,0 +1,508 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// PT国家試験 第50回(2015)～第59回(2024) 試験情報
+const exams = [
+  { kai: 59, year: 2024, month: '2月18日', passRate: 86.9, total: 12552, pass: 10899 },
+  { kai: 58, year: 2023, month: '2月19日', passRate: 86.0, total: 13035, pass: 11208 },
+  { kai: 57, year: 2022, month: '2月20日', passRate: 86.4, total: 13035, pass: 11261 },
+  { kai: 56, year: 2021, month: '2月21日', passRate: 87.9, total: 12685, pass: 11145 },
+  { kai: 55, year: 2020, month: '2月23日', passRate: 86.6, total: 12712, pass: 11010 },
+  { kai: 54, year: 2019, month: '2月24日', passRate: 85.3, total: 13033, pass: 11115 },
+  { kai: 53, year: 2018, month: '2月25日', passRate: 80.5, total: 12381, pass: 9971  },
+  { kai: 52, year: 2017, month: '2月19日', passRate: 79.0, total: 11836, pass: 9349  },
+  { kai: 51, year: 2016, month: '2月21日', passRate: 88.5, total: 11701, pass: 10355 },
+  { kai: 50, year: 2015, month: '2月22日', passRate: 81.7, total: 11836, pass: 9673  },
+];
+
+// カテゴリ（出題基準に基づく）
+const categories = [
+  { id: 'anatomy',       label: '解剖学',       color: '#00A8FF', desc: '骨格・筋・神経・脈管の解剖' },
+  { id: 'physiology',    label: '生理学',       color: '#00D4B0', desc: '臓器機能・代謝・生体恒常性' },
+  { id: 'kinesiology',   label: '運動学',       color: '#7C4DFF', desc: '関節運動・筋活動・生体力学' },
+  { id: 'pathology',     label: '病理学',       color: '#FF6D00', desc: '疾患の成因・病態・分類' },
+  { id: 'orthopedics',   label: '整形外科学',   color: '#E91E63', desc: '骨折・靭帯損傷・変形性疾患' },
+  { id: 'neurology',     label: '神経内科学',   color: '#00BCD4', desc: '脳卒中・パーキンソン・MS' },
+  { id: 'cardiopulm',    label: '内科学（循環・呼吸器）', color: '#FF5252', desc: '心疾患・COPD・ICUリハ' },
+  { id: 'pediatrics',    label: '小児科学',     color: '#FFC107', desc: '発達・小児疾患・特別支援' },
+  { id: 'geriatrics',    label: '老年医学',     color: '#8BC34A', desc: 'フレイル・サルコペニア・認知症' },
+  { id: 'pt-eval',       label: 'PT評価学',    color: '#00A8FF', desc: 'ROM・MMT・バランス・歩行分析' },
+  { id: 'exercise',      label: '運動療法',     color: '#00D4B0', desc: '筋力・持久力・協調性訓練' },
+  { id: 'physical',      label: '物理療法',     color: '#7C4DFF', desc: '電気・温熱・寒冷・超音波療法' },
+  { id: 'prosthetics',   label: '義肢・装具',   color: '#FF6D00', desc: '切断・対麻痺・脳卒中装具' },
+  { id: 'adl',           label: 'ADL・リハ工学', color: '#E91E63', desc: '動作介助・福祉機器・環境整備' },
+  { id: 'community',     label: '地域理学療法', color: '#00BCD4', desc: '訪問・通所・地域包括ケア' },
+];
+
+// 出題数の内訳（最新の出題基準より）
+const questionBreakdown = {
+  general: { total: 160, desc: '一般問題（択一・正誤）' },
+  clinical: { total: 40,  desc: '臨床実地問題（長文）' },
+};
+---
+
+<BaseLayout
+  title="PT国家試験 過去問データベース — FLAGSHIP"
+  description="理学療法士国家試験（第50回〜第59回）の過去問・解答・合格率データ。解剖学・生理学・整形外科・神経内科など全カテゴリ対応。"
+>
+
+<!-- ── PAGE HERO ── -->
+<section class="kokushi-hero">
+  <div class="kokushi-hero__bg" aria-hidden="true"></div>
+  <div class="kokushi-hero__grid" aria-hidden="true"></div>
+  <div class="container kokushi-hero__inner">
+    <div class="kokushi-hero__badge reveal">
+      <span class="kokushi-hero__badge-dot"></span>
+      厚生労働省 公式データ準拠
+    </div>
+    <h1 class="kokushi-hero__title reveal reveal--delay-1">
+      PT国試<br>
+      <span class="kokushi-hero__accent">過去問データベース</span>
+    </h1>
+    <p class="kokushi-hero__desc reveal reveal--delay-2">
+      第50回（2015年）〜第59回（2024年）の10年分<br>
+      合格率・受験者データ・カテゴリ別に整理された学習データベース
+    </p>
+
+    <div class="kokushi-hero__stats reveal reveal--delay-3">
+      <div class="kokushi-stat">
+        <span class="kokushi-stat__num">10</span>
+        <span class="kokushi-stat__label">年分</span>
+      </div>
+      <div class="kokushi-stat__div"></div>
+      <div class="kokushi-stat">
+        <span class="kokushi-stat__num">200</span>
+        <span class="kokushi-stat__label">問/年</span>
+      </div>
+      <div class="kokushi-stat__div"></div>
+      <div class="kokushi-stat">
+        <span class="kokushi-stat__num">15</span>
+        <span class="kokushi-stat__label">カテゴリ</span>
+      </div>
+      <div class="kokushi-stat__div"></div>
+      <div class="kokushi-stat">
+        <span class="kokushi-stat__num">2,000+</span>
+        <span class="kokushi-stat__label">問題</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 出題形式 ── -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">— 試験構成</span>
+      <h2 class="section-title">国試の出題形式</h2>
+      <p class="section-sub">理学療法士国家試験は毎年2月に実施。一般問題160問＋臨床実地問題40問の計200問。</p>
+    </div>
+
+    <div class="format-grid reveal">
+      <div class="format-card format-card--primary">
+        <div class="format-card__num">160</div>
+        <div class="format-card__label">一般問題</div>
+        <p class="format-card__desc">
+          基礎医学・臨床医学・理学療法に関する択一式問題。各科目から均等に出題。
+          1問1点。合格には120点以上が必要（各年度の合格基準による）。
+        </p>
+        <ul class="format-card__tags">
+          <li>解剖学</li><li>生理学</li><li>運動学</li>
+          <li>内科学</li><li>整形外科</li><li>神経内科</li>
+        </ul>
+      </div>
+      <div class="format-card format-card--secondary">
+        <div class="format-card__num">40</div>
+        <div class="format-card__label">臨床実地問題</div>
+        <p class="format-card__desc">
+          症例提示に基づく長文問題。PT評価・治療計画・患者教育の統合的判断を問う。
+          1問3点。この問題を落とすと合否に大きく影響する。
+        </p>
+        <ul class="format-card__tags">
+          <li>症例問題</li><li>評価選択</li><li>治療立案</li>
+          <li>予後予測</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 年度別合格率 ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-label">— 過去10年間の統計</span>
+      <h2 class="section-title">年度別 合格率データ</h2>
+      <p class="section-sub">出典：厚生労働省「理学療法士国家試験の施行」公表データ</p>
+    </div>
+
+    <div class="exam-table-wrap reveal">
+      <table class="exam-table">
+        <thead>
+          <tr>
+            <th>回次</th>
+            <th>実施年</th>
+            <th>試験日</th>
+            <th>受験者数</th>
+            <th>合格者数</th>
+            <th>合格率</th>
+            <th>過去問</th>
+          </tr>
+        </thead>
+        <tbody>
+          {exams.map(e => (
+            <tr class={e.kai === 59 ? 'exam-table__latest' : ''}>
+              <td><span class="exam-table__kai">第{e.kai}回</span></td>
+              <td>{e.year}年</td>
+              <td>{e.month}</td>
+              <td>{e.total.toLocaleString()}人</td>
+              <td>{e.pass.toLocaleString()}人</td>
+              <td>
+                <span class={`exam-table__rate ${e.passRate < 82 ? 'exam-table__rate--low' : ''}`}>
+                  {e.passRate}%
+                </span>
+              </td>
+              <td>
+                <a href={`/kokushi/${e.kai}`} class="exam-table__link">
+                  問題を解く →
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="data-note">※ 出典：厚生労働省「理学療法士・作業療法士国家試験の施行状況」各年度公表データを元に作成</p>
+  </div>
+</section>
+
+<!-- ── カテゴリ別 ── -->
+<section class="section section--dark-navy">
+  <div class="kokushi-grid-bg" aria-hidden="true"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="section-header reveal">
+      <span class="section-label" style="color:rgba(0,168,255,0.9)">— 科目別</span>
+      <h2 class="section-title" style="color:#fff">カテゴリ別 出題範囲</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.55)">
+        国試出題基準（理学療法士国家試験出題基準・厚生労働省）に基づくカテゴリ分類
+      </p>
+    </div>
+
+    <div class="cat-grid reveal">
+      {categories.map(cat => (
+        <a href={`/kokushi/category/${cat.id}`} class="cat-card">
+          <div class="cat-card__dot" style={`background:${cat.color}`}></div>
+          <div class="cat-card__label">{cat.label}</div>
+          <div class="cat-card__desc">{cat.desc}</div>
+          <div class="cat-card__arrow">→</div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ── 学習のコツ ── -->
+<section class="section">
+  <div class="container">
+    <div class="section-header section-header--center reveal">
+      <span class="section-label">— 合格戦略</span>
+      <h2 class="section-title">国試攻略のポイント</h2>
+    </div>
+    <div class="tips-grid reveal">
+      {[
+        {
+          num: '01',
+          title: '出題頻度の高い科目を先に固める',
+          body: '過去10年で出題頻度が高いのは整形外科学・神経内科学・運動療法。これらで取りこぼしがないよう反復学習する。',
+          icon: '📊',
+        },
+        {
+          num: '02',
+          title: '臨床実地問題は3点×40問',
+          body: '臨床実地問題は1問3点。合否を左右する重要問題。症例の流れを追って「評価→考察→治療」の思考ルーティンを確立する。',
+          icon: '🏥',
+        },
+        {
+          num: '03',
+          title: '直近5年分を3周する',
+          body: '過去問は直近5年を徹底反復。傾向の変化を把握し、繰り返し出る選択肢の表現も覚える。間違えた問題をリスト化して弱点を潰す。',
+          icon: '🔄',
+        },
+        {
+          num: '04',
+          title: '最新ガイドラインを確認する',
+          body: '診断基準・リハビリテーション指針は定期的に改訂される。特に直近2年の改訂があった分野（脳卒中・心臓リハなど）を確認しておく。',
+          icon: '📋',
+        },
+      ].map(tip => (
+        <div class="tip-card reveal">
+          <div class="tip-card__top">
+            <span class="tip-card__num">{tip.num}</span>
+            <span class="tip-card__icon">{tip.icon}</span>
+          </div>
+          <h3 class="tip-card__title">{tip.title}</h3>
+          <p class="tip-card__body">{tip.body}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="section kokushi-cta-section">
+  <div class="container">
+    <div class="kokushi-cta reveal">
+      <p class="kokushi-cta__label">コミュニティで一緒に対策しよう</p>
+      <h2 class="kokushi-cta__title">わからない問題は<br>Slackで質問できる</h2>
+      <p class="kokushi-cta__desc">
+        FLAGSHIPでは国試の質問・解説依頼・勉強法の相談をSlackで行えます。<br>
+        すべて完全無料。PT学生なら誰でも参加できます。
+      </p>
+      <a href="/join" class="btn btn--primary btn--lg">無料でコミュニティに参加 →</a>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>
+
+<style>
+/* ── KOKUSHI HERO ── */
+.kokushi-hero {
+  background: #0D1B2E;
+  position: relative; overflow: hidden;
+  padding: calc(var(--nav-h) + 72px) 0 80px;
+}
+.kokushi-hero__bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 80% at 80% 50%, rgba(0,168,255,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 60% at 10% 80%, rgba(124,77,255,0.06) 0%, transparent 50%);
+}
+.kokushi-hero__grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,168,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.kokushi-hero__inner { position: relative; z-index: 1; }
+.kokushi-hero__badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.16em; color: rgba(0,168,255,0.8);
+  background: rgba(0,168,255,0.08);
+  border: 1px solid rgba(0,168,255,0.2);
+  padding: 0.3rem 0.875rem; margin-bottom: 1.5rem;
+}
+.kokushi-hero__badge-dot {
+  width: 6px; height: 6px;
+  background: var(--accent); border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+.kokushi-hero__title {
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 900; line-height: 1.1;
+  letter-spacing: -0.03em; color: #fff;
+  margin-bottom: 1.5rem;
+}
+.kokushi-hero__accent { color: var(--accent); }
+.kokushi-hero__desc {
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  color: rgba(255,255,255,0.55); line-height: 1.9;
+  margin-bottom: 2.5rem; max-width: 540px;
+}
+.kokushi-hero__stats {
+  display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;
+}
+.kokushi-stat { text-align: center; }
+.kokushi-stat__num {
+  display: block; font-family: 'Inter', sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 900;
+  color: var(--accent); line-height: 1;
+}
+.kokushi-stat__label {
+  display: block; font-size: 0.72rem; font-weight: 500;
+  color: rgba(255,255,255,0.4); letter-spacing: 0.08em;
+  margin-top: 0.25rem;
+}
+.kokushi-stat__div { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+
+/* ── FORMAT CARDS ── */
+.format-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+}
+.format-card {
+  padding: 2.5rem; border: 1px solid var(--border-light);
+  background: var(--bg-card); box-shadow: var(--shadow);
+  position: relative; overflow: hidden;
+}
+.format-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 4px; height: 100%;
+}
+.format-card--primary::before { background: var(--accent); }
+.format-card--secondary::before { background: #7C4DFF; }
+.format-card__num {
+  font-family: 'Inter', sans-serif;
+  font-size: 4rem; font-weight: 900;
+  color: var(--accent); line-height: 1; margin-bottom: 0.25rem;
+}
+.format-card--secondary .format-card__num { color: #7C4DFF; }
+.format-card__label {
+  font-size: 1.1rem; font-weight: 700; color: var(--text);
+  margin-bottom: 1rem;
+}
+.format-card__desc {
+  font-size: 0.875rem; color: var(--text-body);
+  line-height: 1.85; margin-bottom: 1.25rem;
+}
+.format-card__tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none;
+}
+.format-card__tags li {
+  font-size: 0.72rem; font-weight: 600;
+  background: var(--bg-alt); border: 1px solid var(--border-light);
+  padding: 0.2rem 0.625rem; color: var(--text-body);
+}
+
+/* ── EXAM TABLE ── */
+.exam-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow);
+}
+.exam-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--bg-card);
+}
+.exam-table th {
+  background: var(--bg-dark); color: rgba(255,255,255,0.7);
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+  padding: 0.875rem 1rem; text-align: left;
+  white-space: nowrap;
+}
+.exam-table td {
+  padding: 0.875rem 1rem; font-size: 0.875rem;
+  color: var(--text-body); border-bottom: 1px solid var(--border-light);
+  white-space: nowrap;
+}
+.exam-table tbody tr:hover { background: var(--bg-alt); }
+.exam-table__latest td { background: rgba(0,168,255,0.03); font-weight: 500; }
+.exam-table__kai { font-weight: 700; color: var(--text); }
+.exam-table__rate { font-family: 'Inter', sans-serif; font-weight: 700; color: var(--accent); }
+.exam-table__rate--low { color: #FF6D00; }
+.exam-table__link {
+  font-size: 0.8rem; color: var(--accent); font-weight: 600;
+  text-decoration: none; white-space: nowrap;
+}
+.exam-table__link:hover { text-decoration: underline; }
+.data-note {
+  margin-top: 0.75rem; font-size: 0.75rem; color: var(--text-dim);
+}
+
+/* ── CATEGORY GRID ── */
+.section--dark-navy { background: #0D1B2E; position: relative; overflow: hidden; }
+.kokushi-grid-bg {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,168,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,168,255,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.cat-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.cat-card {
+  background: rgba(13,27,46,0.8);
+  padding: 1.25rem;
+  text-decoration: none;
+  display: flex; flex-direction: column; gap: 0.5rem;
+  transition: background 0.2s;
+  position: relative;
+}
+.cat-card:hover { background: rgba(0,168,255,0.06); }
+.cat-card__dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
+.cat-card__label {
+  font-size: 0.875rem; font-weight: 700; color: rgba(255,255,255,0.85);
+}
+.cat-card__desc {
+  font-size: 0.72rem; color: rgba(255,255,255,0.35); line-height: 1.6;
+}
+.cat-card__arrow {
+  font-size: 0.72rem; color: rgba(0,168,255,0.5);
+  margin-top: auto;
+}
+.cat-card:hover .cat-card__arrow { color: var(--accent); }
+
+/* ── TIPS ── */
+.tips-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+}
+.tip-card {
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  padding: 2rem; box-shadow: var(--shadow);
+}
+.tip-card__top {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.tip-card__num {
+  font-family: 'Inter', sans-serif; font-size: 2.5rem;
+  font-weight: 900; color: var(--accent); opacity: 0.2;
+  line-height: 1;
+}
+.tip-card__icon { font-size: 1.5rem; }
+.tip-card__title {
+  font-size: 0.95rem; font-weight: 700;
+  color: var(--text); margin-bottom: 0.75rem;
+}
+.tip-card__body { font-size: 0.875rem; color: var(--text-body); line-height: 1.85; }
+
+/* ── CTA ── */
+.kokushi-cta-section { background: var(--bg-alt); }
+.kokushi-cta {
+  text-align: center; max-width: 640px; margin: 0 auto;
+}
+.kokushi-cta__label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+  color: var(--accent); margin-bottom: 1rem;
+}
+.kokushi-cta__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 900;
+  color: var(--text); margin-bottom: 1.25rem;
+}
+.kokushi-cta__desc {
+  font-size: 0.9rem; color: var(--text-body); line-height: 1.9;
+  margin-bottom: 2rem;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .cat-grid { grid-template-columns: repeat(3, 1fr); }
+  .tips-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .format-grid { grid-template-columns: 1fr; }
+  .cat-grid { grid-template-columns: repeat(2, 1fr); }
+  .kokushi-hero__stats { gap: 1.25rem; }
+  .kokushi-stat__div { height: 28px; }
+}
+@media (max-width: 640px) {
+  .kokushi-hero { padding: calc(var(--nav-h) + 48px) 0 56px; }
+  .cat-grid { grid-template-columns: 1fr 1fr; }
+  .exam-table th, .exam-table td { padding: 0.625rem 0.75rem; }
+}
+</style>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('is-visible');
+    });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>

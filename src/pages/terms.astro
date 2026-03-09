@@ -36,11 +36,10 @@ import { siteConfig } from '../config/site';
         </section>
         
         <section>
-          <h2>第3条（利用料金および支払い）</h2>
+          <h2>第3条（利用料金）</h2>
           <ol>
-            <li>会員は、当サービスが定める月額料金を支払うものとします。</li>
-            <li>支払いはStripeを通じたクレジットカード決済により行います。</li>
-            <li>支払済みの利用料金は、理由の如何を問わず返金いたしません。</li>
+            <li>本サービスは完全無料で提供されます。参加費・月額費・登録費など、いかなる金銭的負担も発生しません。</li>
+            <li>本サービスはアフィリエイト（ASP）収益により運営されています。推奨教材のご購入は任意であり、強制することは一切ありません。</li>
           </ol>
         </section>
         
@@ -65,8 +64,8 @@ import { siteConfig } from '../config/site';
         <section>
           <h2>第5条（退会）</h2>
           <ol>
-            <li>会員は、Stripeの管理画面から解約手続きを行うことで、いつでも退会できます。</li>
-            <li>解約後も当月末までサービスをご利用いただけます。</li>
+            <li>会員は、Slackワークスペースを退出することで、いつでも自由に退会できます。</li>
+            <li>退会手続きや運営への連絡は不要です。</li>
           </ol>
         </section>
         
@@ -78,7 +77,7 @@ import { siteConfig } from '../config/site';
           <ol>
             <li>本規約のいずれかの条項に違反した場合</li>
             <li>登録事項に虚偽の事実があることが判明した場合</li>
-            <li>料金等の支払債務の不履行があった場合</li>
+            <li>コミュニティの秩序を乱す行為が認められた場合</li>
             <li>その他、当サービスが会員として不適切と判断した場合</li>
           </ol>
         </section>
@@ -123,7 +122,7 @@ import { siteConfig } from '../config/site';
             本規約に関するお問い合わせは、下記までご連絡ください。
           </p>
           <p>
-            <a href={`mailto:${siteConfig.CONTACT_EMAIL}`}>{siteConfig.CONTACT_EMAIL}</a>
+            <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
           </p>
         </section>
       </div>

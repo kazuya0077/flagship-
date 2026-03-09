@@ -6,11 +6,15 @@ export const siteConfig = {
   url: "https://flagship-2i0.pages.dev",
   email: "info@flagship-pt.jp",
 
-  // 外部リンク（Slackの招待リンクに差し替えてください）
+  // ── 料金（無料モデル）
+  monthlyPrice: 0,
+
+  // ── 外部リンク
   links: {
-    slackJoin: "https://join.slack.com/placeholder",
-    canvaResourceHub: "https://canva.com/placeholder",
-    schoolInquiryForm: "https://forms.google.com/placeholder",
+    slackJoin: "https://join.slack.com/t/w1770042408-udj851554/shared_invite/zt-3rx8j8dfp-f7KBi5eKMllznjjQFm4BnQ",
+    // ※ 以下は取得後に実URLへ差し替えてください
+    canvaResourceHub: "https://canva.com/placeholder",   // TODO: Canva Resource Hub の実URL
+    schoolInquiryForm: "https://forms.google.com/placeholder", // TODO: 学校関係者向けフォームの実URL
   },
 
   // ソーシャル

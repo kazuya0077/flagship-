@@ -375,3 +375,81 @@ h1, h2, h3, h4 {
 /* ── AD PLACEHOLDER ─────────────────────────── */
 .ad-banner-wrap { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 0; }
 .ad-banner-placeholder { background: var(--bg-alt); border: 1.5px dashed var(--border-light); display: flex; align-items: center; justify-content: center; width: 100%; min-height: 90px; padding: 1.5rem; }
+
+/* ── SCROLL FADE (legacy pages) ─────────────── */
+.scroll-fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.scroll-fade-up.visible { opacity: 1; transform: translateY(0); }
+.scroll-fade-up.delay-1 { transition-delay: 0.12s; }
+.scroll-fade-up.delay-2 { transition-delay: 0.24s; }
+
+/* ── LEGACY COMPATIBILITY SHIM (v2→v3) ──────
+   旧ページ（faq / resources / about / for-schools）が
+   v2のCSS変数を参照するため、v3変数へのエイリアスを提供する
+   ─────────────────────────────────────────── */
+:root {
+  /* ブランドカラー */
+  --primary:            var(--accent);
+  --color-primary:      var(--accent);
+  --color-secondary:    var(--accent-dark);
+
+  /* 背景 */
+  --bg-cream:           var(--bg-alt);
+  --bg-warm:            #F0F2F5;
+  --color-bg-white:     var(--bg-card);
+  --color-bg-alt:       var(--bg-alt);
+
+  /* テキスト */
+  --color-text-light:   var(--text-body);
+  --color-text-muted:   var(--text-mid);
+  --text-light:         var(--text-body);
+
+  /* ボーダー */
+  --color-border:       var(--border-light);
+
+  /* グラデーション */
+  --gradient-hero:      linear-gradient(135deg, var(--bg-dark) 0%, #1a2840 100%);
+  --gradient-primary:   linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+
+  /* スペーシングスケール */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  /* タイポグラフィスケール */
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-lg:   1.125rem;
+  --text-xl:   1.25rem;
+  --text-2xl:  1.5rem;
+  --text-4xl:  2.25rem;
+
+  /* ボーダー半径スケール */
+  --radius-full: 9999px;
+  --radius-md:   4px;
+  --radius-lg:   6px;
+  --radius-xl:   8px;
+  --radius-2xl:  12px;
+
+  /* フォントウェイト */
+  --font-medium: 500;
+  --font-bold:   700;
+
+  /* トランジション */
+  --transition-normal: 0.3s var(--ease);
+
+  /* シャドウエイリアス */
+  --shadow-sm: var(--shadow);
+  --shadow-xl: var(--shadow-lg);
+}

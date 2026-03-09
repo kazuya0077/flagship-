@@ -2,71 +2,85 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { siteConfig } from '../../config/site';
 
+/*
+  本サービスは利用者から金銭を徴収しない無料コミュニティです。
+  特定商取引法上の「通信販売」に該当する取引は行っていませんが、
+  ASP（アフィリエイト）収益モデルの透明性確保および
+  問い合わせ先開示の目的で本ページを設置しています。
+*/
+
 const legalInfo = [
   {
-    term: "販売業者",
-    desc: "PT国試コミュニティ運営事務局"
+    term: "運営者・事業者",
+    desc: "FLAGSHIP 運営事務局"
   },
   {
     term: "運営責任者",
-    desc: "山田太郎"
+    desc: "（氏名は請求があり次第提供いたします。必要な方はお問い合わせください）"
   },
   {
     term: "所在地",
-    desc: "請求があり次第提供致しますので、必要な方はお問い合わせください。"
+    desc: "請求があり次第提供いたします。お問い合わせよりご連絡ください。"
   },
   {
     term: "電話番号",
-    desc: "請求があり次第提供致しますので、必要な方はお問い合わせください。"
+    desc: "請求があり次第提供いたします。お問い合わせよりご連絡ください。"
   },
   {
     term: "メールアドレス",
     desc: siteConfig.email
   },
   {
-    term: "販売価格",
-    desc: `月額${siteConfig.monthlyPrice}円（税込）`
+    term: "サービス内容",
+    desc: "理学療法士を目指す学生向けの無料学習コミュニティ（Slack）。国試対策情報の共有・学習テンプレート提供・メンバー間の相互サポートを行います。"
   },
   {
-    term: "商品代金以外の必要料金",
-    desc: "インターネット接続料金その他の電気通信回線の通信に関する費用はお客様にて別途ご用意いただく必要があります（金額は、お客様が契約した各事業者が定める通り）。"
+    term: "利用料金",
+    desc: "完全無料。参加費・月額費・登録費など、一切の金銭的負担はありません。"
   },
   {
-    term: "支払方法",
-    desc: "クレジットカード決済"
+    term: "収益モデル",
+    desc: "本サービスはアフィリエイト（ASP）収益によって運営されています。推奨教材ページに掲載するリンクを経由してご購入いただいた場合に紹介料を受け取ります。購入は完全に任意であり、強制は一切ありません。"
   },
   {
-    term: "支払時期",
-    desc: "初回お申込み時に決済され、以降毎月同日に決済されます。"
+    term: "参加方法",
+    desc: "Slackの招待リンクよりご参加ください。アカウント登録に費用はかかりません。"
   },
   {
-    term: "商品の引渡時期",
-    desc: "決済完了後、直ちにご利用いただけます。"
-  },
-  {
-    term: "返品・返金について",
-    desc: "デジタルコンテンツの性質上、返品・返金はお受けしておりません。解約はいつでも可能です。"
+    term: "退会方法",
+    desc: "Slackワークスペースを退出するだけで退会できます。手続きや連絡は不要です。いつでも自由に退会可能です。"
   },
   {
     term: "動作環境",
-    desc: "推奨ブラウザ：Google Chrome, Safari, Microsoft Edge, Firefoxの最新版"
+    desc: "推奨ブラウザ：Google Chrome / Safari / Microsoft Edge / Firefox（各最新版）。スマートフォンはSlackアプリをご利用ください。"
+  },
+  {
+    term: "プライバシーポリシー",
+    desc: "別途「プライバシーポリシー」ページをご確認ください。"
   }
 ];
 ---
 
-<BaseLayout 
+<BaseLayout
   title="特定商取引法に基づく表記"
-  description="特定商取引法に基づく表記。販売業者、支払方法、返品・キャンセル等に関する情報。"
+  description="FLAGSHIPの運営者情報・サービス内容・収益モデルに関する表記です。"
   noIndex={true}
 >
   <section class="page-hero">
     <div class="container">
+      <p class="page-hero__label">Legal</p>
       <h1 class="page-hero__title">特定商取引法に基づく表記</h1>
+      <p class="page-hero__subtitle">本サービスは完全無料で提供しています</p>
     </div>
   </section>
 
   <section class="section">
     <div class="container container--narrow">
+      <div class="notice-box">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p>FLAGSHIPは利用者から料金を徴収しない<strong>完全無料コミュニティ</strong>です。特定商取引法上の通信販売には該当しませんが、運営の透明性確保のため以下の情報を開示しています。</p>
+      </div>
+
       <div class="legal-table">
         {legalInfo.map((item) => (
           <div class="legal-row">
@@ -75,52 +89,93 @@ const legalInfo = [
           </div>
         ))}
       </div>
+
+      <div class="contact-note">
+        <p>本表記に関するお問い合わせ：<a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
+      </div>
     </div>
   </section>
 </BaseLayout>
 
 <style>
   .page-hero {
-    background: var(--bg-cream);
-    padding: calc(80px + var(--space-8)) 0 var(--space-8);
+    background: var(--bg-alt);
+    padding: calc(var(--nav-h) + 48px) 0 48px;
     text-align: center;
+    border-bottom: 1px solid var(--border-light);
   }
-  
+  .page-hero__label {
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.14em; color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
   .page-hero__title {
-    font-size: var(--text-2xl);
-    color: var(--text);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    margin-bottom: 0.75rem;
   }
-  
+  .page-hero__subtitle {
+    font-size: 0.95rem; color: var(--text-body);
+  }
+
   .container--narrow {
     max-width: 800px;
   }
-  
-  .legal-table {
-    border-top: 1px solid var(--border);
+
+  .notice-box {
+    display: flex; align-items: flex-start; gap: 0.875rem;
+    background: var(--accent-dim);
+    border: 1px solid rgba(0, 168, 255, 0.2);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    color: var(--text-body);
+    font-size: 0.9rem; line-height: 1.75;
   }
-  
+  .notice-box svg { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+  .notice-box strong { color: var(--text); font-weight: 700; }
+
+  .legal-table {
+    border-top: 1px solid var(--border-light);
+  }
+
   .legal-row {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border-light);
   }
-  
+
   @media (min-width: 768px) {
     .legal-row {
       flex-direction: row;
     }
   }
-  
+
   .legal-term {
-    background: var(--bg-warm);
-    padding: var(--space-4);
-    font-weight: var(--font-bold);
-    min-width: 240px;
+    background: var(--bg-alt);
+    padding: 1rem 1.25rem;
+    font-weight: 700; font-size: 0.875rem;
+    color: var(--text);
+    min-width: 220px;
+    flex-shrink: 0;
+    border-right: 1px solid var(--border-light);
   }
-  
+
   .legal-desc {
-    padding: var(--space-4);
+    padding: 1rem 1.25rem;
     flex: 1;
-    line-height: 1.8;
+    line-height: 1.85;
+    font-size: 0.9rem;
+    color: var(--text-body);
+  }
+
+  .contact-note {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--text-mid);
+  }
+  .contact-note a {
+    color: var(--accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 </style>
