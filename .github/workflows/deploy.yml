@@ -33,23 +33,16 @@ jobs:
           echo "=== Build output files ===" && ls dist/
           echo "=== Page count ===" && find dist -name "*.html" | wc -l
 
-      - name: Extract safe commit message
-        id: commit_msg
-        run: |
-          # Get first line only, strip non-ASCII chars that break the Cloudflare API
-          MSG=$(git log -1 --format="%s" | head -1 | tr -d '\000-\037' | sed 's/[<>]//g' | cut -c1-100)
-          echo "msg=$MSG" >> $GITHUB_OUTPUT
-
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: >-
-            pages deploy dist
-            --project-name=pt-kokushi
-            --commit-dirty=true
-            --commit-hash=${{ github.sha }}
-            --commit-message='${{ steps.commit_msg.outputs.msg }}'
+        run: |
+          # Extract only first line of commit subject, strip angle brackets
+          # (Co-Authored-By <email@> in body causes CF API error 8000111)
+          SAFE_MSG=$(git log -1 --format="%s" | tr -d '<>"\\' | cut -c1-72)
+          npx wrangler pages deploy dist \
+            --project-name=pt-kokushi \
+            --commit-dirty=true \
+            --commit-hash="$GITHUB_SHA" \
+            --commit-message="$SAFE_MSG"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
