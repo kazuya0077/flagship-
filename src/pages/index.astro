@@ -146,8 +146,10 @@ const quizItems = [
           src="/images/hero.png"
           alt="FLAGSHIPマスコット"
           class="hero__img"
-          width="600"
-          height="600"
+          width="2496"
+          height="1696"
+          loading="eager"
+          decoding="async"
         />
       </div>
     </div>
@@ -516,27 +518,65 @@ const quizItems = [
 }
 
 /* Hero image with tech-frame corners */
-.hero__img-wrap { position: relative; }
-.hero__scan-wrap { position: relative; overflow: hidden; }
+.hero__img-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
+/* ── スキャン＆カットアウトラッパー ── */
+.hero__scan-wrap {
+  position: relative;
+  /* RGBA透過のマスコットが見えるようにoverflow: visible */
+  overflow: visible;
+  /* 画像のアスペクト比 2496:1696 ≈ 3:2 を維持しつつ幅100% */
+  width: 100%;
+  aspect-ratio: 3 / 2;
+}
+
+/* グロー背景：マスコットの足元・後ろに輝きを追加 */
+.hero__scan-wrap::before {
+  content: '';
+  position: absolute;
+  bottom: -5%; left: 50%;
+  transform: translateX(-50%);
+  width: 80%; height: 40%;
+  background: radial-gradient(ellipse, rgba(0,168,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* テックフレーム：コーナー装飾 */
 .hero__img-frame {
   position: absolute; inset: -8px; z-index: 2; pointer-events: none;
 }
 .hero__img-frame-corner {
-  position: absolute; width: 16px; height: 16px;
+  position: absolute; width: 20px; height: 20px;
   border-color: var(--accent); border-style: solid;
-  opacity: 0.6;
+  opacity: 0.7;
 }
-.hero__img-frame-corner--tl { top: 0; left: 0; border-width: 1.5px 0 0 1.5px; }
-.hero__img-frame-corner--tr { top: 0; right: 0; border-width: 1.5px 1.5px 0 0; }
-.hero__img-frame-corner--bl { bottom: 0; left: 0; border-width: 0 0 1.5px 1.5px; }
-.hero__img-frame-corner--br { bottom: 0; right: 0; border-width: 0 1.5px 1.5px 0; }
+.hero__img-frame-corner--tl { top: 0; left: 0; border-width: 2px 0 0 2px; }
+.hero__img-frame-corner--tr { top: 0; right: 0; border-width: 2px 2px 0 0; }
+.hero__img-frame-corner--bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; }
+.hero__img-frame-corner--br { bottom: 0; right: 0; border-width: 0 2px 2px 0; }
 
+/* ── メイン画像 ── */
 .hero__img {
-  width: 100%; height: auto;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* contain：RGBA透過マスコットを全体表示 */
   object-fit: contain;
-  filter: drop-shadow(0 24px 64px rgba(0,0,0,0.10));
+  /* キャラクターが中央寄りの場合は center center、上寄りなら center top */
+  object-position: center center;
+  /* 透過を活かしたカットアウトシャドウ */
+  filter:
+    drop-shadow(0 32px 80px rgba(0, 168, 255, 0.18))
+    drop-shadow(0 8px 24px rgba(0, 0, 0, 0.14));
   display: block;
+  z-index: 1;
 }
 
 /* Scan reveal */
@@ -553,7 +593,12 @@ const quizItems = [
 @keyframes resolveHero {
   0%   { filter: blur(20px) grayscale(100%) contrast(140%); transform: scale(1.04); }
   50%  { filter: blur(5px)  grayscale(50%)  contrast(115%); }
-  100% { filter: blur(0) grayscale(0) contrast(100%) drop-shadow(0 24px 64px rgba(0,0,0,0.10)); transform: scale(1); }
+  100% {
+    filter: blur(0) grayscale(0) contrast(100%)
+      drop-shadow(0 32px 80px rgba(0,168,255,0.18))
+      drop-shadow(0 8px 24px rgba(0,0,0,0.14));
+    transform: scale(1);
+  }
 }
 @keyframes scanDownHero {
   0%   { top: -100%; opacity: 1; }
