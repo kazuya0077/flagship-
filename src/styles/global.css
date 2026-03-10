@@ -372,6 +372,30 @@ h1, h2, h3, h4 {
 .prose blockquote { border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 2rem 0; background: var(--bg-alt); }
 .prose code { background: var(--bg-alt); padding: 0.1rem 0.4rem; font-size: 0.875em; font-family: monospace; }
 
+/* ── PROSE TABLE ────────────────────────────── */
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.875rem; line-height: 1.6; margin: 1.5rem 0; }
+.prose th, .prose td { border: 1px solid var(--border-light); padding: 0.6rem 0.85rem; text-align: left; vertical-align: top; }
+.prose th { background: var(--bg-alt); font-weight: 700; color: var(--text); font-size: 0.8rem; }
+@media (max-width: 640px) {
+  .prose table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .prose td, .prose th { white-space: normal; min-width: 110px; }
+}
+
+/* ── QUICK NAV BOX ───────────────────────────── */
+.quick-nav-box { background: var(--accent-dim); border-left: 3px solid var(--accent); padding: 1rem 1.25rem; margin: 0 0 2rem; }
+.quick-nav-box__label { font-size: 0.78rem; font-weight: 700; color: var(--accent); letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+.quick-nav-box__links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.quick-nav-box__links a { font-size: 0.82rem; background: var(--accent); color: #fff; padding: 0.3rem 0.85rem; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+.quick-nav-box__links a:hover { background: var(--accent-dark); }
+
+/* ── INLINE CTA ──────────────────────────────── */
+.inline-cta { background: var(--bg-dark, #1a2335); padding: 1.5rem 1.25rem; margin: 2.5rem 0; text-align: center; }
+.inline-cta__eyebrow { font-size: 0.78rem; font-weight: 700; color: var(--accent); letter-spacing: 0.06em; margin-bottom: 0.6rem; }
+.inline-cta__body { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.7; margin-bottom: 1.25rem; }
+.inline-cta__btn { display: inline-block; background: var(--accent); color: #fff; font-size: 0.875rem; font-weight: 700; padding: 0.75rem 1.75rem; text-decoration: none; transition: background 0.2s; }
+.inline-cta__btn:hover { background: var(--accent-dark); }
+@media (max-width: 640px) { .inline-cta__btn { display: block; } }
+
 /* ── AD PLACEHOLDER ─────────────────────────── */
 .ad-banner-wrap { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 0; }
 .ad-banner-placeholder { background: var(--bg-alt); border: 1.5px dashed var(--border-light); display: flex; align-items: center; justify-content: center; width: 100%; min-height: 90px; padding: 1.5rem; }
