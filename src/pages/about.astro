@@ -1,19 +1,30 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const siteUrl = 'https://pt-kokushi.pages.dev';
+
 const team = [
   {
     initial: "A",
     role: "国試238点取得 / 元コンサル勤務",
-    description: "論理的な思考力と効率的な学習法を伝えるスペシャリスト。なぜ間違えたのか？を徹底的に深掘りし、応用力がつく指導を行います。",
-    color: "#EF8560"
+    description: "論理的な思考力と効率的な学習法を伝えるスペシャリスト。コンサル時代に培ったデータ分析力を国試対策に応用。「なぜ間違えたのか？」を徹底的に深掘りし、1問1問の理解を確実なものにする指導が得意です。現在は現役PTとして勤務しながらコミュニティ運営を担当。",
+    color: "#EF8560",
+    badge: "創設メンバー"
   },
   {
     initial: "B",
     role: "国試226点取得 / 学会運営経験あり",
-    description: "実習対策や臨床スキルにも精通。教科書の内容を臨床現場と結びつけて解説するのが得意です。",
-    color: "#8BCDA7"
+    description: "実習対策や臨床スキルにも精通。学会でのポスター発表・論文執筆の経験から、エビデンスに基づいた解説が得意。教科書の内容を臨床現場と結びつけて解説することで、「暗記」から「理解」への転換をサポートします。",
+    color: "#8BCDA7",
+    badge: "コンテンツ担当"
   }
+];
+
+const stats = [
+  { label: "コミュニティ開設", value: "2024年", icon: "📅" },
+  { label: "運営メンバー全員", value: "現役PT", icon: "🩺" },
+  { label: "コミュニティ費用", value: "完全無料", icon: "¥0" },
+  { label: "Slack質問応答", value: "24時間以内", icon: "⚡" },
 ];
 
 const values = [
@@ -36,15 +47,55 @@ const values = [
 ---
 
 <BaseLayout
-  title="運営者について"
-  description="PT国試コミュニティを運営するメンバーの紹介と、コミュニティに込めた想い。"
+  title="運営者について | FLAGSHIP PT国試コミュニティ"
+  description="PT国試コミュニティFLAGSHIPを運営する現役理学療法士メンバーの紹介。国試238点・226点取得のプロが、完全無料でサポートします。"
 >
+  <!-- JSON-LD: Organization + Team Members -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "FLAGSHIP PT国試コミュニティ",
+    "url": siteUrl,
+    "description": "理学療法士国家試験合格を目指す学生向けの完全無料コミュニティ。現役PTが運営。",
+    "foundingDate": "2024",
+    "memberOf": { "@type": "EducationalOrganization", "name": "FLAGSHIP" },
+    "member": [
+      {
+        "@type": "Person",
+        "name": "講師A",
+        "jobTitle": "現役理学療法士 / 国試238点取得",
+        "description": "論理的な思考力と効率的な学習法を伝えるスペシャリスト。元コンサル勤務。"
+      },
+      {
+        "@type": "Person",
+        "name": "講師B",
+        "jobTitle": "現役理学療法士 / 国試226点取得",
+        "description": "学会運営・論文執筆経験あり。エビデンスに基づいた解説が得意。"
+      }
+    ]
+  })} />
+
   <section class="page-hero">
     <div class="container text-center">
       <h1 class="page-hero__title scroll-fade-up">運営者について</h1>
       <p class="page-hero__subtitle scroll-fade-up delay-1">
         私たちが目指すのは、「自分で考え、選び、成長できる」<br>理学療法士が当たり前の世界です。
       </p>
+    </div>
+  </section>
+
+  <!-- Stats Row -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid scroll-fade-up">
+        {stats.map((stat) => (
+          <div class="stat-item">
+            <span class="stat-icon">{stat.icon}</span>
+            <span class="stat-value">{stat.value}</span>
+            <span class="stat-label">{stat.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -56,10 +107,11 @@ const values = [
       </div>
 
       <div class="team-grid">
-        {team.map((member, index) => (
+        {team.map((member) => (
           <div class="team-card scroll-fade-up">
             <div class="team-visual" style={`background-color: ${member.color}`}>
               <span class="team-initial">{member.initial}</span>
+              <span class="team-badge">{member.badge}</span>
             </div>
             <div class="team-content">
               <span class="team-role">{member.role}</span>
@@ -80,7 +132,7 @@ const values = [
       </div>
 
       <div class="values-list">
-        {values.map((val, index) => (
+        {values.map((val) => (
           <div class="value-item scroll-fade-up">
             <div class="value-icon">
               <Fragment set:html={val.icon} />
@@ -94,90 +146,153 @@ const values = [
       </div>
     </div>
   </section>
+
+  <!-- CTA -->
+  <section class="section cta-section">
+    <div class="container text-center">
+      <div class="cta-card scroll-fade-up">
+        <h2 class="cta-title">一緒に国試を突破しませんか？</h2>
+        <p class="cta-desc">現役PTが完全無料でサポート。Slackで質問し放題、資料も読み放題。</p>
+        <a href="/join/" class="btn btn--primary btn--lg">無料で参加する →</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
 
 <style>
+  /* ── Page Hero ── */
   .page-hero {
     padding: var(--space-20) 0 var(--space-12);
     background: var(--bg-warm);
   }
-  
   .page-hero__title {
     font-size: 2.5rem;
     margin-bottom: var(--space-4);
   }
-  
   .page-hero__subtitle {
     font-size: 1.1rem;
     color: var(--text-light);
   }
-  
+
+  /* ── Stats Bar ── */
+  .stats-bar {
+    background: var(--primary);
+    padding: var(--space-10) 0;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-4);
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+  }
+  .stat-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .stat-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Team Grid ── */
   .team-grid {
     display: grid;
     gap: var(--space-8);
     max-width: 900px;
     margin: 0 auto;
   }
-  
   @media (min-width: 768px) {
     .team-grid {
       grid-template-columns: repeat(2, 1fr);
     }
   }
-  
   .team-card {
     background: #fff;
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-md);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
-  
   .team-card:hover {
     transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
   }
-  
   .team-visual {
-    height: 120px;
+    height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
-  
   .team-initial {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 700;
     color: rgba(255,255,255,0.9);
   }
-  
-  .team-content {
-    padding: var(--space-8);
+  .team-badge {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    background: rgba(255,255,255,0.25);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 2px 10px;
+    border-radius: 999px;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255,255,255,0.4);
   }
-  
+  .team-content {
+    padding: var(--space-6) var(--space-8) var(--space-8);
+  }
   .team-role {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: 700;
     color: var(--primary);
     display: block;
-    margin-bottom: var(--space-2);
+    margin-bottom: var(--space-1);
   }
-  
   .team-name {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-4);
+    font-size: 1.4rem;
+    margin-bottom: var(--space-3);
   }
-  
+  .team-desc {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--text-light);
+  }
+
+  /* ── Values ── */
   .values-list {
     display: grid;
     gap: var(--space-8);
   }
-  
   .value-item {
     display: flex;
     gap: var(--space-6);
     align-items: flex-start;
   }
-  
   .value-icon {
     width: 48px;
     height: 48px;
@@ -189,15 +304,41 @@ const values = [
     justify-content: center;
     flex-shrink: 0;
   }
-  
   .value-icon :global(svg) {
     width: 24px;
     height: 24px;
   }
-  
   .value-title {
     font-size: 1.25rem;
     margin-bottom: var(--space-2);
+  }
+  .value-desc {
+    color: var(--text-light);
+    line-height: 1.7;
+  }
+
+  /* ── CTA Section ── */
+  .cta-section {
+    background: var(--bg-dark, #1a2335);
+  }
+  .cta-card {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-8);
+    background: linear-gradient(135deg, rgba(0,168,255,0.12) 0%, rgba(239,133,96,0.08) 100%);
+    border: 1px solid rgba(0,168,255,0.2);
+    border-radius: var(--radius-xl);
+  }
+  .cta-title {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: var(--space-4);
+  }
+  .cta-desc {
+    color: rgba(255,255,255,0.7);
+    margin-bottom: var(--space-8);
+    font-size: 1rem;
+    line-height: 1.7;
   }
 </style>
 
