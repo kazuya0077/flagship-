@@ -143,14 +143,14 @@ const quizItems = [
           <span class="hero__img-frame-corner hero__img-frame-corner--br"></span>
         </div>
         <picture>
-          <source srcset="/images/hero.webp" type="image/webp" />
-          <source srcset="/images/hero-800.png" type="image/png" />
+          <source srcset="/images/hero-transparent.webp" type="image/webp" />
+          <source srcset="/images/hero-transparent.png" type="image/png" />
         <img
-          src="/images/hero-800.png"
+          src="/images/hero-transparent.png"
           alt="FLAGSHIPマスコット — 理学療法士国試対策コミュニティのキャラクター"
           class="hero__img"
           width="800"
-          height="544"
+          height="606"
           loading="eager"
           fetchpriority="high"
           decoding="async"
@@ -534,14 +534,15 @@ const quizItems = [
 .hero__scan-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 2;
-  background: #fff;
-  border: 1px solid rgba(0, 168, 255, 0.18);
+  aspect-ratio: 4 / 3;
+  background: transparent;
+  border: 1px solid rgba(0, 168, 255, 0.20);
   box-shadow:
-    0 0 0 1px rgba(43, 58, 85, 0.04),
+    0 0 0 1px rgba(43, 58, 85, 0.03),
     0 8px 40px rgba(0, 168, 255, 0.10),
-    0 2px 12px rgba(43, 58, 85, 0.08);
+    0 2px 12px rgba(43, 58, 85, 0.06);
   overflow: hidden;
+  border-radius: 12px;
 }
 
 /* パネル内スキャンライン装飾 */
@@ -595,6 +596,7 @@ const quizItems = [
   object-position: center center;
   display: block;
   z-index: 1;
+  filter: drop-shadow(0 6px 20px rgba(0,80,180,0.12));
 }
 
 /* Scan reveal */
@@ -940,8 +942,7 @@ details[open] .quiz-card__details-toggle::before { content: '−'; }
     padding-top: 40px; padding-bottom: 48px;
   }
   .hero__h1 { font-size: clamp(1.9rem, 7vw, 3rem); }
-  .hero__img-wrap { order: -1; }
-  .hero__img { max-width: 280px; margin: 0 auto; }
+  .hero__img-wrap { order: -1; max-width: 360px; margin: 0 auto; width: 100%; }
 
   .blog-feature__grid { grid-template-columns: 1fr; }
   .blog-feature__sub {
@@ -967,7 +968,7 @@ details[open] .quiz-card__details-toggle::before { content: '−'; }
     flex-direction: column; align-items: stretch; gap: 0.75rem;
   }
   .hero__actions .btn { justify-content: center; width: 100%; }
-  .hero__img { max-width: 220px; }
+  .hero__img-wrap { max-width: 300px; }
 
   .cta-actions { flex-direction: column; align-items: stretch; gap: 0.75rem; }
   .cta-actions .btn { justify-content: center; }
