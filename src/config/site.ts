@@ -3,7 +3,7 @@ export const siteConfig = {
   name: "FLAGSHIP",
   tagline: "PT国試対策・無料学習コミュニティ",
   description: "理学療法士国家試験対策の情報サイト。おすすめ教材・学習法・無料Slackコミュニティを提供。合格者運営。",
-  url: "https://flagship-2i0.pages.dev",
+  url: "https://pt-kokushi.pages.dev",
   email: "info@flagship-pt.jp",
 
   // ── 料金（無料モデル）

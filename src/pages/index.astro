@@ -142,15 +142,20 @@ const quizItems = [
           <span class="hero__img-frame-corner hero__img-frame-corner--bl"></span>
           <span class="hero__img-frame-corner hero__img-frame-corner--br"></span>
         </div>
+        <picture>
+          <source srcset="/images/hero.webp" type="image/webp" />
+          <source srcset="/images/hero-800.png" type="image/png" />
         <img
-          src="/images/hero.png"
-          alt="FLAGSHIPマスコット"
+          src="/images/hero-800.png"
+          alt="FLAGSHIPマスコット — 理学療法士国試対策コミュニティのキャラクター"
           class="hero__img"
-          width="2496"
-          height="1696"
+          width="800"
+          height="544"
           loading="eager"
+          fetchpriority="high"
           decoding="async"
         />
+        </picture>
       </div>
     </div>
 
@@ -981,6 +986,10 @@ details[open] .quiz-card__details-toggle::before { content: '−'; }
 </style>
 
 <script>
+  // prefers-reduced-motion を尊重: モーション無効環境ではローダーを即削除
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const loaderDelay = prefersReduced ? 0 : 800; // 2600ms → 800ms に短縮（Core Web Vitals 改善）
+
   window.addEventListener('load', () => {
     setTimeout(() => {
       const loader = document.getElementById('loader');
@@ -990,8 +999,8 @@ details[open] .quiz-card__details-toggle::before { content: '−'; }
           loader.remove();
           const scanWrap = document.getElementById('heroScanWrap');
           if (scanWrap) scanWrap.classList.add('effect-scan-reveal');
-        }, 700);
+        }, prefersReduced ? 0 : 500);
       }
-    }, 2600);
+    }, loaderDelay);
   });
 </script>

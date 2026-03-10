@@ -1,0 +1,21 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>
+  <defs>
+    <linearGradient id='bg' x1='0%' y1='0%' x2='100%' y2='100%'>
+      <stop offset='0%' style='stop-color:#0b1628;stop-opacity:1' />
+      <stop offset='100%' style='stop-color:#1a2d50;stop-opacity:1' />
+    </linearGradient>
+    <linearGradient id='accent' x1='0%' y1='0%' x2='100%' y2='0%'>
+      <stop offset='0%' style='stop-color:#00a8ff;stop-opacity:1' />
+      <stop offset='100%' style='stop-color:#0070cc;stop-opacity:1' />
+    </linearGradient>
+  </defs>
+  <rect width='1200' height='630' fill='url(#bg)'/>
+  <rect x='0' y='560' width='1200' height='6' fill='url(#accent)'/>
+  <rect x='60' y='60' width='6' height='510' fill='url(#accent)' opacity='0.4'/>
+  <text x='100' y='200' font-family='sans-serif' font-size='88' font-weight='900' fill='#ffffff' letter-spacing='-2'>FLAGSHIP</text>
+  <text x='102' y='200' font-family='sans-serif' font-size='88' font-weight='900' fill='none' stroke='#00a8ff' stroke-width='1' letter-spacing='-2' opacity='0.3'>FLAGSHIP</text>
+  <rect x='100' y='230' width='420' height='4' fill='url(#accent)'/>
+  <text x='100' y='310' font-family='sans-serif' font-size='36' fill='#a0bce0' font-weight='400'>PT国試対策 · 無料学習コミュニティ</text>
+  <text x='100' y='380' font-family='sans-serif' font-size='28' fill='#7090b0'>理学療法士国家試験 | 合格者運営 | 完全無料</text>
+  <text x='100' y='500' font-family='sans-serif' font-size='22' fill='#00a8ff'>pt-kokushi.pages.dev</text>
+</svg>

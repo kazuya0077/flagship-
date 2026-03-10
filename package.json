@@ -12,6 +12,7 @@
     "generate-images": "node scripts/generate-images.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.0",
     "astro": "^4.0.0"
   }
 }

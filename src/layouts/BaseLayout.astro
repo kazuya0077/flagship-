@@ -7,13 +7,56 @@ export interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  pageType?: 'website' | 'article';
 }
 
 const {
   title,
   description = 'FLAGSHIP — 理学療法士を目指す学生のための学習・キャリアコミュニティ',
   ogImage = '/images/og-default.jpg',
+  pageType = 'website',
 } = Astro.props;
+
+const siteUrl = 'https://pt-kokushi.pages.dev';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+const siteName = 'FLAGSHIP PT国試コミュニティ';
+const fullTitle = `${title} | FLAGSHIP`;
+
+// WebSite + Organization JSON-LD
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}/#website`,
+      "url": siteUrl,
+      "name": siteName,
+      "description": "理学療法士国家試験対策の無料学習コミュニティ。合格者運営・完全無料。",
+      "inLanguage": "ja",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${siteUrl}/kokushi?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}/#organization`,
+      "name": siteName,
+      "url": siteUrl,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${siteUrl}/favicon.svg`
+      },
+      "sameAs": []
+    }
+  ]
+};
 ---
 
 <!DOCTYPE html>
@@ -22,13 +65,31 @@ const {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
-  <meta property="og:title" content={title} />
+
+  <!-- Canonical -->
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- OGP -->
+  <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImage} />
-  <meta property="og:type" content="website" />
+  <meta property="og:image" content={ogImageUrl} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:type" content={pageType} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:locale" content="ja_JP" />
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageUrl} />
+  <meta name="twitter:site" content="@flagship_pt" />
+
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>{title} | FLAGSHIP</title>
+  <title>{fullTitle}</title>
+
+  <!-- JSON-LD: WebSite + Organization -->
+  <script type="application/ld+json" set:html={JSON.stringify(websiteJsonLd)} />
 </head>
 <body>
   <Header />
